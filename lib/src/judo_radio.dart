@@ -73,9 +73,6 @@ class JudoRadioButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print('GROUP VALUE: ${groupValue.toString()}');
-    print('VALUE: ${value.toString()}');
-
     return Flexible(
       flex: col,
       fit: FlexFit.loose,
