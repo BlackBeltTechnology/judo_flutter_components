@@ -1,3 +1,10 @@
+pubspec.lock
+packages
+.dart_tool
+.idea
+.pub
+**/*.iml
+
 .DS_Store
 .dart_tool/
 
