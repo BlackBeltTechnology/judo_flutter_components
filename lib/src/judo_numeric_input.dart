@@ -38,17 +38,20 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
 
   @override
   void initState() {
+    print('INITSTATE!'); //todo: delete this line!
     super.initState();
     widget.controller.text = widget.initialValue;
   }
 
   @override
   void didUpdateWidget(covariant JudoNumericInput oldWidget) {
+    print('DIDUPDATEWIDGET!'); //todo: delete this line!
     widget.controller.text = oldWidget.controller.text;
     super.didUpdateWidget(oldWidget);
   }
 
   void dispose() {
+    print('DISPOSE!'); //todo: delete this line!
     widget.controller.dispose();
     super.dispose();
   }
