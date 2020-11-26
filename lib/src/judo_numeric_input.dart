@@ -27,23 +27,29 @@ class JudoNumericInput extends StatefulWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final TextEditingController controller = TextEditingController();
 
   @override
   _JudoNumericInputState createState() => _JudoNumericInputState();
 }
 
 class _JudoNumericInputState extends State<JudoNumericInput> {
-  TextEditingController _controller;
   RegExp _regExp = RegExp(r"^[+|\-]{0,1}\d*\.{0,1}\d*$");
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget.initialValue);
+    widget.controller.text = widget.initialValue;
+  }
+
+  @override
+  void didUpdateWidget(covariant JudoNumericInput oldWidget) {
+    widget.controller.text = oldWidget.controller.text;
+    super.didUpdateWidget(oldWidget);
   }
 
   void dispose() {
-    _controller.dispose();
+    widget.controller.dispose();
     super.dispose();
   }
 
@@ -57,7 +63,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
       alignment: widget.alignment,
       child: TextField(
         key: widget.key,
-        controller: _controller,
+        controller: widget.controller,
         readOnly: widget.disabled ? true : widget.readOnly,
         enabled: widget.disabled ? false : !widget.readOnly,
         keyboardType: TextInputType.number,
