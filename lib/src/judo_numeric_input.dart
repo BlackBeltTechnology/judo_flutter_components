@@ -3,7 +3,7 @@ part of judo.components;
 class JudoNumericInput extends StatefulWidget {
 
   JudoNumericInput({
-    this.key,
+    Key key,
     @required this.col,
     this.label,
     this.icon,
@@ -14,9 +14,8 @@ class JudoNumericInput extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
-  final Key key;
   final int col;
   final String label;
   final Icon icon;
@@ -38,20 +37,17 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
 
   @override
   void initState() {
-    print('INITSTATE!'); //todo: delete this line!
     super.initState();
     widget.controller.text = widget.initialValue;
   }
 
   @override
   void didUpdateWidget(covariant JudoNumericInput oldWidget) {
-    print('DIDUPDATEWIDGET!'); //todo: delete this line!
     widget.controller.text = oldWidget.controller.text;
     super.didUpdateWidget(oldWidget);
   }
 
   void dispose() {
-    print('DISPOSE!'); //todo: delete this line!
     widget.controller.dispose();
     super.dispose();
   }
@@ -65,7 +61,6 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: TextField(
-        key: widget.key,
         controller: widget.controller,
         readOnly: widget.disabled ? true : widget.readOnly,
         enabled: widget.disabled ? false : !widget.readOnly,
