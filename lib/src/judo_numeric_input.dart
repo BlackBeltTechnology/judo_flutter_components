@@ -55,7 +55,6 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: TextField(
-        key: widget.key,
         controller: controller,
         readOnly: widget.disabled ? true : widget.readOnly,
         enabled: widget.disabled ? false : !widget.readOnly,
