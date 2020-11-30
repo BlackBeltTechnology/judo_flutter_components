@@ -1,8 +1,8 @@
 part of judo.components;
 
-class JudoTimeInput extends StatelessWidget {
+class JudoTimeInput extends StatefulWidget {
   JudoTimeInput({
-    this.key,
+    Key key,
     @required this.col,
     this.label,
     this.icon,
@@ -14,9 +14,8 @@ class JudoTimeInput extends StatelessWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
-  final Key key;
   final int col;
   final String label;
   final Icon icon;
@@ -30,28 +29,45 @@ class JudoTimeInput extends StatelessWidget {
   final EdgeInsets padding;
 
   @override
+  _JudoTimeInputState createState() => _JudoTimeInputState();
+}
+
+class _JudoTimeInputState extends State<JudoTimeInput> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = widget.initialDate != null ? widget.initialDate.toString() : null;
+  }
+
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      color: disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
-      col: col,
-      stretch: stretch,
-      alignment: alignment,
-      child: TextFormField(
-        key: key,
-        readOnly: disabled ? true : readOnly,
-        enabled: disabled ? false : !readOnly,
-        initialValue: initialDate != null ? initialDate.toString() : null ,
-        decoration: disabled ?
+      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      col: widget.col,
+      stretch: widget.stretch,
+      alignment: widget.alignment,
+      child: TextField(
+        controller: controller,
+        readOnly: widget.disabled ? true : widget.readOnly,
+        enabled: widget.disabled ? false : !widget.readOnly,
+        decoration: widget.disabled ?
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
           suffixIcon: iconDatePicker(context),
         )
-            : readOnly ?
+            : widget.readOnly ?
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -61,8 +77,8 @@ class JudoTimeInput extends StatelessWidget {
         )
             :
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
           suffixIcon: iconDatePicker(context),
         ),
         onChanged: (value) => onChangedHandler(TimeOfDay.fromDateTime(DateTime.parse(value))),
@@ -71,18 +87,18 @@ class JudoTimeInput extends StatelessWidget {
   }
 
   Widget iconDatePicker(BuildContext context) {
-    var tempTime = this.initialDate ?? DateTime.now();
+    var tempTime = widget.initialDate ?? DateTime.now();
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
-          color: disabled ? JudoComponentsSettings.disabledColor : null,
+          color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
         ),
-        onPressed: disabled ? null : () async {
+        onPressed: widget.disabled ? null : () async {
           tempTime = await showTimePicker(
               context: context,
               initialTime: tempTime,
               initialEntryMode: TimePickerEntryMode.input,
-              builder: use24HourFormat ? (BuildContext context, Widget child) {
+              builder: widget.use24HourFormat ? (BuildContext context, Widget child) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
                   child: child,
@@ -97,7 +113,7 @@ class JudoTimeInput extends StatelessWidget {
   }
 
   void onChangedHandler(TimeOfDay value) {
-    if (this.onChanged != null) {
+    if (widget.onChanged != null) {
       this.onChanged(value);
     }
   }

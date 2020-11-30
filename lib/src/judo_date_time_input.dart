@@ -1,8 +1,8 @@
 part of judo.components;
 
-class JudoDateTimeInput extends StatelessWidget {
+class JudoDateTimeInput extends StatefulWidget {
   JudoDateTimeInput({
-    this.key,
+    Key key,
     this.col,
     this.label,
     this.icon,
@@ -16,9 +16,8 @@ class JudoDateTimeInput extends StatelessWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
-  final Key key;
   final int col;
   final String label;
   final Icon icon;
@@ -33,31 +32,47 @@ class JudoDateTimeInput extends StatelessWidget {
   final Alignment alignment;
   final EdgeInsets padding;
 
+  @override
+  _JudoDateTimeInputState createState() => _JudoDateTimeInputState();
+}
+
+class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
+  final TextEditingController controller = TextEditingController();
   final DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm');
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+  }
+
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      color: disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
-      col: col,
-      stretch: stretch,
-      alignment: alignment,
-      child: TextFormField(
-        key: key,
-        readOnly: disabled ? true : readOnly,
-        enabled: disabled ? false : !readOnly,
-        initialValue: initialDate != null ? formatter.format(initialDate) : null,
-        decoration: disabled ?
+      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      col: widget.col,
+      stretch: widget.stretch,
+      alignment: widget.alignment,
+      child: TextField(
+        controller: controller,
+        readOnly: widget.disabled ? true : widget.readOnly,
+        enabled: widget.disabled ? false : !widget.readOnly,
+        decoration: widget.disabled ?
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
           suffixIcon: iconDatePicker(context),
         )
-            : readOnly ?
+            : widget.readOnly ?
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
           border: InputBorder.none,
           focusedBorder: InputBorder.none,
           enabledBorder: InputBorder.none,
@@ -66,8 +81,8 @@ class JudoDateTimeInput extends StatelessWidget {
         )
             :
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
           suffixIcon: iconDatePicker(context),
         ),
         onChanged: (value) => onChangedHandler(DateTime.parse(value)),
@@ -76,25 +91,25 @@ class JudoDateTimeInput extends StatelessWidget {
   }
 
   Widget iconDatePicker(BuildContext context) {
-    var tempDateTime = this.initialDate ?? DateTime.now();
-    var tempTimeOfDay = TimeOfDay.fromDateTime(this.initialDate ?? DateTime.now());
+    var tempDateTime = widget.initialDate ?? DateTime.now();
+    var tempTimeOfDay = TimeOfDay.fromDateTime(widget.initialDate ?? DateTime.now());
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
-          color: disabled ? JudoComponentsSettings.disabledColor : null,
+          color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
         ),
-        onPressed: disabled ? null : () async {
+        onPressed: widget.disabled ? null : () async {
           tempDateTime = await showDatePicker(
             context: context,
             initialDate: tempDateTime,
-            firstDate: this.firstDate ?? DateTime(1900),
-            lastDate: this.lastDate ?? DateTime(2100),
+            firstDate: widget.firstDate ?? DateTime(1900),
+            lastDate: widget.lastDate ?? DateTime(2100),
           );
           tempTimeOfDay = await showTimePicker(
               context: context,
-              initialTime: TimeOfDay.fromDateTime(initialDate ?? DateTime.now()),
+              initialTime: TimeOfDay.fromDateTime(widget.initialDate ?? DateTime.now()),
               initialEntryMode: TimePickerEntryMode.input,
-              builder: use24HourFormat ? (BuildContext context, Widget child) {
+              builder: widget.use24HourFormat ? (BuildContext context, Widget child) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
                   child: child,
@@ -111,8 +126,8 @@ class JudoDateTimeInput extends StatelessWidget {
   }
 
   void onChangedHandler(DateTime value) {
-    if (this.onChanged != null) {
-      this.onChanged(value);
+    if (widget.onChanged != null) {
+      widget.onChanged(value);
     }
   }
 }

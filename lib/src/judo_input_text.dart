@@ -1,8 +1,9 @@
 part of judo.components;
 
-class JudoInputText extends StatelessWidget {
+class JudoInputText extends StatefulWidget {
+
   JudoInputText({
-    this.key,
+    Key key,
     this.col,
     this.label,
     this.icon,
@@ -13,9 +14,8 @@ class JudoInputText extends StatelessWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
-  final Key key;
   final int col;
   final String label;
   final Icon icon;
@@ -28,27 +28,44 @@ class JudoInputText extends StatelessWidget {
   final EdgeInsets padding;
 
   @override
+  _JudoInputTextState createState() => _JudoInputTextState();
+}
+
+class _JudoInputTextState extends State<JudoInputText> {
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.text = widget.initialValue;
+  }
+
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      color: disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
-      col: col,
-      stretch: stretch,
-      alignment: alignment,
-      child: TextFormField(
-        key: key,
-        readOnly: disabled ? true : readOnly,
-        enabled: disabled ? false : !readOnly,
-        initialValue: initialValue,
-        decoration: disabled ?
+      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      col: widget.col,
+      stretch: widget.stretch,
+      alignment: widget.alignment,
+      child: TextField(
+        controller: controller,
+        readOnly: widget.disabled ? true : widget.readOnly,
+        enabled: widget.disabled ? false : !widget.readOnly,
+        decoration: widget.disabled ?
         InputDecoration(
-          labelText: label,
-          prefixIcon: icon,
+          labelText: widget.label,
+          prefixIcon: widget.icon,
         )
-            : readOnly ?
+            : widget.readOnly ?
         InputDecoration(
-            labelText: label,
-            prefixIcon: icon,
+            labelText: widget.label,
+            prefixIcon: widget.icon,
             border: InputBorder.none,
             focusedBorder: InputBorder.none,
             enabledBorder: InputBorder.none,
@@ -56,9 +73,9 @@ class JudoInputText extends StatelessWidget {
             disabledBorder: InputBorder.none)
             :
         InputDecoration(
-            labelText: label,
-            prefixIcon: icon),
-        onChanged: onChanged,
+            labelText: widget.label,
+            prefixIcon: widget.icon),
+        onChanged: widget.onChanged,
       ),
     );
   }
