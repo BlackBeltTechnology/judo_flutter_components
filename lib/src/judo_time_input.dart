@@ -114,7 +114,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
 
   void onChangedHandler(TimeOfDay value) {
     if (widget.onChanged != null) {
-      this.onChanged(value);
+      widget.onChanged(value);
     }
   }
 }
