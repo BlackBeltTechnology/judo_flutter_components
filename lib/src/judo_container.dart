@@ -1,7 +1,9 @@
 part of judo.components;
 
-class JudoContainer extends StatelessWidget {
+class JudoContainer extends StatefulWidget {
+
   JudoContainer({
+    Key key,
     this.child,
     this.col = 4,
     this.row = 1,
@@ -9,7 +11,7 @@ class JudoContainer extends StatelessWidget {
     this.color,
     this.stretch = false,
     this.alignment,
-  });
+  }) : super(key: key);
 
   final Widget child;
   final EdgeInsets padding;
@@ -20,21 +22,27 @@ class JudoContainer extends StatelessWidget {
   final Alignment alignment;
 
   @override
+  _JudoContainerState createState() => _JudoContainerState();
+}
+
+class _JudoContainerState extends State<JudoContainer> {
+
+  @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: col,
+      flex: widget.col,
       child: Container(
-        color: color,
-        height: row * JudoComponentsSettings.height,
-        padding: padding,
+        color: widget.color,
+        height: widget.row * JudoComponentsSettings.height,
+        padding: widget.padding,
         child: Align(
-          alignment: alignment,
+          alignment: widget.alignment,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Flexible(
-                fit: stretch ? FlexFit.tight : FlexFit.loose,
-                child: child
+                fit: widget.stretch ? FlexFit.tight : FlexFit.loose,
+                child: widget.child
               ),
             ],
           ),
