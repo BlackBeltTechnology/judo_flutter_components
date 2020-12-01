@@ -22,10 +22,10 @@ class JudoContainer extends StatefulWidget {
   final Alignment alignment;
 
   @override
-  _JudoContainerState createState() => _JudoContainerState();
+  JudoContainerState createState() => JudoContainerState();
 }
 
-class _JudoContainerState extends State<JudoContainer> {
+class JudoContainerState extends State<JudoContainer> {
 
   @override
   Widget build(BuildContext context) {
