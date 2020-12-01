@@ -26,6 +26,13 @@ class JudoContainer extends StatefulWidget {
 }
 
 class JudoContainerState extends State<JudoContainer> {
+  bool _border = false;
+
+  void highlight() {
+    setState(() {
+      _border = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +42,9 @@ class JudoContainerState extends State<JudoContainer> {
         color: widget.color,
         height: widget.row * JudoComponentsSettings.height,
         padding: widget.padding,
+        decoration: BoxDecoration(
+          border: _border ? Border.all(color: JudoComponentsSettings.secondaryColor) : null,
+        ),
         child: Align(
           alignment: widget.alignment,
           child: Row(
