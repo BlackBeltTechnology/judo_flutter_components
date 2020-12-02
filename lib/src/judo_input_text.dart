@@ -2,10 +2,6 @@ part of judo.components;
 
 class JudoInputText extends StatefulWidget {
 
-  static of(BuildContext context, {bool root = false}) => root
-      ? context.findRootAncestorStateOfType<JudoInputTextState>()
-      : context.findAncestorStateOfType<JudoInputTextState>();
-
   JudoInputText({
     Key key,
     this.col,

@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoTab extends StatefulWidget {
   JudoTab({
+    Key key,
     @required this.col,
     @required this.tabs,
     @required this.tabContent,
@@ -13,10 +14,10 @@ class JudoTab extends StatefulWidget {
   TabController tabController;
 
   @override
-  _JudoTabState createState() => _JudoTabState();
+  JudoTabState createState() => JudoTabState();
 }
 
-class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
+class JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();

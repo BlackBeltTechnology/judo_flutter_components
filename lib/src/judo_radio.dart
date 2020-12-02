@@ -1,7 +1,9 @@
 part of judo.components;
 
+
 class JudoRadio<T> extends StatefulWidget {
   JudoRadio({
+    Key key,
     @required this.col,
     @required this.items,
     this.onChanged,
@@ -11,7 +13,7 @@ class JudoRadio<T> extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final int col;
   T groupValue;
@@ -25,10 +27,10 @@ class JudoRadio<T> extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  _JudoRadioState<T> createState() => _JudoRadioState<T>();
+  JudoRadioState<T> createState() => JudoRadioState<T>();
 }
 
-class _JudoRadioState<T> extends State<JudoRadio> {
+class JudoRadioState<T> extends State<JudoRadio> {
 
   @override
   Widget build(BuildContext context) {

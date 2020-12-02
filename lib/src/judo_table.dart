@@ -5,8 +5,9 @@ abstract class JudoTableDataInfo {
   Function getRow({Function navigateToEditPageAction, Function navigateToViewPageAction, Function navigateToCreatePageAction, Function removeAction, Function unsetAction, Function deleteAction});
 }
 
-class JudoTable extends StatelessWidget {
+class JudoTable extends StatefulWidget {
   JudoTable({
+    Key key,
     @required this.col,
     this.row,
     @required this.dataInfo,
@@ -23,7 +24,7 @@ class JudoTable extends StatelessWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final int col;
   final int row;
@@ -43,42 +44,47 @@ class JudoTable extends StatelessWidget {
   final EdgeInsets padding;
 
   @override
-  Widget build(BuildContext context) {
+  JudoTableState createState() => JudoTableState();
+}
 
+class JudoTableState extends State<JudoTable> {
+
+  @override
+  Widget build(BuildContext context) {
     return JudoContainer(
-      col: col,
-      row: row,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
-      stretch: stretch,
-      alignment: alignment,
+      col: widget.col,
+      row: widget.row,
+      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      stretch: widget.stretch,
+      alignment: widget.alignment,
       child: SizedBox(
-        height: row * JudoComponentsSettings.height,
+        height: widget.row * JudoComponentsSettings.height,
         child: SingleChildScrollView(
-          child: rowList is ObservableList
+          child: widget.rowList is ObservableList
               ? Observer(
             builder: (_) => DataTable(
-              dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-              headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+              dataRowColor: widget.disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+              headingRowColor: widget.disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
               headingTextStyle: TextStyle(
                 color: Color(JudoComponentsSettings.primaryColor.value),
                 fontWeight: FontWeight.bold,
               ),
               onSelectAll: (b) {},
-              sortAscending: sortAscending,
-              columns: dataInfo.getColumns(onAdd),
+              sortAscending: widget.sortAscending,
+              columns: widget.dataInfo.getColumns(widget.onAdd),
               rows: dataRow(),
             ),
           )
               : DataTable(
-            dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-            headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+            dataRowColor: widget.disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+            headingRowColor: widget.disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
             headingTextStyle: TextStyle(
               color: Color(JudoComponentsSettings.primaryColor.value),
               fontWeight: FontWeight.bold,
             ),
             onSelectAll: (b) {},
-            sortAscending: sortAscending,
-            columns: dataInfo.getColumns(onAdd),
+            sortAscending: widget.sortAscending,
+            columns: widget.dataInfo.getColumns(widget.onAdd),
             rows: dataRow(),
           ),
         ),
@@ -87,13 +93,13 @@ class JudoTable extends StatelessWidget {
   }
 
   List<DataRow> dataRow() {
-    List<DataRow> dataRowList = rowList.map<DataRow>(dataInfo.getRow(
-        navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
-        navigateToCreatePageAction: disabled ? null : this.navigateToCreatePageAction,
-        navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction,
-        deleteAction: disabled ? null : this.deleteAction,
-        removeAction: disabled ? null : this.removeAction,
-        unsetAction: disabled ? null : this.unsetAction
+    List<DataRow> dataRowList = widget.rowList.map<DataRow>(widget.dataInfo.getRow(
+        navigateToEditPageAction: widget.disabled ? null : this.widget.navigateToEditPageAction,
+        navigateToCreatePageAction: widget.disabled ? null : this.widget.navigateToCreatePageAction,
+        navigateToViewPageAction: widget.disabled ? null : this.widget.navigateToViewPageAction,
+        deleteAction: widget.disabled ? null : this.widget.deleteAction,
+        removeAction: widget.disabled ? null : this.widget.removeAction,
+        unsetAction: widget.disabled ? null : this.widget.unsetAction
     )).toList();
     return dataRowList;
   }

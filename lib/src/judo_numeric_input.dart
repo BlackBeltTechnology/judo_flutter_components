@@ -28,10 +28,10 @@ class JudoNumericInput extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  _JudoNumericInputState createState() => _JudoNumericInputState();
+  JudoNumericInputState createState() => JudoNumericInputState();
 }
 
-class _JudoNumericInputState extends State<JudoNumericInput> {
+class JudoNumericInputState extends State<JudoNumericInput> {
   RegExp _regExp = RegExp(r"^[+|\-]{0,1}\d*\.{0,1}\d*$");
   final TextEditingController controller = TextEditingController();
 

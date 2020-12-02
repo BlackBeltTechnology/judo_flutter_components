@@ -31,10 +31,10 @@ class JudoDateInput extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  _JudoDateInputState createState() => _JudoDateInputState();
+  JudoDateInputState createState() => JudoDateInputState();
 }
 
-class _JudoDateInputState extends State<JudoDateInput> {
+class JudoDateInputState extends State<JudoDateInput> {
   final TextEditingController controller = TextEditingController();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
 

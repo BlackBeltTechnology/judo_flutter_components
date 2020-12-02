@@ -29,10 +29,10 @@ class JudoTimeInput extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  _JudoTimeInputState createState() => _JudoTimeInputState();
+  JudoTimeInputState createState() => JudoTimeInputState();
 }
 
-class _JudoTimeInputState extends State<JudoTimeInput> {
+class JudoTimeInputState extends State<JudoTimeInput> {
   final TextEditingController controller = TextEditingController();
 
   @override
