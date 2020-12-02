@@ -3,8 +3,8 @@ part of judo.components;
 class JudoInputText extends StatefulWidget {
 
   static of(BuildContext context, {bool root = false}) => root
-      ? context.findRootAncestorStateOfType<_JudoInputTextState>()
-      : context.findAncestorStateOfType<_JudoInputTextState>();
+      ? context.findRootAncestorStateOfType<JudoInputTextState>()
+      : context.findAncestorStateOfType<JudoInputTextState>();
 
   JudoInputText({
     Key key,
@@ -32,10 +32,10 @@ class JudoInputText extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  _JudoInputTextState createState() => _JudoInputTextState();
+  JudoInputTextState createState() => JudoInputTextState();
 }
 
-class _JudoInputTextState extends State<JudoInputText> {
+class JudoInputTextState extends State<JudoInputText> {
   final TextEditingController controller = TextEditingController();
 
   @override
