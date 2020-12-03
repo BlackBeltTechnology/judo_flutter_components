@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoButton extends StatelessWidget {
   JudoButton({
+    Key key,
     this.col = 4,
     this.padding,
     this.label,
@@ -15,7 +16,7 @@ class JudoButton extends StatelessWidget {
     this.disabledTextColor = Colors.black26,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final int col;
   final EdgeInsets padding;

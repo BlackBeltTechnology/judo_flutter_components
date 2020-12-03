@@ -2,12 +2,13 @@ part of judo.components;
 
 class JudoTitle extends StatelessWidget {
   JudoTitle({
+    Key key,
     this.col,
     @required this.text,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final String text;
   final int col;

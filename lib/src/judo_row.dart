@@ -2,13 +2,14 @@ part of judo.components;
 
 class JudoRow extends StatelessWidget {
   JudoRow({
+    Key key,
     this.children,
     this.col = 12,
     this.row = 1,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.mainAxisSize,
-  });
+  }) : super(key: key);
 
   final List<Widget> children;
   final int col;

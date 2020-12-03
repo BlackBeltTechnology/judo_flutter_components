@@ -7,6 +7,7 @@ abstract class JudoTableDataInfo {
 
 class JudoTable extends StatelessWidget {
   JudoTable({
+    Key key,
     @required this.col,
     this.row,
     @required this.dataInfo,
@@ -23,7 +24,7 @@ class JudoTable extends StatelessWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final int col;
   final int row;

@@ -1,7 +1,6 @@
 part of judo.components;
 
 class JudoInputText extends StatefulWidget {
-
   JudoInputText({
     Key key,
     this.col,
@@ -28,10 +27,10 @@ class JudoInputText extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  _JudoInputTextState createState() => _JudoInputTextState();
+  JudoInputTextState createState() => JudoInputTextState();
 }
 
-class _JudoInputTextState extends State<JudoInputText> {
+class JudoInputTextState extends State<JudoInputText> {
   final TextEditingController controller = TextEditingController();
 
   @override

@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoRadio<T> extends StatefulWidget {
   JudoRadio({
+    Key key,
     @required this.col,
     @required this.items,
     this.onChanged,
@@ -11,7 +12,7 @@ class JudoRadio<T> extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final int col;
   T groupValue;

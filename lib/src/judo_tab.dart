@@ -2,10 +2,11 @@ part of judo.components;
 
 class JudoTab extends StatefulWidget {
   JudoTab({
+    Key key,
     @required this.col,
     @required this.tabs,
     @required this.tabContent,
-  });
+  }) : super(key: key);
 
   final int col;
   final List<Tab> tabs;

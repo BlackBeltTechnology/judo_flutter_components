@@ -3,6 +3,7 @@ part of judo.components;
 class JudoComboBox<T> extends StatefulWidget {
 
   JudoComboBox({
+    Key key,
     @required this.col,
     @required this.hintText,
     @required this.items,
@@ -13,7 +14,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.padding,
-  });
+  }) : super(key: key);
 
   final int col;
   final String hintText;

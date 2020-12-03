@@ -3,6 +3,7 @@ part of judo.components;
 class JudoLabel extends StatelessWidget {
 
   JudoLabel({
+    Key key,
     this.col = 4,
     this.padding,
     this.stretch = false,
@@ -10,7 +11,7 @@ class JudoLabel extends StatelessWidget {
     this.text,
     this.trailingIcon,
     this.leadingIcon,
-  });
+  }) : super(key: key);
 
   final int col;
   final EdgeInsets padding;
