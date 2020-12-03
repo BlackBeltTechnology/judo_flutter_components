@@ -1,6 +1,6 @@
 part of judo.components;
 
-class JudoLabel extends StatefulWidget {
+class JudoLabel extends StatelessWidget {
 
   JudoLabel({
     Key key,
@@ -22,29 +22,23 @@ class JudoLabel extends StatefulWidget {
   final Icon leadingIcon;
 
   @override
-  JudoLabelState createState() => JudoLabelState();
-}
-
-class JudoLabelState extends State<JudoLabel> {
-
-  @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
-      col: widget.col,
-      stretch: widget.stretch,
-      alignment: widget.alignment,
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      col: col,
+      stretch: stretch,
+      alignment: alignment,
       child: Row(
         children: [
-          widget.leadingIcon ?? Text(''),
+          leadingIcon ?? Text(''),
           Text(
-            widget.text,
+            text,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),
           ),
-          widget.trailingIcon ?? Text(''),
+          trailingIcon ?? Text(''),
         ],
       ),
     );

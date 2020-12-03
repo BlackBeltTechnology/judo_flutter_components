@@ -1,7 +1,6 @@
 part of judo.components;
 
 class JudoInputText extends StatefulWidget {
-
   JudoInputText({
     Key key,
     this.col,

@@ -1,13 +1,14 @@
 part of judo.components;
 
-class JudoTitle extends StatefulWidget {
+class JudoTitle extends StatelessWidget {
   JudoTitle({
+    Key key,
     this.col,
     @required this.text,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-  });
+  }) : super(key: key);
 
   final String text;
   final int col;
@@ -16,24 +17,18 @@ class JudoTitle extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  JudoTitleState createState() => JudoTitleState();
-}
-
-class JudoTitleState extends State<JudoTitle> {
-  
-  @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
-      stretch: widget.stretch,
-      alignment: widget.alignment,
-      col: widget.col,
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      stretch: stretch,
+      alignment: alignment,
+      col: col,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            widget.text,
+            text,
             style: TextStyle(
                 fontWeight: FontWeight.w900,
                 color: JudoComponentsSettings.secondaryColor,

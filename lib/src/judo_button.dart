@@ -1,6 +1,6 @@
 part of judo.components;
 
-class JudoButton extends StatefulWidget {
+class JudoButton extends StatelessWidget {
   JudoButton({
     Key key,
     this.col = 4,
@@ -33,41 +33,35 @@ class JudoButton extends StatefulWidget {
   final Alignment alignment;
 
   @override
-  JudoButtonState createState() => JudoButtonState();
-}
-
-class JudoButtonState extends State<JudoButton> {
-
-  @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
-      col: widget.col,
-      stretch: widget.stretch,
-      alignment: widget.alignment,
-      child: widget.icon != null
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      col: col,
+      stretch: stretch,
+      alignment: alignment,
+      child: icon != null
           ? RaisedButton.icon(
             shape: RoundedRectangleBorder(
-                borderRadius: widget.rounded ? BorderRadius.circular(16.0) : BorderRadius.zero
+                borderRadius: rounded ? BorderRadius.circular(16.0) : BorderRadius.zero
             ),
-            icon: widget.icon,
-            label: widget.label != null ? Text(widget.label) : Text(''),
-            onPressed: widget.disabled ? null : widget.onPressed,
-            color: widget.color ?? JudoComponentsSettings.primaryColor,
-            disabledColor: widget.disabledColor,
-            textColor: widget.textColor,
-            disabledTextColor: widget.disabledTextColor,
+            icon: icon,
+            label: label != null ? Text(label) : Text(''),
+            onPressed: disabled ? null : onPressed,
+            color: color ?? JudoComponentsSettings.primaryColor,
+            disabledColor: disabledColor,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
           )
           : RaisedButton(
             shape: RoundedRectangleBorder(
-                borderRadius: widget.rounded ? BorderRadius.circular(16.0) : BorderRadius.zero
+                borderRadius: rounded ? BorderRadius.circular(16.0) : BorderRadius.zero
             ),
-            child: widget.label != null ? Text(widget.label) : Text(''),
-            onPressed: widget.disabled ? null : widget.onPressed,
-            color: widget.color ?? JudoComponentsSettings.primaryColor,
-            disabledColor: widget.disabledColor,
-            textColor: widget.textColor,
-            disabledTextColor: widget.disabledTextColor,
+            child: label != null ? Text(label) : Text(''),
+            onPressed: disabled ? null : onPressed,
+            color: color ?? JudoComponentsSettings.primaryColor,
+            disabledColor: disabledColor,
+            textColor: textColor,
+            disabledTextColor: disabledTextColor,
           ),
     );
   }

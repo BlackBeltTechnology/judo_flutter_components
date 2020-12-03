@@ -36,10 +36,10 @@ class JudoComboBox<T> extends StatefulWidget {
   final Function onTap;
 
   @override
-  JudoComboBoxState<T> createState() => JudoComboBoxState<T>();
+  _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
 }
 
-class JudoComboBoxState<T> extends State<JudoComboBox<T>> {
+class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,5 @@
 part of judo.components;
 
-
 class JudoRadio<T> extends StatefulWidget {
   JudoRadio({
     Key key,
@@ -27,10 +26,10 @@ class JudoRadio<T> extends StatefulWidget {
   final EdgeInsets padding;
 
   @override
-  JudoRadioState<T> createState() => JudoRadioState<T>();
+  _JudoRadioState<T> createState() => _JudoRadioState<T>();
 }
 
-class JudoRadioState<T> extends State<JudoRadio> {
+class _JudoRadioState<T> extends State<JudoRadio> {
 
   @override
   Widget build(BuildContext context) {

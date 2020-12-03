@@ -6,7 +6,7 @@ class JudoTab extends StatefulWidget {
     @required this.col,
     @required this.tabs,
     @required this.tabContent,
-  });
+  }) : super(key: key);
 
   final int col;
   final List<Tab> tabs;
@@ -14,10 +14,10 @@ class JudoTab extends StatefulWidget {
   TabController tabController;
 
   @override
-  JudoTabState createState() => JudoTabState();
+  _JudoTabState createState() => _JudoTabState();
 }
 
-class JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
+class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();

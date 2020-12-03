@@ -1,6 +1,6 @@
 part of judo.components;
 
-class JudoColumn extends StatefulWidget {
+class JudoColumn extends StatelessWidget {
   JudoColumn({
     Key key,
     this.children,
@@ -19,22 +19,16 @@ class JudoColumn extends StatefulWidget {
   final MainAxisSize mainAxisSize;
 
   @override
-  JudoColumnState createState() => JudoColumnState();
-}
-
-class JudoColumnState extends State<JudoColumn> {
-
-  @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: widget.col,
+      flex: col,
       child: Container(
-        height: widget.row * JudoComponentsSettings.height,
+        height: row * JudoComponentsSettings.height,
         child: Column(
-          mainAxisAlignment: widget.mainAxisAlignment ?? MainAxisAlignment.start,
-          crossAxisAlignment: widget.crossAxisAlignment ?? CrossAxisAlignment.center,
-          mainAxisSize: widget.mainAxisSize ?? MainAxisSize.min,
-          children: widget.children.map((e) => Row(
+          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
+          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+          mainAxisSize: mainAxisSize ?? MainAxisSize.min,
+          children: children.map((e) => Row(
             children: [
               e
             ],
