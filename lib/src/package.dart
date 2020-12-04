@@ -34,3 +34,6 @@ part 'judo_row.dart';
 part 'judo_column.dart';
 part 'judo_numeric_input.dart';
 part 'judo_label.dart';
+part 'judo_divider.dart';
+part 'judo_icon.dart';
+part 'judo_text.dart';

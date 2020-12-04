@@ -1,14 +1,13 @@
 part of judo.components;
 
-class JudoLabel extends StatelessWidget {
+class JudoIcon extends StatelessWidget {
 
-  JudoLabel({
+  JudoIcon({
     Key key,
     this.col = 4,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-    this.text,
     this.icon,
   }) : super(key: key);
 
@@ -16,7 +15,6 @@ class JudoLabel extends StatelessWidget {
   final EdgeInsets padding;
   final bool stretch;
   final Alignment alignment;
-  final String text;
   final Icon icon;
 
   @override
@@ -28,14 +26,7 @@ class JudoLabel extends StatelessWidget {
       alignment: alignment,
       child: Row(
         children: [
-          icon ?? Text(''),
-          Text(
-            text,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-            ),
-          ),
+          icon,
         ],
       ),
     );
