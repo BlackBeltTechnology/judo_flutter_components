@@ -44,6 +44,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
     controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
   }
 
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();

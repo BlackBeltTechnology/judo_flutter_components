@@ -39,6 +39,7 @@ class JudoInputTextState extends State<JudoInputText> {
     controller.text = widget.initialValue;
   }
 
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();

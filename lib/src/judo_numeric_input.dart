@@ -41,6 +41,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
     controller.text = widget.initialValue;
   }
 
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();
