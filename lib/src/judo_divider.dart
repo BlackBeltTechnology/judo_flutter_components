@@ -22,13 +22,9 @@ class JudoDivider extends StatelessWidget {
       col: col,
       stretch: stretch,
       alignment: alignment,
-      child: Row(
-        children: [
-          Divider(
-            color: Colors.grey,
-            thickness: 1,
-          ),
-        ],
+      child: Divider(
+        color: Colors.grey,
+        thickness: 1,
       ),
     );
   }
