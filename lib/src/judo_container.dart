@@ -10,7 +10,7 @@ class JudoContainer extends StatefulWidget {
     this.padding,
     this.color,
     this.stretch = false,
-    this.alignment,
+    this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
   final Widget child;

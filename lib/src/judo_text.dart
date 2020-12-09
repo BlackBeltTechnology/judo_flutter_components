@@ -1,8 +1,8 @@
 part of judo.components;
 
-class JudoLabel extends StatelessWidget {
+class JudoText extends StatelessWidget {
 
-  JudoLabel({
+  JudoText({
     Key key,
     this.col = 4,
     this.padding,
@@ -28,13 +28,8 @@ class JudoLabel extends StatelessWidget {
       alignment: alignment,
       child: Row(
         children: [
-          icon ?? Text(''),
           Text(
             text,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 25,
-            ),
           ),
         ],
       ),

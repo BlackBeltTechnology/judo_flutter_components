@@ -13,6 +13,8 @@ class JudoInputText extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
+    this.multiline = false,
+    this.row,
   }) : super(key: key);
 
   final int col;
@@ -25,6 +27,8 @@ class JudoInputText extends StatefulWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool multiline;
+  final int row;
 
   @override
   JudoInputTextState createState() => JudoInputTextState();
@@ -51,12 +55,16 @@ class JudoInputTextState extends State<JudoInputText> {
       color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
       col: widget.col,
+      row: widget.multiline ? widget.row : 1,
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: TextField(
         controller: controller,
         readOnly: widget.disabled ? true : widget.readOnly,
         enabled: widget.disabled ? false : !widget.readOnly,
+        expands: widget.multiline,
+        minLines: widget.multiline ? null : 1,
+        maxLines: widget.multiline ? null : 1,
         decoration: widget.disabled ?
         InputDecoration(
           labelText: widget.label,
