@@ -6,13 +6,11 @@ class JudoDivider extends StatelessWidget {
     Key key,
     this.col = 4,
     this.padding,
-    this.stretch = false,
     this.alignment = Alignment.center,
   }) : super(key: key);
 
   final int col;
   final EdgeInsets padding;
-  final bool stretch;
   final Alignment alignment;
 
   @override
@@ -20,7 +18,7 @@ class JudoDivider extends StatelessWidget {
     return JudoContainer(
       padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
       col: col,
-      stretch: stretch,
+      stretch: true,
       alignment: alignment,
       child: Divider(
         color: Colors.grey,
