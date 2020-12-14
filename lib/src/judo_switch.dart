@@ -51,7 +51,7 @@ class JudoSwitchState extends State<JudoSwitch> {
           ),
           Switch(
             activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
-            value: widget.initialValue,
+            value: widget.initialValue ?? false,
             onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
           ),
         ],
