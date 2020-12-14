@@ -4,6 +4,7 @@ class JudoTimeInput extends StatefulWidget {
   JudoTimeInput({
     Key key,
     @required this.col,
+    this.row,
     this.label,
     this.icon,
     this.onChanged,
@@ -17,6 +18,7 @@ class JudoTimeInput extends StatefulWidget {
   }) : super(key: key);
 
   final int col;
+  final double row;
   final String label;
   final Icon icon;
   final Function onChanged;
@@ -53,6 +55,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
       color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
       col: widget.col,
+      row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: TextField(

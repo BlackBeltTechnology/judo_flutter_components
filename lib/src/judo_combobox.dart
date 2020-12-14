@@ -5,6 +5,7 @@ class JudoComboBox<T> extends StatefulWidget {
   JudoComboBox({
     Key key,
     @required this.col,
+    this.row,
     @required this.hintText,
     @required this.items,
     this.onChanged,
@@ -17,6 +18,7 @@ class JudoComboBox<T> extends StatefulWidget {
   }) : super(key: key);
 
   final int col;
+  final double row;
   final String hintText;
   T value;
   final List items;
@@ -46,6 +48,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
     return JudoContainer(
           padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
           col: widget.col,
+          row: widget.row,
           stretch: widget.stretch,
           alignment: widget.alignment,
           child: DropdownButton<T>(

@@ -38,3 +38,4 @@ part 'judo_divider.dart';
 part 'judo_icon.dart';
 part 'judo_text.dart';
 part 'judo_spacer.dart';
+part 'judo_switch.dart';

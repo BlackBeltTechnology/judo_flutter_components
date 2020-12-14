@@ -14,7 +14,7 @@ class JudoRow extends StatelessWidget {
 
   final List<Widget> children;
   final int col;
-  final int row;
+  final double row;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;

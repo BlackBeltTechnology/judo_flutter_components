@@ -4,6 +4,7 @@ class JudoButton extends StatelessWidget {
   JudoButton({
     Key key,
     this.col = 4,
+    this.row,
     this.padding,
     this.label,
     this.icon,
@@ -19,6 +20,7 @@ class JudoButton extends StatelessWidget {
   }) : super(key: key);
 
   final int col;
+  final double row;
   final EdgeInsets padding;
   final String label;
   final Function onPressed;
@@ -37,6 +39,7 @@ class JudoButton extends StatelessWidget {
     return JudoContainer(
       padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
       col: col,
+      row: row,
       stretch: stretch,
       alignment: alignment,
       child: icon != null
