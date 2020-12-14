@@ -4,6 +4,7 @@ class JudoDateTimeInput extends StatefulWidget {
   JudoDateTimeInput({
     Key key,
     this.col,
+    this.row,
     this.label,
     this.icon,
     this.onChanged,
@@ -19,6 +20,7 @@ class JudoDateTimeInput extends StatefulWidget {
   }) : super(key: key);
 
   final int col;
+  final double row;
   final String label;
   final Icon icon;
   final Function onChanged;

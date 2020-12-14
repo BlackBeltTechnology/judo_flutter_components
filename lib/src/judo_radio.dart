@@ -4,6 +4,7 @@ class JudoRadio<T> extends StatefulWidget {
   JudoRadio({
     Key key,
     @required this.col,
+    this.row,
     @required this.items,
     this.onChanged,
     this.groupValue,
@@ -15,6 +16,7 @@ class JudoRadio<T> extends StatefulWidget {
   }) : super(key: key);
 
   final int col;
+  final double row;
   T groupValue;
   T value;
   final List items;
@@ -36,6 +38,7 @@ class _JudoRadioState<T> extends State<JudoRadio> {
     return JudoContainer(
       padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
       col: widget.col,
+      row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: Row(

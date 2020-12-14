@@ -4,6 +4,7 @@ class JudoTitle extends StatelessWidget {
   JudoTitle({
     Key key,
     this.col,
+    this.row,
     @required this.text,
     this.padding,
     this.stretch = false,
@@ -12,6 +13,7 @@ class JudoTitle extends StatelessWidget {
 
   final String text;
   final int col;
+  final double row;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
@@ -23,6 +25,7 @@ class JudoTitle extends StatelessWidget {
       stretch: stretch,
       alignment: alignment,
       col: col,
+      row: row,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,

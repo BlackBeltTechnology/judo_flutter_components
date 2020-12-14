@@ -16,7 +16,7 @@ class JudoContainer extends StatefulWidget {
   final Widget child;
   final EdgeInsets padding;
   final int col;
-  final int row;
+  final double row;
   final Color color;
   final bool stretch;
   final Alignment alignment;

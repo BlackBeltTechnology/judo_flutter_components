@@ -27,7 +27,7 @@ class JudoTable extends StatelessWidget {
   }) : super(key: key);
 
   final int col;
-  final int row;
+  final double row;
   final bool sortAscending;
   final bool disabled;
   final JudoTableDataInfo dataInfo;
