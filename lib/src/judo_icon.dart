@@ -4,8 +4,8 @@ class JudoIcon extends StatelessWidget {
 
   JudoIcon({
     Key key,
-    this.col = 4,
-    this.row,
+    @required this.col,
+    this.row = 1.0,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,

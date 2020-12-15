@@ -3,8 +3,8 @@ part of judo.components;
 class JudoDateTimeInput extends StatefulWidget {
   JudoDateTimeInput({
     Key key,
-    this.col,
-    this.row,
+    @required this.col,
+    this.row = 1,
     this.label,
     this.icon,
     this.onChanged,

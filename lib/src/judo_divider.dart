@@ -4,8 +4,8 @@ class JudoDivider extends StatelessWidget {
 
   JudoDivider({
     Key key,
-    this.col = 4,
-    this.row,
+    @required this.col,
+    this.row = 1.0,
     this.padding,
     this.alignment = Alignment.center,
   }) : super(key: key);

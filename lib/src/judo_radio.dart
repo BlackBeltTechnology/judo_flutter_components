@@ -4,7 +4,7 @@ class JudoRadio<T> extends StatefulWidget {
   JudoRadio({
     Key key,
     @required this.col,
-    this.row,
+    this.row = 1.0,
     @required this.items,
     this.onChanged,
     this.groupValue,

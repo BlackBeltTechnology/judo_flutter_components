@@ -3,8 +3,8 @@ part of judo.components;
 class JudoInputText extends StatefulWidget {
   JudoInputText({
     Key key,
-    this.col,
-    this.row,
+    @required this.col,
+    this.row = 1.0,
     this.label,
     this.icon,
     this.onChanged,

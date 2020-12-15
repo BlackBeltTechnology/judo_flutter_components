@@ -4,7 +4,7 @@ class JudoTimeInput extends StatefulWidget {
   JudoTimeInput({
     Key key,
     @required this.col,
-    this.row,
+    this.row = 1.0,
     this.label,
     this.icon,
     this.onChanged,

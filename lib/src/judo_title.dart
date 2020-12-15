@@ -3,8 +3,8 @@ part of judo.components;
 class JudoTitle extends StatelessWidget {
   JudoTitle({
     Key key,
-    this.col,
-    this.row,
+    @required this.col,
+    this.row = 1.0,
     @required this.text,
     this.padding,
     this.stretch = false,
