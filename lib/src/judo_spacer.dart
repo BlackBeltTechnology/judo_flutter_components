@@ -9,6 +9,7 @@ class JudoSpacer extends StatelessWidget {
   }) : super(key: key);
 
   final int col;
+  final double row;
 
   @override
   Widget build(BuildContext context) {
