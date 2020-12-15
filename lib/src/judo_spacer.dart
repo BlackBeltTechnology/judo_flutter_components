@@ -5,6 +5,7 @@ class JudoSpacer extends StatelessWidget {
   JudoSpacer({
     Key key,
     this.col = 4,
+    this.row,
   }) : super(key: key);
 
   final int col;
@@ -13,6 +14,7 @@ class JudoSpacer extends StatelessWidget {
   Widget build(BuildContext context) {
     return JudoContainer(
       col: col,
+      row: row,
       child: SizedBox(),
     );
   }
