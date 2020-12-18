@@ -4,8 +4,8 @@ class JudoColumn extends StatelessWidget {
   JudoColumn({
     Key key,
     this.children,
-    this.col = 12,
-    this.row = 1,
+    @required this.col,
+    this.row = 1.0,
     this.mainAxisAlignment,
     this.crossAxisAlignment,
     this.mainAxisSize,

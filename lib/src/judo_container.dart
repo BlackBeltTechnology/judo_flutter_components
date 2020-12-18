@@ -6,7 +6,7 @@ class JudoContainer extends StatefulWidget {
     Key key,
     this.child,
     this.col = 4,
-    this.row = 1,
+    this.row = 1.0,
     this.padding,
     this.color,
     this.stretch = false,

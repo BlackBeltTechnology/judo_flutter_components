@@ -4,12 +4,13 @@ class JudoText extends StatelessWidget {
 
   JudoText({
     Key key,
-    this.col = 4,
-    this.row,
+    @required this.col,
+    this.row = 1.0,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.text,
+    this.label,
     this.icon,
   }) : super(key: key);
 
@@ -19,6 +20,7 @@ class JudoText extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final String text;
+  final String label;
   final Icon icon;
 
   @override
@@ -31,6 +33,10 @@ class JudoText extends StatelessWidget {
       alignment: alignment,
       child: Row(
         children: [
+          label != null && label.isNotEmpty ? Text(
+            label + ': ',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ) : Text(''),
           Text(
             text,
           ),

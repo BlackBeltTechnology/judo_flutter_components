@@ -3,8 +3,8 @@ part of judo.components;
 class JudoButton extends StatelessWidget {
   JudoButton({
     Key key,
-    this.col = 4,
-    this.row,
+    @required this.col,
+    this.row = 1,
     this.padding,
     this.label,
     this.icon,

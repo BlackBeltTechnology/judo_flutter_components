@@ -3,8 +3,8 @@ part of judo.components;
 class JudoSwitch extends StatefulWidget {
   JudoSwitch({
     Key key,
-    this.col,
-    this.row,
+    @required this.col,
+    this.row = 1.0,
     this.label,
     this.icon,
     this.onChanged,
@@ -14,7 +14,6 @@ class JudoSwitch extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-    this.multiline = false,
   }) : super(key: key);
 
   final int col;
@@ -28,7 +27,6 @@ class JudoSwitch extends StatefulWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
-  final bool multiline;
 
   @override
   JudoSwitchState createState() => JudoSwitchState();
@@ -45,10 +43,18 @@ class JudoSwitchState extends State<JudoSwitch> {
       row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
-      child: Switch(
-        activeColor: JudoComponentsSettings.primaryColor,
-        value: widget.initialValue,
-        onChanged: widget.onChanged,
+      child: Row(
+        children: [
+          widget.icon ?? Text(''),
+          Text(
+            widget.label + ' '
+          ),
+          Switch(
+            activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
+            value: widget.initialValue ?? false,
+            onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
+          ),
+        ],
       ),
     );
   }

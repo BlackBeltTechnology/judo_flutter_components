@@ -5,7 +5,7 @@ class JudoComboBox<T> extends StatefulWidget {
   JudoComboBox({
     Key key,
     @required this.col,
-    this.row,
+    this.row = 1.0,
     @required this.hintText,
     @required this.items,
     this.onChanged,

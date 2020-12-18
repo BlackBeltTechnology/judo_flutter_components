@@ -9,7 +9,7 @@ class JudoTable extends StatelessWidget {
   JudoTable({
     Key key,
     @required this.col,
-    this.row,
+    this.row = 1.0,
     @required this.dataInfo,
     @required this.rowList,
     this.navigateToEditPageAction,

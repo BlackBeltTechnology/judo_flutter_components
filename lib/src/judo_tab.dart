@@ -4,14 +4,22 @@ class JudoTab extends StatefulWidget {
   JudoTab({
     Key key,
     @required this.col,
+    @required this.row,
     @required this.tabs,
     @required this.tabContent,
+    this.stretch = false,
+    this.alignment = Alignment.centerLeft,
+    this.padding,
   }) : super(key: key);
 
   final int col;
+  final double row;
   final List<Tab> tabs;
   final List<Widget> tabContent;
   TabController tabController;
+  final bool stretch;
+  final Alignment alignment;
+  final EdgeInsets padding;
 
   @override
   _JudoTabState createState() => _JudoTabState();
@@ -46,8 +54,12 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: widget.col,
+    return JudoContainer(
+      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      col: widget.col,
+      row: widget.row,
+      stretch: widget.stretch,
+      alignment: widget.alignment,
       child: Column(
         children: [
           Container(

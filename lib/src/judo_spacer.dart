@@ -4,15 +4,18 @@ class JudoSpacer extends StatelessWidget {
 
   JudoSpacer({
     Key key,
-    this.col = 4,
+    @required this.col,
+    this.row = 1.0,
   }) : super(key: key);
 
   final int col;
+  final double row;
 
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
       col: col,
+      row: row,
       child: SizedBox(),
     );
   }
