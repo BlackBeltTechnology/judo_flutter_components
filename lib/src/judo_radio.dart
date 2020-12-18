@@ -14,6 +14,7 @@ class JudoRadio<T> extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.disabled = false,
+    this.readOnly = false,
   }) : super(key: key);
 
   final int col;
@@ -28,6 +29,7 @@ class JudoRadio<T> extends StatefulWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool disabled;
+  final bool readOnly;
 
   @override
   _JudoRadioState<T> createState() => _JudoRadioState<T>();
@@ -48,7 +50,7 @@ class _JudoRadioState<T> extends State<JudoRadio> {
           children: widget.items.map<JudoRadioButton<T>>((e) => JudoRadioButton<T>(
             label: widget.getLabel(e),
             col: (widget.col / widget.items.length).round(),
-            onChanged: widget.onChanged ?? widget.disabled ? null :
+            onChanged: widget.onChanged ?? widget.disabled && widget.readOnly ? null :
               (newValue) {
                 setState(() {
                   widget.groupValue = newValue;
