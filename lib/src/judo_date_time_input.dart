@@ -130,6 +130,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
 
   void onChangedHandler(DateTime value) {
     if (widget.onChanged != null) {
+      controller.text = formatter.format(value);
       widget.onChanged(value);
     }
   }
