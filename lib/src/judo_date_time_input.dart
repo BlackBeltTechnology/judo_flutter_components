@@ -46,7 +46,6 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
   void initState() {
     super.initState();
     controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
-    print('initstate: ${controller.text}'); // TODO: DELETE THIS LINE
   }
 
   @override
