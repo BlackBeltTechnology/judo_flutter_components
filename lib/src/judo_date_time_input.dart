@@ -46,7 +46,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
   void initState() {
     super.initState();
     controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
-    print(controller.text); // TODO: DELETE THIS LINE
+    print('initstate: ${controller.text}'); // TODO: DELETE THIS LINE
   }
 
   @override
@@ -130,6 +130,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
   }
 
   void onChangedHandler(DateTime value) {
+    print('onchangedHandler: ${value}'); // TODO: delete this line
     if (widget.onChanged != null) {
       widget.onChanged(value);
     }
