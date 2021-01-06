@@ -6,11 +6,11 @@ class JudoComboBox<T> extends StatefulWidget {
     Key key,
     @required this.col,
     this.row = 1.0,
-    @required this.hintText,
-    @required this.items,
+    this.hintText,
+    this.items,
     this.onChanged,
-    @required this.value,
-    @required this.dropdownMenuShow,
+    this.value,
+    this.dropdownMenuShow,
     this.onTap,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -65,13 +65,13 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
                 height: 2,
                 color: JudoComponentsSettings.secondaryColor,
               ),
-              onChanged: widget.onChanged != null ? widget.onChanged :
-              ((widget.disabled || widget.readOnly) ? null :
+              onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
+              ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
                   (newValue) {
                     setState(() {
                       widget.value = newValue;
                     });
-                  }
+                  } : null
               ),
               items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
     );

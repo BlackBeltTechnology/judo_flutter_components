@@ -50,13 +50,13 @@ class _JudoRadioState<T> extends State<JudoRadio> {
           children: widget.items.map<JudoRadioButton<T>>((e) => JudoRadioButton<T>(
             label: widget.getLabel(e),
             col: (widget.col / widget.items.length).round(),
-            onChanged: widget.onChanged != null ? widget.onChanged :
-              ((widget.disabled || widget.readOnly) ? null :
-                (newValue) {
-                  setState(() {
-                    widget.groupValue = newValue;
-                  });
-                }
+            onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
+              ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
+                  (newValue) {
+                    setState(() {
+                      widget.groupValue = newValue;
+                    });
+                  } : null
               ),
             value: widget.getValue(e),
             groupValue: widget.groupValue,
