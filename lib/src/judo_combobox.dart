@@ -15,6 +15,8 @@ class JudoComboBox<T> extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.padding,
+    this.disabled,
+    this.readOnly,
   }) : super(key: key);
 
   final int col;
@@ -34,8 +36,9 @@ class JudoComboBox<T> extends StatefulWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
-
   final Function onTap;
+  final bool disabled;
+  final bool readOnly;
 
   @override
   _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
@@ -62,12 +65,14 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
                 height: 2,
                 color: JudoComponentsSettings.secondaryColor,
               ),
-              onChanged: widget.onChanged ??
-                (newValue) {
-                  setState(() {
-                    widget.value = newValue;
-                  });
-                },
+              onChanged: widget.onChanged != null ? widget.onChanged :
+              ((widget.disabled || widget.readOnly) ? null :
+                  (newValue) {
+                    setState(() {
+                      widget.value = newValue;
+                    });
+                  }
+              ),
               items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
     );
   }
