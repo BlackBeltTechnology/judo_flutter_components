@@ -51,7 +51,7 @@ class _JudoRadioState<T> extends State<JudoRadio> {
             label: widget.getLabel(e),
             col: (widget.col / widget.items.length).round(),
             onChanged: widget.onChanged != null ? widget.onChanged :
-              ((widget.disabled && widget.readOnly) ? null :
+              ((widget.disabled || widget.readOnly) ? null :
                 (newValue) {
                   setState(() {
                     widget.groupValue = newValue;
