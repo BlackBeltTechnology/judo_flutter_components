@@ -90,7 +90,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
           prefixIcon: widget.icon,
           suffixIcon: iconDatePicker(context),
         ),
-        onChanged: (value) => onChangedHandler(DateTime.parse(value)),
+        onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
       ),
     );
   }
@@ -117,7 +117,9 @@ class _JudoDateInputState extends State<JudoDateInput> {
 
   void onChangedHandler(DateTime value) {
     if (widget.onChanged != null) {
-      controller.text = formatter.format(value);
+      if (value != null) {
+        controller.text = formatter.format(value);
+      }
       widget.onChanged(value);
     }
   }
