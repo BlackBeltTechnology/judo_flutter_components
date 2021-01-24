@@ -1,15 +1,11 @@
 part of judo.components;
 
-abstract class JudoLinkFormatter {
-  Function format();
-}
-
 class JudoLink extends StatelessWidget {
   JudoLink({
     Key key,
     @required this.col,
     this.row = 1.0,
-    @required this.formatter,
+    this.formatter = defaultFormatter,
     @required this.data,
     this.label,
     this.icon,
@@ -26,7 +22,7 @@ class JudoLink extends StatelessWidget {
   final double row;
   final bool disabled;
   final bool readOnly;
-  final JudoLinkFormatter formatter;
+  final Function formatter;
   final String label;
   final Icon icon;
   final dynamic data;
@@ -35,6 +31,10 @@ class JudoLink extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+
+  static String defaultFormatter(dynamic e) {
+    return e != null ? e.toString() : '';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class JudoLink extends StatelessWidget {
   }
 
   Widget getTextField() {
-      final TextEditingController controller = TextEditingController(text: data != null ? Function.apply(formatter.format(), [data]) : '');
+      final TextEditingController controller = TextEditingController(text: data != null ? Function.apply(formatter, [data]) : '');
 
       return TextField(
         controller: controller,
