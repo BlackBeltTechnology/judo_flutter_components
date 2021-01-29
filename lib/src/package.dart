@@ -43,3 +43,4 @@ part 'judo_text.dart';
 part 'judo_spacer.dart';
 part 'judo_switch.dart';
 part 'judo_link.dart';
+part 'judo_confirmation_dialog.dart';
