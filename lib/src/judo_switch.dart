@@ -36,6 +36,7 @@ class JudoSwitchState extends State<JudoSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     return JudoContainer(
 //      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
@@ -45,7 +46,7 @@ class JudoSwitchState extends State<JudoSwitch> {
       alignment: widget.alignment,
       child: Row(
         children: [
-          widget.icon ?? Text(''),
+          /*
           Text(
             widget.label + ' '
           ),
@@ -53,7 +54,20 @@ class JudoSwitchState extends State<JudoSwitch> {
 //            activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
             value: widget.initialValue ?? false,
             onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
+          ), */
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+            child: Checkbox(
+              value: widget.initialValue ?? false,
+              onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
+            ),
           ),
+          Text(
+              widget.label,
+              style: theme.textTheme.subtitle1,
+          ),
+
         ],
       ),
     );
