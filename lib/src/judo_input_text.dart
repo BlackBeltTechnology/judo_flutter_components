@@ -75,8 +75,10 @@ class JudoInputTextState extends State<JudoInputText> {
                     _Utf8LengthLimitingTextInputFormatter(250),
                 ],
                 decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
-                    .copyWith(floatingLabelBehavior: widget.row > 1.0 ? FloatingLabelBehavior.always : null)
-                ,
+                    .copyWith(
+                      floatingLabelBehavior: widget.row > 1.0 ? FloatingLabelBehavior.always : null,
+                      prefixIcon: widget.row > 1.0 ? Icon(IconData(0)) : widget.icon,
+                ),
                 onChanged: widget.onChanged,
               ),
               decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
