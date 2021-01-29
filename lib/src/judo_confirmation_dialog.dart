@@ -28,5 +28,5 @@ Future<bool> judoConfirmationDialog<T>({@required BuildContext context, String c
         ],
       );
     },
-  );
+  ) ?? false;
 }
