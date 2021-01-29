@@ -97,7 +97,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
                     prefixIcon: widget.icon,
                     suffixIcon: iconDatePicker(context),
                   ), */
-                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(widget.label, widget.icon, iconDatePicker(context)),
+                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context)),
 
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                 ),
