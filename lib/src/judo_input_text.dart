@@ -70,7 +70,13 @@ class JudoInputTextState extends State<JudoInputText> {
                 expands: widget.multiline,
                 minLines: widget.multiline ? null : 1,
                 maxLines: widget.multiline ? null : 1,
-                decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null),
+//                maxLength: 250, // TODO: fix
+                inputFormatters: [
+                    _Utf8LengthLimitingTextInputFormatter(250),
+                ],
+                decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
+                    .copyWith(floatingLabelBehavior: widget.row > 1.0 ? FloatingLabelBehavior.always : null)
+                ,
                 onChanged: widget.onChanged,
               ),
               decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
@@ -78,5 +84,58 @@ class JudoInputTextState extends State<JudoInputText> {
           data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
         ),
     );
+  }
+}
+
+class _Utf8LengthLimitingTextInputFormatter extends TextInputFormatter {
+  _Utf8LengthLimitingTextInputFormatter(this.maxLength)
+      : assert(maxLength == null || maxLength == -1 || maxLength > 0);
+
+  final int maxLength;
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    if (maxLength != null &&
+        maxLength > 0 &&
+        bytesLength(newValue.text) > maxLength) {
+      // If already at the maximum and tried to enter even more, keep the old value.
+      if (bytesLength(oldValue.text) == maxLength) {
+        return oldValue;
+      }
+      return truncate(newValue, maxLength);
+    }
+    return newValue;
+  }
+
+  static TextEditingValue truncate(TextEditingValue value, int maxLength) {
+    var newValue = '';
+    if (bytesLength(value.text) > maxLength) {
+      var length = 0;
+
+      value.text.characters.takeWhile((char) {
+        var nbBytes = bytesLength(char);
+        if (length + nbBytes <= maxLength) {
+          newValue += char;
+          length += nbBytes;
+          return true;
+        }
+        return false;
+      });
+    }
+    return TextEditingValue(
+      text: newValue,
+      selection: value.selection.copyWith(
+        baseOffset: min(value.selection.start, newValue.length),
+        extentOffset: min(value.selection.end, newValue.length),
+      ),
+      composing: TextRange.empty,
+    );
+  }
+
+  static int bytesLength(String value) {
+    return utf8.encode(value).length;
   }
 }
