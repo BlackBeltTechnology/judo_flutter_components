@@ -45,7 +45,7 @@ class JudoTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    ThemeData theme = Theme.of(context);
     return JudoContainer(
       col: col,
       row: row,
@@ -55,47 +55,58 @@ class JudoTable extends StatelessWidget {
       child: SizedBox(
         height: row * JudoComponentCustomizer.get().getLineHeight(),
         child: SingleChildScrollView(
-          child: rowList is ObservableList
-              ? Observer(
-            builder: (_) => DataTable(
-//              dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-//              headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-              headingTextStyle: TextStyle(
-//                color: Color(JudoComponentsSettings.primaryColor.value),
-                fontWeight: FontWeight.bold,
-              ),
-              onSelectAll: (b) {},
-              sortAscending: sortAscending,
-              columns: dataInfo.getColumns(onAdd),
-              rows: dataRow(),
-            ),
-          )
-              : DataTable(
-//            dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-//            headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-            headingTextStyle: TextStyle(
-//              color: Color(JudoComponentsSettings.primaryColor.value),
-              fontWeight: FontWeight.bold,
-            ),
-            onSelectAll: (b) {},
-            sortAscending: sortAscending,
-            columns: dataInfo.getColumns(onAdd),
-            rows: dataRow(),
-          ),
+          child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
         ),
       )
     );
   }
 
-  List<DataRow> dataRow() {
-    List<DataRow> dataRowList = rowList.map<DataRow>(dataInfo.getRow(
-        navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
-        navigateToCreatePageAction: disabled ? null : this.navigateToCreatePageAction,
-        navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction,
-        deleteAction: disabled ? null : this.deleteAction,
-        removeAction: disabled ? null : this.removeAction,
-        unsetAction: disabled ? null : this.unsetAction
-    )).toList();
-    return dataRowList;
+
+  DataTable dataTable(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
+    return DataTable(
+        headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
+        onSelectAll: (b) {},
+        sortAscending: sortAscending,
+        columns: dataInfo.getColumns(onAdd),
+        rows: dataRow(context)
+    );
+  }
+
+  List<DataRow> dataRow(BuildContext context) {
+
+    List<DataRow> dataRowList = rowList.map<DataRow>(
+        dataInfo.getRow(
+          navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
+          navigateToCreatePageAction: disabled ? null : this.navigateToCreatePageAction,
+          navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction,
+          deleteAction: disabled ? null : this.deleteAction,
+          removeAction: disabled ? null : this.removeAction,
+          unsetAction: disabled ? null : this.unsetAction)
+    ).toList();
+
+    return List<DataRow>.generate(
+          dataRowList.length,
+            (index) => DataRow(
+              color: MaterialStateProperty.resolveWith<Color>(
+              (Set<MaterialState> states) {
+                // All rows will have the same selected color.
+                if (states.contains(MaterialState.selected))
+                  return Theme.of(context).colorScheme.primary.withOpacity(0.08);
+                // Even rows will have a grey color.
+                if (index % 2 == 0) return Colors.grey.withOpacity(0.05);
+                return null; // Use default value for other states and odd rows.
+              }
+            ),
+          cells: dataRowList[index].cells,
+//        selected: selected[index],
+//        onSelectChanged: (bool value) {
+//          setState(() {
+//            selected[index] = value;
+//          });
+//        },
+        ),
+      );
   }
 }
