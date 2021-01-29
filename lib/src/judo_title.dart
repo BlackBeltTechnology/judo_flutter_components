@@ -21,7 +21,7 @@ class JudoTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       stretch: stretch,
       alignment: alignment,
       col: col,
@@ -32,10 +32,12 @@ class JudoTitle extends StatelessWidget {
         children: [
           Text(
             text,
-            style: TextStyle(
-                fontWeight: FontWeight.w900,
-                color: JudoComponentsSettings.secondaryColor,
-                fontSize: 24),
+            style:
+                  Theme.of(context).textTheme.headline1
+            //TextStyle(
+            //    fontWeight: FontWeight.w900,
+//                color: JudoComponentsSettings.secondaryColor,
+            //    fontSize: 24),
           ),
           SizedBox(
             height: 10,

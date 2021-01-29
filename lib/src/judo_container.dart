@@ -33,7 +33,7 @@ class JudoContainerState extends State<JudoContainer> {
       flex: widget.col,
       child: Container(
         color: widget.color,
-        height: widget.row * JudoComponentsSettings.height,
+        height: widget.row * JudoComponentCustomizer.get().getLineHeight(),
         padding: widget.padding,
         child: Align(
           alignment: widget.alignment,

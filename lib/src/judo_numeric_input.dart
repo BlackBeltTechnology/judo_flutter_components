@@ -52,8 +52,8 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,

@@ -49,19 +49,19 @@ class JudoTable extends StatelessWidget {
     return JudoContainer(
       col: col,
       row: row,
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       stretch: stretch,
       alignment: alignment,
       child: SizedBox(
-        height: row * JudoComponentsSettings.height,
+        height: row * JudoComponentCustomizer.get().getLineHeight(),
         child: SingleChildScrollView(
           child: rowList is ObservableList
               ? Observer(
             builder: (_) => DataTable(
-              dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-              headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+//              dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+//              headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
               headingTextStyle: TextStyle(
-                color: Color(JudoComponentsSettings.primaryColor.value),
+//                color: Color(JudoComponentsSettings.primaryColor.value),
                 fontWeight: FontWeight.bold,
               ),
               onSelectAll: (b) {},
@@ -71,10 +71,10 @@ class JudoTable extends StatelessWidget {
             ),
           )
               : DataTable(
-            dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
-            headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+//            dataRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
+//            headingRowColor: disabled ? MaterialStateProperty.resolveWith((_) => JudoComponentsSettings.disabledColor) : null,
             headingTextStyle: TextStyle(
-              color: Color(JudoComponentsSettings.primaryColor.value),
+//              color: Color(JudoComponentsSettings.primaryColor.value),
               fontWeight: FontWeight.bold,
             ),
             onSelectAll: (b) {},

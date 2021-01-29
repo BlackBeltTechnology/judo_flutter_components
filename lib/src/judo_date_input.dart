@@ -55,43 +55,56 @@ class _JudoDateInputState extends State<JudoDateInput> {
 
   @override
   Widget build(BuildContext context) {
-
+    final ThemeData theme = Theme.of(context).copyWith();
     return JudoContainer(
-      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
-      child: TextField(
-        controller: controller,
-        readOnly: widget.disabled ? true : widget.readOnly,
-        enabled: widget.disabled ? false : !widget.readOnly,
-        decoration: widget.disabled ?
-        InputDecoration(
-          labelText: widget.label,
-          prefixIcon: widget.icon,
-          suffixIcon: iconDatePicker(context),
-        )
-            : widget.readOnly ?
-        InputDecoration(
-          labelText: widget.label,
-          prefixIcon: widget.icon,
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
+      child:
+        Theme(
+          child:
+            Container(
+              child:
+                TextField(
+                  controller: controller,
+                  readOnly: widget.disabled ? true : widget.readOnly,
+                  enabled: widget.disabled ? false : !widget.readOnly,
 
+                  /*
+                  decoration: widget.disabled ?
+                  InputDecoration(
+                    labelText: widget.label,
+                    prefixIcon: widget.icon,
+                    suffixIcon: iconDatePicker(context),
+                  )
+                      : widget.readOnly ?
+                  InputDecoration(
+                    labelText: widget.label,
+                    prefixIcon: widget.icon,
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+
+                  )
+                      :
+                  InputDecoration(
+                    labelText: widget.label,
+                    prefixIcon: widget.icon,
+                    suffixIcon: iconDatePicker(context),
+                  ), */
+                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(widget.label, widget.icon, iconDatePicker(context)),
+
+                  onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
+                ),
+                decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
+            ),
+          data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, widget.disabled, widget.readOnly),
         )
-            :
-        InputDecoration(
-          labelText: widget.label,
-          prefixIcon: widget.icon,
-          suffixIcon: iconDatePicker(context),
-        ),
-        onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
-      ),
     );
   }
 
@@ -100,9 +113,9 @@ class _JudoDateInputState extends State<JudoDateInput> {
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
-          color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+          // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
         ),
-        onPressed: widget.disabled ? null : () async {
+        onPressed: (widget.disabled || widget.readOnly) ? null : () async {
           tempDateTime = await showDatePicker(
             context: context,
             initialDate: tempDateTime,

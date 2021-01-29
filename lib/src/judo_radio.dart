@@ -89,7 +89,7 @@ class JudoRadioButton<T> extends StatelessWidget {
       child: Row(
         children: [
           Radio(
-            activeColor: JudoComponentsSettings.primaryColor,
+//            activeColor: JudoComponentsSettings.primaryColor,
             value: value,
             groupValue: groupValue,
             onChanged: onChanged,

@@ -24,7 +24,6 @@ class JudoDivider extends StatelessWidget {
       stretch: true,
       alignment: alignment,
       child: Divider(
-        color: Colors.grey,
         thickness: 1,
       ),
     );
