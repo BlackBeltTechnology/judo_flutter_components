@@ -14,13 +14,13 @@ Future<bool> judoConfirmationDialog<T>({@required BuildContext context, String c
         ),
         actions: <Widget>[
           TextButton(
-            child: Text('Cancel'),
+            child: Text('No'),
             onPressed: () {
               Navigator.of(context).pop(false);
             },
           ),
           TextButton(
-            child: Text('Ok'),
+            child: Text('Yes'),
             onPressed: () {
               Navigator.of(context).pop(true);
             },
