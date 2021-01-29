@@ -51,40 +51,32 @@ class JudoInputTextState extends State<JudoInputText> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context).copyWith();
     return JudoContainer(
-      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
-      child: TextField(
-        controller: controller,
-        readOnly: widget.disabled ? true : widget.readOnly,
-        enabled: widget.disabled ? false : !widget.readOnly,
-        expands: widget.multiline,
-        minLines: widget.multiline ? null : 1,
-        maxLines: widget.multiline ? null : 1,
-        decoration: widget.disabled ?
-        InputDecoration(
-          labelText: widget.label,
-          prefixIcon: widget.icon,
-        )
-            : widget.readOnly ?
-        InputDecoration(
-            labelText: widget.label,
-            prefixIcon: widget.icon,
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none)
-            :
-        InputDecoration(
-            labelText: widget.label,
-            prefixIcon: widget.icon),
-        onChanged: widget.onChanged,
-      ),
+      child:
+        Theme(
+          child:
+            Container(
+              child: TextField(
+                controller: controller,
+                readOnly: widget.disabled ? true : widget.readOnly,
+                enabled: widget.disabled ? false : !widget.readOnly,
+                expands: widget.multiline,
+                minLines: widget.multiline ? null : 1,
+                maxLines: widget.multiline ? null : 1,
+                decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null),
+                onChanged: widget.onChanged,
+              ),
+              decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
+             ),
+          data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
+        ),
     );
   }
 }

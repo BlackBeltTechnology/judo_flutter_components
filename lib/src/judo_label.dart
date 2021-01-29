@@ -24,7 +24,7 @@ class JudoLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: col,
       row: row,
       stretch: stretch,

@@ -38,31 +38,51 @@ class JudoLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getWidget();
+    return getWidget(context);
   }
 
-  Widget getWidget() {
+  Widget getWidget(BuildContext context) {
+    final ThemeData theme = Theme.of(context).copyWith();
+
     return JudoContainer(
-        color: disabled ? JudoComponentsSettings.disabledColor : null,
+        // color: disabled ? JudoComponentsSettings.disabledColor : null,
         padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
         col: col,
         row: row,
         stretch: stretch,
         alignment: alignment,
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Flexible(
-                child:
-                  InkWell(
-                    onTap: !readOnly ? setAction : null,
-                    child: getTextField()
+        child:
+          Theme(
+            child:
+                Container(
+                  child:
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child:
+                          InkWell(
+                              onTap: !readOnly ? setAction : null,
+                              child: getTextField()
+                          ),
+                        ),
+                        Container(
+                          color: Colors.white,
+                          child:
+                          Padding(padding: EdgeInsets.symmetric(vertical: 6), child:
+                          Row(
+                            children: getActionWidgets(),
+                          ),
+                          )
+                        )
+                      ]
                   ),
-              ),
-              ...getActionWidgets()
-          ])
+                  decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
+                ),
+            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly),
+          )
         );
   }
 
@@ -72,7 +92,8 @@ class JudoLink extends StatelessWidget {
       return TextField(
         controller: controller,
         readOnly: true,
-        decoration: readOnly ?
+        /*
+          decoration: readOnly ?
         InputDecoration(
           enabled: false,
           labelText: label,
@@ -89,8 +110,10 @@ class JudoLink extends StatelessWidget {
           labelText: label,
           prefixIcon: icon,
           //suffixIcon: iconDatePicker(context),
-        ),
-        //onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
+        ), */
+        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(label, icon, null),
+
+    //onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
       );
   }
 

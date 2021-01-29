@@ -52,8 +52,8 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+//      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
@@ -95,7 +95,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
-          color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+//          color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
         ),
         onPressed: widget.disabled ? null : () async {
           tempTime = await showTimePicker(

@@ -26,7 +26,7 @@ class JudoColumn extends StatelessWidget {
       flex: col,
       child: card ? Card(
         child: Container(
-          height: row * JudoComponentsSettings.height,
+          height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Column(
             mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
             crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
@@ -41,7 +41,7 @@ class JudoColumn extends StatelessWidget {
       )
         :
       Container(
-        height: row * JudoComponentsSettings.height,
+        height: row * JudoComponentCustomizer.get().getLineHeight(),
         child: Column(
           mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
           crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,

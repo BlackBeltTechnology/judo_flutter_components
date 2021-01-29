@@ -49,7 +49,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-          padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+          padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
           col: widget.col,
           row: widget.row,
           stretch: widget.stretch,
@@ -60,10 +60,10 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
               value: widget.value,
               icon: Icon(Icons.arrow_drop_down),
               elevation: 16,
-              style: TextStyle(color: JudoComponentsSettings.primaryColor),
+              // style: TextStyle(color: JudoComponentsSettings.primaryColor),
               underline: Container(
                 height: 2,
-                color: JudoComponentsSettings.secondaryColor,
+                // color: JudoComponentsSettings.secondaryColor,
               ),
               onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
               ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?

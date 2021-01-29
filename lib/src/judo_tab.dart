@@ -55,7 +55,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
@@ -63,12 +63,12 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
       child: Column(
         children: [
           Container(
-            constraints: BoxConstraints(maxHeight: JudoComponentsSettings.height),
+            constraints: BoxConstraints(maxHeight: JudoComponentCustomizer.get().getLineHeight()),
             child: TabBar(
               controller: widget.tabController,
               tabs: widget.tabs,
-              labelColor: JudoComponentsSettings.primaryColor,
-              indicatorColor: JudoComponentsSettings.primaryColor,
+//              labelColor: JudoComponentsSettings.primaryColor,
+//              indicatorColor: JudoComponentsSettings.primaryColor,
             ),
           ),
           Expanded(

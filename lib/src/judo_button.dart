@@ -37,34 +37,20 @@ class JudoButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+      padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: col,
       row: row,
       stretch: stretch,
       alignment: alignment,
       child: icon != null
           ? RaisedButton.icon(
-            shape: RoundedRectangleBorder(
-                borderRadius: rounded ? BorderRadius.circular(16.0) : BorderRadius.zero
-            ),
             icon: icon,
             label: label != null ? Text(label) : Text(''),
             onPressed: disabled ? null : onPressed,
-            color: color ?? JudoComponentsSettings.primaryColor,
-            disabledColor: disabledColor,
-            textColor: textColor,
-            disabledTextColor: disabledTextColor,
           )
-          : RaisedButton(
-            shape: RoundedRectangleBorder(
-                borderRadius: rounded ? BorderRadius.circular(16.0) : BorderRadius.zero
-            ),
+          : RaisedButton (
             child: label != null ? Text(label) : Text(''),
             onPressed: disabled ? null : onPressed,
-            color: color ?? JudoComponentsSettings.primaryColor,
-            disabledColor: disabledColor,
-            textColor: textColor,
-            disabledTextColor: disabledTextColor,
           ),
     );
   }

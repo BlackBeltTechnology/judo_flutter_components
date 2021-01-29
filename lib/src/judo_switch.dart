@@ -37,8 +37,8 @@ class JudoSwitchState extends State<JudoSwitch> {
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
-      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
-      padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+//      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
+      padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
@@ -50,7 +50,7 @@ class JudoSwitchState extends State<JudoSwitch> {
             widget.label + ' '
           ),
           Switch(
-            activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
+//            activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
             value: widget.initialValue ?? false,
             onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
           ),
