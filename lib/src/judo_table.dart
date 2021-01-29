@@ -62,15 +62,21 @@ class JudoTable extends StatelessWidget {
   }
 
 
-  DataTable dataTable(BuildContext context) {
+  Widget dataTable(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
-    return DataTable(
+    return Theme(
+      child: DataTable(
         headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
         onSelectAll: (b) {},
         sortAscending: sortAscending,
         columns: dataInfo.getColumns(onAdd),
         rows: dataRow(context)
+      ),
+      data: theme.copyWith(
+          iconTheme: theme.iconTheme.copyWith(
+            color:  theme.colorScheme.secondary),
+      )
     );
   }
 
