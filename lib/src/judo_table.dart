@@ -2,7 +2,13 @@ part of judo.components;
 
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function onAdd);
-  Function getRow({Function navigateToEditPageAction, Function navigateToViewPageAction, Function navigateToCreatePageAction, Function removeAction, Function unsetAction, Function deleteAction});
+  Function getRow({BuildContext context,
+    Function navigateToEditPageAction,
+    Function navigateToViewPageAction,
+    Function navigateToCreatePageAction,
+    Function removeAction,
+    Function unsetAction,
+    Function deleteAction});
 }
 
 class JudoTable extends StatelessWidget {
@@ -69,6 +75,7 @@ class JudoTable extends StatelessWidget {
       child: DataTable(
         headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
         onSelectAll: (b) {},
+        showCheckboxColumn: false,
         sortAscending: sortAscending,
         columns: dataInfo.getColumns(onAdd),
         rows: dataRow(context)
@@ -84,6 +91,7 @@ class JudoTable extends StatelessWidget {
 
     List<DataRow> dataRowList = rowList.map<DataRow>(
         dataInfo.getRow(
+          context: context,
           navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
           navigateToCreatePageAction: disabled ? null : this.navigateToCreatePageAction,
           navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction,
@@ -95,6 +103,7 @@ class JudoTable extends StatelessWidget {
     return List<DataRow>.generate(
           dataRowList.length,
             (index) => DataRow(
+              onSelectChanged: (newValue) => navigateToViewPageAction(rowList[index]),
               color: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 // All rows will have the same selected color.
