@@ -63,13 +63,15 @@ class JudoLink extends StatelessWidget {
                       children: [
                         Flexible(
                           child:
-                          InkWell(
-                              onTap: !readOnly ? setAction : null,
-                              child: getTextField()
-                          ),
+                              Container(
+                                child: InkWell(
+                                    onTap: !readOnly ? setAction : null,
+                                    child: getTextField()
+                                ),
+                                decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
+                              )
                         ),
                         Container(
-                          color: Colors.white,
                           child:
                           Padding(padding: EdgeInsets.symmetric(vertical: 6), child:
                           Row(
@@ -79,7 +81,6 @@ class JudoLink extends StatelessWidget {
                         )
                       ]
                   ),
-                  decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
                 ),
             data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly),
           )
@@ -92,28 +93,7 @@ class JudoLink extends StatelessWidget {
       return TextField(
         controller: controller,
         readOnly: true,
-        /*
-          decoration: readOnly ?
-        InputDecoration(
-          enabled: false,
-          labelText: label,
-          prefixIcon: icon,
-          border: InputBorder.none,
-          focusedBorder: InputBorder.none,
-          enabledBorder: InputBorder.none,
-          errorBorder: InputBorder.none,
-          disabledBorder: InputBorder.none,
-          //suffixIcon: iconDatePicker(context),
-        ) :
-        InputDecoration(
-          enabled: false,
-          labelText: label,
-          prefixIcon: icon,
-          //suffixIcon: iconDatePicker(context),
-        ), */
         decoration: JudoComponentCustomizer.get().getInputLinkDecoration(label, icon, null),
-
-    //onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
       );
   }
 
