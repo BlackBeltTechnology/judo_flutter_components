@@ -1,7 +1,7 @@
 part of judo.components;
 
 abstract class JudoTableDataInfo {
-  List<DataColumn> getColumns(Function onAdd);
+  List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
   Function getRow({BuildContext context,
     Function navigateToEditPageAction,
     Function navigateToViewPageAction,
@@ -9,6 +9,7 @@ abstract class JudoTableDataInfo {
     Function removeAction,
     Function unsetAction,
     Function deleteAction});
+  Comparator getSortComparator(int columnIndex, bool asc);
 }
 
 class JudoTable extends StatelessWidget {
@@ -25,8 +26,10 @@ class JudoTable extends StatelessWidget {
     this.unsetAction,
     this.deleteAction,
     this.sortAscending = true,
+    this.sortColumnIndex = 0,
     this.disabled = false,
     this.onAdd,
+    this.onSort,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -35,6 +38,7 @@ class JudoTable extends StatelessWidget {
   final int col;
   final double row;
   final bool sortAscending;
+  final int sortColumnIndex;
   final bool disabled;
   final JudoTableDataInfo dataInfo;
   final List rowList;
@@ -45,6 +49,7 @@ class JudoTable extends StatelessWidget {
   final Function unsetAction;
   final Function deleteAction;
   final Function onAdd;
+  final Function onSort;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
@@ -76,8 +81,9 @@ class JudoTable extends StatelessWidget {
         headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
         onSelectAll: (b) {},
         showCheckboxColumn: false,
-        sortAscending: sortAscending,
-        columns: dataInfo.getColumns(onAdd),
+        sortAscending: sortAscending == null ? true : sortAscending,
+        sortColumnIndex: sortColumnIndex,
+        columns: dataInfo.getColumns(onAdd, onSort),
         rows: dataRow(context)
       ),
       data: theme.copyWith(
