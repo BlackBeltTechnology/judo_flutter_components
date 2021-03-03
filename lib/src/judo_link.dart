@@ -93,7 +93,8 @@ class JudoLink extends StatelessWidget {
       return TextField(
         controller: controller,
         readOnly: true,
-        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(label, icon, null),
+        enabled: false,
+        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(label, icon, null)
       );
   }
 
