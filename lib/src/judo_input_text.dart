@@ -15,6 +15,7 @@ class JudoInputText extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.multiline = false,
+    this.maxLength = 250,
   }) : super(key: key);
 
   final int col;
@@ -29,6 +30,7 @@ class JudoInputText extends StatefulWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool multiline;
+  final int maxLength;
 
   @override
   JudoInputTextState createState() => JudoInputTextState();
@@ -70,9 +72,9 @@ class JudoInputTextState extends State<JudoInputText> {
                 expands: widget.multiline,
                 minLines: widget.multiline ? null : 1,
                 maxLines: widget.multiline ? null : 1,
-//                maxLength: 250, // TODO: fix
+                maxLength: widget.maxLength ?? 250,
                 inputFormatters: [
-                    _Utf8LengthLimitingTextInputFormatter(250),
+                    _Utf8LengthLimitingTextInputFormatter(widget.maxLength ?? 250),
                 ],
                 decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
                     .copyWith(
