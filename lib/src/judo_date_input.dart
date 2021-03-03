@@ -103,7 +103,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
                 ),
                 decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
             ),
-          data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, widget.disabled, widget.readOnly),
+          data: JudoComponentCustomizer.get().getInputDateThemeCustomizer(theme, widget.disabled, widget.readOnly),
         )
     );
   }
