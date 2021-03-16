@@ -1,8 +1,8 @@
 part of judo.components;
 
-class JudoTestComboBox<T> extends StatefulWidget {
+class JudoComboBox<T> extends StatefulWidget {
 
-  JudoTestComboBox({
+  JudoComboBox({
     Key key,
     @required this.col,
     this.row = 1.0,
@@ -43,10 +43,10 @@ class JudoTestComboBox<T> extends StatefulWidget {
   final bool readOnly;
 
   @override
-  _JudoTestComboBoxState<T> createState() => _JudoTestComboBoxState<T>();
+  _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
 }
 
-class _JudoTestComboBoxState<T> extends State<JudoTestComboBox<T>> {
+class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
 
   @override
   Widget build(BuildContext context) {
