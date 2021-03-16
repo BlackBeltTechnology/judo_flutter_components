@@ -8,7 +8,7 @@ class JudoTimeInput extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
-    @required this.initialDate,
+    this.initialDate,
     this.readOnly = false,
     this.disabled = false,
     this.use24HourFormat,
