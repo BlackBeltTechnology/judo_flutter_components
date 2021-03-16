@@ -51,6 +51,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context).copyWith();
     return JudoContainer(
       // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
@@ -58,44 +59,50 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
       row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
-      child: TextField(
-        controller: controller,
-        readOnly: widget.disabled ? true : widget.readOnly,
-        enabled: widget.disabled ? false : !widget.readOnly,
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          TextInputFormatter.withFunction((oldValue, newValue) {
-            var correctTextEditingValue = TextEditingValue();
-            if(_regExp.hasMatch(newValue.text)){
-              correctTextEditingValue = TextEditingValue().copyWith(text: newValue.text, composing: newValue.composing, selection: newValue.selection);
-            } else {
-              correctTextEditingValue = TextEditingValue().copyWith(text: oldValue.text, composing: oldValue.composing, selection: oldValue.selection);
-            }
-            return correctTextEditingValue;
-          }),
-        ],
-        decoration: widget.disabled ?
-        InputDecoration(
-          labelText: widget.label,
-          prefixIcon: widget.icon,
-        )
-            : widget.readOnly ?
-        InputDecoration(
-            labelText: widget.label,
-            prefixIcon: widget.icon,
-            border: InputBorder.none,
-            focusedBorder: InputBorder.none,
-            enabledBorder: InputBorder.none,
-            errorBorder: InputBorder.none,
-            disabledBorder: InputBorder.none)
-            :
-        InputDecoration(
-            labelText: widget.label,
-            prefixIcon: widget.icon,
+      child: Theme(
+        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
+        child: Container(
+          decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          child: TextField(
+            controller: controller,
+            readOnly: widget.disabled ? true : widget.readOnly,
+            enabled: widget.disabled ? false : !widget.readOnly,
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              TextInputFormatter.withFunction((oldValue, newValue) {
+                var correctTextEditingValue = TextEditingValue();
+                if(_regExp.hasMatch(newValue.text)){
+                  correctTextEditingValue = TextEditingValue().copyWith(text: newValue.text, composing: newValue.composing, selection: newValue.selection);
+                } else {
+                  correctTextEditingValue = TextEditingValue().copyWith(text: oldValue.text, composing: oldValue.composing, selection: oldValue.selection);
+                }
+                return correctTextEditingValue;
+              }),
+            ],
+            decoration: widget.disabled ?
+            InputDecoration(
+              labelText: widget.label,
+              prefixIcon: widget.icon,
+            )
+                : widget.readOnly ?
+            InputDecoration(
+                labelText: widget.label,
+                prefixIcon: widget.icon,
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none)
+                :
+            InputDecoration(
+                labelText: widget.label,
+                prefixIcon: widget.icon,
+            ),
+            onChanged: (value) {
+                return widget.onChanged(value);
+            },
+          ),
         ),
-        onChanged: (value) {
-            return widget.onChanged(value);
-        },
       ),
     );
   }

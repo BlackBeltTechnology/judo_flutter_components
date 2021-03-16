@@ -36,7 +36,7 @@ class JudoSwitchState extends State<JudoSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context).copyWith();
     return JudoContainer(
 //      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
@@ -44,31 +44,37 @@ class JudoSwitchState extends State<JudoSwitch> {
       row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
-      child: Row(
-        children: [
-          /*
-          Text(
-            widget.label + ' '
-          ),
-          Switch(
+      child: Theme(
+        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
+        child: Container(
+          decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          child: Row(
+            children: [
+              /*
+              Text(
+                widget.label + ' '
+              ),
+              Switch(
 //            activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
-            value: widget.initialValue ?? false,
-            onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
-          ), */
+                value: widget.initialValue ?? false,
+                onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
+              ), */
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-            child: Checkbox(
-              value: widget.initialValue ?? false,
-              onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
-            ),
-          ),
-          Text(
-              widget.label,
-              style: theme.textTheme.subtitle1,
-          ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                child: Checkbox(
+                  value: widget.initialValue ?? false,
+                  onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
+                ),
+              ),
+              Text(
+                  widget.label,
+                  style: theme.textTheme.subtitle1,
+              ),
 
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }
