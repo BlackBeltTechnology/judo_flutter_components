@@ -13,7 +13,7 @@ class JudoDateTimeInput extends StatefulWidget {
     this.disabled = false,
     this.firstDate,
     this.lastDate,
-    this.use24HourFormat,
+    this.use24HourFormat = true,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
