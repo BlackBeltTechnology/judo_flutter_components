@@ -56,15 +56,15 @@ class JudoTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
     return JudoContainer(
       col: col,
-      row: row,
+      row: currentRow,
       padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       stretch: stretch,
       alignment: alignment,
       child: SizedBox(
-        height: row * JudoComponentCustomizer.get().getLineHeight(),
+        height: currentRow * JudoComponentCustomizer.get().getLineHeight(),
         child: SingleChildScrollView(
           child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
         ),
@@ -84,7 +84,8 @@ class JudoTable extends StatelessWidget {
         sortAscending: sortAscending == null ? true : sortAscending,
         sortColumnIndex: sortColumnIndex,
         columns: dataInfo.getColumns(onAdd, onSort),
-        rows: dataRow(context)
+        rows: dataRow(context),
+        dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
       ),
       data: theme.copyWith(
           iconTheme: theme.iconTheme.copyWith(
