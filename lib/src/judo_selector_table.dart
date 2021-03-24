@@ -54,6 +54,10 @@ class JudoSelectorTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return rowList is ObservableList ? Observer(builder: (_) => container(context)) : container(context);
+  }
+
+  Widget container(BuildContext context) {
     var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
     return JudoContainer(
         col: col,
@@ -70,13 +74,11 @@ class JudoSelectorTable extends StatelessWidget {
     );
   }
 
-
   Widget dataTable(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
     return Theme(
-        child: Observer(
-          builder: (_) => DataTable(
+        child: DataTable(
               onSelectAll: collectionSelector ? null : (_) {},
               headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
               showCheckboxColumn: true,
@@ -86,7 +88,6 @@ class JudoSelectorTable extends StatelessWidget {
               rows: dataRow(context),
               dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
           ),
-        ),
         data: theme.copyWith(
           iconTheme: theme.iconTheme.copyWith(
               color:  theme.colorScheme.secondary),

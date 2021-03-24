@@ -56,22 +56,25 @@ class JudoTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
-    return JudoContainer(
-      col: col,
-      row: currentRow,
-      padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
-      stretch: stretch,
-      alignment: alignment,
-      child: SizedBox(
-        height: currentRow * JudoComponentCustomizer.get().getLineHeight(),
-        child: SingleChildScrollView(
-          child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
-        ),
-      )
-    );
+    return rowList is ObservableList ? Observer(builder: (_) => container(context)) : container(context);
   }
 
+  Widget container(BuildContext context) {
+    var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
+    return JudoContainer(
+        col: col,
+        row: currentRow,
+        padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+        stretch: stretch,
+        alignment: alignment,
+        child: SizedBox(
+          height: currentRow * JudoComponentCustomizer.get().getLineHeight(),
+          child: SingleChildScrollView(
+            child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
+          ),
+        )
+    );
+  }
 
   Widget dataTable(BuildContext context) {
     ThemeData theme = Theme.of(context);
