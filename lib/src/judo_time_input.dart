@@ -8,6 +8,7 @@ class JudoTimeInput extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onSubmitted,
     this.initialDate,
     this.readOnly = false,
     this.disabled = false,
@@ -22,6 +23,7 @@ class JudoTimeInput extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onSubmitted;
   final TimeOfDay initialDate;
   final bool readOnly;
   final bool disabled;
@@ -86,6 +88,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
           suffixIcon: iconDatePicker(context),
         ),
         onChanged: (value) => onChangedHandler(TimeOfDay.fromDateTime(DateTime.parse(value))),
+        onSubmitted: widget.onSubmitted,
       ),
     );
   }

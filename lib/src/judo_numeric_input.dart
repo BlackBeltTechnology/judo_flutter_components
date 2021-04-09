@@ -9,6 +9,7 @@ class JudoNumericInput extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onSubmitted,
     this.initialValue,
     this.readOnly = false,
     this.disabled = false,
@@ -22,6 +23,7 @@ class JudoNumericInput extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onSubmitted;
   final String initialValue;
   final bool readOnly;
   final bool disabled;
@@ -101,6 +103,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
             onChanged: (value) {
                 return widget.onChanged(value);
             },
+            onSubmitted: widget.onSubmitted,
           ),
         ),
       ),

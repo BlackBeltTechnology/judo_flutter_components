@@ -8,6 +8,7 @@ class JudoInputText extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onSubmitted,
     this.initialValue,
     this.readOnly = false,
     this.disabled = false,
@@ -23,6 +24,7 @@ class JudoInputText extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onSubmitted;
   final String initialValue;
   final bool readOnly;
   final bool disabled;
@@ -82,6 +84,7 @@ class JudoInputTextState extends State<JudoInputText> {
                       prefixIcon: widget.row > 1.0 ? Icon(IconData(0)) : widget.icon,
                 ),
                 onChanged: widget.onChanged,
+                onSubmitted: widget.onSubmitted,
               ),
               decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
              ),

@@ -72,13 +72,13 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
               icon: Icon(Icons.arrow_drop_down),
               elevation: 16,
               onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
-              ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
-                (newValue) {
-                  setState(() {
-                    widget.value = newValue;
-                  });
-                } : null
-              ),
+                ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
+                  (newValue) {
+                    setState(() {
+                      widget.value = newValue;
+                    });
+                  } : null
+                ),
               items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
         ),
       ),
