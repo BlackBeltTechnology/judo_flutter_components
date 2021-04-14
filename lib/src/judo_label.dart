@@ -13,7 +13,7 @@ class JudoLabel extends StatelessWidget {
     this.icon,
   }) : super(key: key);
 
-  final double col;
+  final int col;
   final double row;
   final EdgeInsets padding;
   final bool stretch;
