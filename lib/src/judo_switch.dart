@@ -17,7 +17,7 @@ class JudoSwitch extends StatefulWidget {
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
-  final double col;
+  final int col;
   final double row;
   final bool mandatory;
   final String label;

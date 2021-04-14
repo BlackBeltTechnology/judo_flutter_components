@@ -21,7 +21,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.readOnly = false,
   }) : super(key: key);
 
-  final double col;
+  final int col;
   final double row;
   final bool mandatory;
   final String label;
