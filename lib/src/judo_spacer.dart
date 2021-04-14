@@ -8,7 +8,7 @@ class JudoSpacer extends StatelessWidget {
     this.row = 1.0,
   }) : super(key: key);
 
-  final int col;
+  final double col;
   final double row;
 
   @override
