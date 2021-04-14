@@ -13,7 +13,7 @@ class JudoColumn extends StatelessWidget {
   }) : super(key: key);
 
   final List<Widget> children;
-  final int col;
+  final double col;
   final double row;
   final MainAxisAlignment mainAxisAlignment;
   final CrossAxisAlignment crossAxisAlignment;
@@ -23,7 +23,7 @@ class JudoColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: col,
+      flex: (col*100).round(),
       child: card ? Card(
         child: Container(
           height: row * JudoComponentCustomizer.get().getLineHeight(),
