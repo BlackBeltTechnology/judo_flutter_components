@@ -6,7 +6,6 @@ class JudoComboBox<T> extends StatefulWidget {
     Key key,
     @required this.col,
     this.row = 1.0,
-    this.mandatory = false,
     this.icon,
     this.label,
     this.items,
@@ -23,7 +22,6 @@ class JudoComboBox<T> extends StatefulWidget {
 
   final double col;
   final double row;
-  final bool mandatory;
   final String label;
   final Icon icon;
   T value;
@@ -66,7 +64,8 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
           child: DropdownButtonFormField<T>(
               decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
                   .copyWith(
-                labelText: widget.mandatory ? widget.label + ' *' : widget.label,
+                floatingLabelBehavior: widget.row > 1.0 ? FloatingLabelBehavior.always : null,
+                prefixIcon: widget.row > 1.0 ? Icon(IconData(0)) : widget.icon,
               ),
               onTap: widget.onTap,
               value: widget.value,

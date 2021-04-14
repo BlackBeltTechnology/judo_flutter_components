@@ -5,7 +5,6 @@ class JudoInputText extends StatefulWidget {
     Key key,
     @required this.col,
     this.row = 1.0,
-    this.mandatory = false,
     this.label,
     this.icon,
     this.onChanged,
@@ -22,7 +21,6 @@ class JudoInputText extends StatefulWidget {
 
   final double col;
   final double row;
-  final bool mandatory;
   final String label;
   final Icon icon;
   final Function onChanged;
@@ -84,7 +82,6 @@ class JudoInputTextState extends State<JudoInputText> {
                     .copyWith(
                       floatingLabelBehavior: widget.row > 1.0 ? FloatingLabelBehavior.always : null,
                       prefixIcon: widget.row > 1.0 ? Icon(IconData(0)) : widget.icon,
-                      labelText: widget.mandatory ? widget.label + ' *' : widget.label,
                 ),
                 onChanged: widget.onChanged,
                 onSubmitted: widget.onSubmitted,

@@ -6,7 +6,6 @@ class JudoNumericInput extends StatefulWidget {
     Key key,
     @required this.col,
     this.row = 1.0,
-    this.mandatory = false,
     this.label,
     this.icon,
     this.onChanged,
@@ -21,7 +20,6 @@ class JudoNumericInput extends StatefulWidget {
 
   final double col;
   final double row;
-  final bool mandatory;
   final String label;
   final Icon icon;
   final Function onChanged;
@@ -83,9 +81,24 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return correctTextEditingValue;
               }),
             ],
-            decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
-                .copyWith(
-              labelText: widget.mandatory ? widget.label + ' *' : widget.label,
+            decoration: widget.disabled ?
+            InputDecoration(
+              labelText: widget.label,
+              prefixIcon: widget.icon,
+            )
+                : widget.readOnly ?
+            InputDecoration(
+                labelText: widget.label,
+                prefixIcon: widget.icon,
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                disabledBorder: InputBorder.none)
+                :
+            InputDecoration(
+                labelText: widget.label,
+                prefixIcon: widget.icon,
             ),
             onChanged: (value) {
                 return widget.onChanged(value);
