@@ -15,7 +15,7 @@ class JudoContainer extends StatefulWidget {
 
   final Widget child;
   final EdgeInsets padding;
-  final int col;
+  final double col;
   final double row;
   final Color color;
   final bool stretch;
@@ -30,7 +30,7 @@ class JudoContainerState extends State<JudoContainer> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: widget.col,
+      flex: (widget.col * 100).round(),
       child: Container(
         color: widget.color,
         height: widget.row * JudoComponentCustomizer.get().getLineHeight(),

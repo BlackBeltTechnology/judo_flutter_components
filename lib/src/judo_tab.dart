@@ -12,7 +12,7 @@ class JudoTab extends StatefulWidget {
     this.padding,
   }) : super(key: key);
 
-  final int col;
+  final double col;
   final double row;
   final List<Tab> tabs;
   final List<Widget> tabContent;

@@ -10,7 +10,7 @@ class JudoDivider extends StatelessWidget {
     this.alignment = Alignment.center,
   }) : super(key: key);
 
-  final int col;
+  final double col;
   final double row;
   final EdgeInsets padding;
   final Alignment alignment;
