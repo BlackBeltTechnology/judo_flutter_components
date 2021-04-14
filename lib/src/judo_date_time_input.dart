@@ -5,6 +5,7 @@ class JudoDateTimeInput extends StatefulWidget {
     Key key,
     @required this.col,
     this.row = 1,
+    this.mandatory = false,
     this.label,
     this.icon,
     this.onChanged,
@@ -22,6 +23,7 @@ class JudoDateTimeInput extends StatefulWidget {
 
   final double col;
   final double row;
+  final bool mandatory;
   final String label;
   final Icon icon;
   final Function onChanged;
@@ -75,7 +77,9 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
                   controller: controller,
                   readOnly: widget.disabled ? true : widget.readOnly,
                   enabled: widget.disabled ? false : !widget.readOnly,
-                  decoration: JudoComponentCustomizer.get().getInputDateTimeDecoration(widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context)),
+                  decoration: JudoComponentCustomizer.get().getInputDateTimeDecoration(widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context)).copyWith(
+                    labelText: widget.mandatory ? widget.label + ' *' : widget.label,
+                  ),
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),
