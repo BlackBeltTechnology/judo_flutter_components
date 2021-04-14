@@ -29,7 +29,7 @@ class JudoSelectorTable extends StatelessWidget {
   }) : super(key: key);
 
   final bool collectionSelector;
-  final int col;
+  final double col;
   final double row;
   final bool sortAscending;
   final int sortColumnIndex;

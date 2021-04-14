@@ -18,7 +18,7 @@ class JudoTimeInput extends StatefulWidget {
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
-  final int col;
+  final double col;
   final double row;
   final String label;
   final Icon icon;

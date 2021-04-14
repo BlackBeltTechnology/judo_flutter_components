@@ -12,7 +12,7 @@ class JudoTitle extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final int col;
+  final double col;
   final double row;
   final bool stretch;
   final Alignment alignment;

@@ -19,7 +19,7 @@ class JudoButton extends StatelessWidget {
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
-  final int col;
+  final double col;
   final double row;
   final EdgeInsets padding;
   final String label;
