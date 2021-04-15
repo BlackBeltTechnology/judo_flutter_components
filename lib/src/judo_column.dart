@@ -10,6 +10,9 @@ class JudoColumn extends StatelessWidget {
     this.crossAxisAlignment,
     this.mainAxisSize,
     this.card = false,
+    this.frameMargin = const EdgeInsets.all(4.0),
+    this.radius = 4.0,
+    this.elevation = 4.0,
   }) : super(key: key);
 
   final List<Widget> children;
@@ -19,12 +22,20 @@ class JudoColumn extends StatelessWidget {
   final CrossAxisAlignment crossAxisAlignment;
   final MainAxisSize mainAxisSize;
   final bool card;
+  final EdgeInsets frameMargin;
+  final double radius;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: (col*100).round(),
       child: card ? Card(
+        elevation: elevation,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+        ),
+        margin: frameMargin,
         child: Container(
           height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Column(
