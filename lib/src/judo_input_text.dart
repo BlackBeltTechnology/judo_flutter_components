@@ -82,8 +82,8 @@ class JudoInputTextState extends State<JudoInputText> {
                 ],
                 decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
                     .copyWith(
-                      floatingLabelBehavior: widget.row > 1.0 ? FloatingLabelBehavior.always : null,
-                      prefixIcon: widget.row > 1.0 ? Icon(IconData(0)) : widget.icon,
+                      floatingLabelBehavior: widget.multiline ? FloatingLabelBehavior.always : null,
+                      prefixIcon: widget.multiline ? Icon(IconData(0)) : widget.icon,
                       labelText: widget.mandatory ? widget.label + ' *' : widget.label,
                 ),
                 onChanged: widget.onChanged,
