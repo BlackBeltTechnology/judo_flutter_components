@@ -13,6 +13,7 @@ class JudoInputText extends StatefulWidget {
     this.initialValue,
     this.readOnly = false,
     this.disabled = false,
+    this.inCard = false,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -30,6 +31,7 @@ class JudoInputText extends StatefulWidget {
   final String initialValue;
   final bool readOnly;
   final bool disabled;
+  final bool inCard;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
@@ -69,6 +71,7 @@ class JudoInputTextState extends State<JudoInputText> {
         Theme(
           child:
             Container(
+              margin: widget.multiline ? EdgeInsets.symmetric(vertical: 10.0) : null,
               child: TextField(
                 controller: controller,
                 readOnly: widget.disabled ? true : widget.readOnly,
@@ -83,7 +86,7 @@ class JudoInputTextState extends State<JudoInputText> {
                 decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
                     .copyWith(
                       floatingLabelBehavior: widget.multiline ? FloatingLabelBehavior.always : null,
-                      prefixIcon: widget.multiline ? Icon(IconData(0)) : widget.icon,
+                      prefixIcon: widget.icon,
                       labelText: widget.mandatory ? widget.label + ' *' : widget.label,
                 ),
                 onChanged: widget.onChanged,
@@ -91,7 +94,7 @@ class JudoInputTextState extends State<JudoInputText> {
               ),
               decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
              ),
-          data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
+          data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         ),
     );
   }

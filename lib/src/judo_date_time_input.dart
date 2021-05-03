@@ -19,6 +19,7 @@ class JudoDateTimeInput extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
+    this.inCard = false,
   }) : super(key: key);
 
   final double col;
@@ -35,6 +36,7 @@ class JudoDateTimeInput extends StatefulWidget {
   final DateTime lastDate;
   final bool use24HourFormat;
   final bool stretch;
+  final bool inCard;
   final Alignment alignment;
   final EdgeInsets padding;
 
@@ -85,7 +87,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
                 ),
                 decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
             ),
-          data: JudoComponentCustomizer.get().getInputDateTimeThemeCustomizer(theme, widget.disabled, widget.readOnly),
+          data: JudoComponentCustomizer.get().getInputDateTimeThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         )
     );
   }

@@ -38,6 +38,7 @@ class JudoRow extends StatelessWidget {
         margin: frameMargin,
         borderOnForeground: false,
         child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 10),
           height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Row(
             mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.center,

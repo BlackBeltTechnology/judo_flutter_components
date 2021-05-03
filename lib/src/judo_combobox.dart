@@ -19,6 +19,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.padding,
     this.disabled = false,
     this.readOnly = false,
+    this.inCard = false,
   }) : super(key: key);
 
   final double col;
@@ -43,6 +44,7 @@ class JudoComboBox<T> extends StatefulWidget {
   final Function onTap;
   final bool disabled;
   final bool readOnly;
+  final bool inCard;
 
   @override
   _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
@@ -60,17 +62,21 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: Theme(
-        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
+        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
           decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
-          child: DropdownButtonFormField<T>(
+          height: 52,
+          alignment: Alignment.center,
+              child: DropdownButtonFormField<T>(
               decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
                   .copyWith(
                 labelText: widget.mandatory ? widget.label + ' *' : widget.label,
+                contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
               ),
               onTap: widget.onTap,
               value: widget.value,
-              icon: Icon(Icons.arrow_drop_down),
+              icon: Icon(Icons.expand_more),
+              iconSize: 28,
               elevation: 16,
               onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
                 ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
