@@ -32,6 +32,7 @@ class JudoTable extends StatelessWidget {
     this.onSort,
     this.padding,
     this.stretch = false,
+    this.inCard = false,
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
@@ -53,6 +54,7 @@ class JudoTable extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool inCard;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,10 @@ class JudoTable extends StatelessWidget {
         child: SizedBox(
           height: currentRow * JudoComponentCustomizer.get().getLineHeight(),
           child: SingleChildScrollView(
-            child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
+            scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+              child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
+    		)
           ),
         )
     );
@@ -89,10 +94,15 @@ class JudoTable extends StatelessWidget {
         columns: dataInfo.getColumns(onAdd, onSort),
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
+        headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
+        columnSpacing: 15.0,
+        horizontalMargin: 24.0,
+        dividerThickness: 0.0,
       ),
       data: theme.copyWith(
           iconTheme: theme.iconTheme.copyWith(
             color:  theme.colorScheme.secondary),
+
       )
     );
   }
@@ -120,7 +130,8 @@ class JudoTable extends StatelessWidget {
                 if (states.contains(MaterialState.selected))
                   return Theme.of(context).colorScheme.primary.withOpacity(0.08);
                 // Even rows will have a grey color.
-                if (index % 2 == 0) return Colors.grey.withOpacity(0.05);
+                if (index % 2 == 0) return inCard ? Color(0xfffafafa) : Color(0xffffffff);
+                if (index % 2 == 1) return inCard ? Color(0xffffffff) : Color(0xfffafafa);
                 return null; // Use default value for other states and odd rows.
               }
             ),

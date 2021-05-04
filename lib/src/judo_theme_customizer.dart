@@ -46,6 +46,7 @@ abstract class JudoComponentCustomizer {
 
   ThemeData getBreadcumbThemeCustomizer(ThemeData themeData);
   TextStyle getBreadcumbTextStyle();
+  TextStyle getTableHeaderTextStyle();
 }
 
 class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
@@ -144,5 +145,14 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
 
   TextStyle getBreadcumbTextStyle() {
     return TextStyle(fontSize: 16);
+  }
+
+  TextStyle getTableHeaderTextStyle() {
+    return TextStyle(
+      color: Color(0xff17191d),
+      fontSize: 16,
+      fontFamily: 'SourceSansPro',
+      fontWeight: FontWeight.w600,
+    );
   }
 }
