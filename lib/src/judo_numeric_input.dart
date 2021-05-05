@@ -69,6 +69,8 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
         data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
           decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          height: JudoComponentCustomizer.get().getInputHeight(),
+          alignment: Alignment.center,
           child: TextField(
             controller: controller,
             readOnly: widget.disabled ? true : widget.readOnly,
@@ -85,10 +87,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return correctTextEditingValue;
               }),
             ],
-            decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
-                .copyWith(
-              labelText: widget.mandatory ? widget.label + ' *' : widget.label,
-            ),
+            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(widget.label, widget.icon, null, widget.mandatory),
             onChanged: (value) {
                 return widget.onChanged(value);
             },

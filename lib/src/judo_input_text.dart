@@ -69,32 +69,49 @@ class JudoInputTextState extends State<JudoInputText> {
       alignment: widget.alignment,
       child:
         Theme(
-          child:
-            Container(
-              margin: widget.multiline ? EdgeInsets.symmetric(vertical: 10.0) : null,
+          data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
+          child: widget.multiline ?
+
+          Container(
+              margin: EdgeInsets.symmetric(vertical: 10.0),
+              decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
               child: TextField(
                 controller: controller,
                 readOnly: widget.disabled ? true : widget.readOnly,
                 enabled: widget.disabled ? false : !widget.readOnly,
                 expands: widget.multiline,
-                minLines: widget.multiline ? null : 1,
-                maxLines: widget.multiline ? null : 1,
+                minLines: null,
+                maxLines: null,
                 maxLength: widget.maxLength ?? 250,
                 inputFormatters: [
-                    _Utf8LengthLimitingTextInputFormatter(widget.maxLength ?? 250),
+                  _Utf8LengthLimitingTextInputFormatter(widget.maxLength ?? 250),
                 ],
-                decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
-                    .copyWith(
-                      floatingLabelBehavior: widget.multiline ? FloatingLabelBehavior.always : null,
-                      prefixIcon: widget.icon,
-                      labelText: widget.mandatory ? widget.label + ' *' : widget.label,
-                ),
+                decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null, widget.mandatory, widget.multiline),
                 onChanged: widget.onChanged,
                 onSubmitted: widget.onSubmitted,
               ),
-              decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
-             ),
-          data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
+            ) :
+
+          Container(
+                height: JudoComponentCustomizer.get().getInputHeight(),
+                decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+                alignment: Alignment.center,
+                child: TextField(
+                  controller: controller,
+                  readOnly: widget.disabled ? true : widget.readOnly,
+                  enabled: widget.disabled ? false : !widget.readOnly,
+                  expands: widget.multiline,
+                  minLines: 1,
+                  maxLines: 1,
+                  maxLength: widget.maxLength ?? 250,
+                  inputFormatters: [
+                      _Utf8LengthLimitingTextInputFormatter(widget.maxLength ?? 250),
+                  ],
+                  decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null, widget.mandatory, widget.multiline),
+                  onChanged: widget.onChanged,
+                  onSubmitted: widget.onSubmitted,
+                ),
+               ),
         ),
     );
   }

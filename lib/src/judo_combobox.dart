@@ -62,21 +62,18 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: Theme(
-        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
+        data: JudoComponentCustomizer.get().getInputComboboxThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
           decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
-          height: 52,
+          height: JudoComponentCustomizer.get().getInputHeight(),
           alignment: Alignment.center,
               child: DropdownButtonFormField<T>(
-              decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
-                  .copyWith(
-                labelText: widget.mandatory ? widget.label + ' *' : widget.label,
-                contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
-              ),
+              decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(widget.label, widget.icon, null, widget.mandatory),
               onTap: widget.onTap,
               value: widget.value,
               icon: Icon(Icons.expand_more),
-              iconSize: 28,
+              iconSize: 24,
+              iconEnabledColor: Theme.of(context).colorScheme.secondary,
               elevation: 16,
               onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
                 ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
