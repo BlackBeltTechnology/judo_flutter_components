@@ -59,6 +59,7 @@ abstract class JudoComponentCustomizer {
   TextStyle getAppNameTextStyle(ThemeData theme);
   TextStyle getActorNameTextStyle(ThemeData theme);
   TextStyle getUserNameTextStyle(ThemeData theme);
+  TextStyle getRowCounterTextStyle(ThemeData theme);
 }
 
 class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
@@ -250,6 +251,11 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         fontFamily: 'SourceSansPro',
         fontWeight: FontWeight.w500
     );
+  }
+
+  @override
+  TextStyle getRowCounterTextStyle(ThemeData theme) {
+    return theme.textTheme.caption.copyWith(color: theme.colorScheme.primaryVariant);
   }
 
   @override
