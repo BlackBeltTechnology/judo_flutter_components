@@ -37,7 +37,7 @@ class JudoColumn extends StatelessWidget {
         ),
         margin: frameMargin,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: JudoComponentCustomizer.get().getDefaultPadding(),
           height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Column(
             mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,

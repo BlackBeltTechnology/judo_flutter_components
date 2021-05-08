@@ -70,11 +70,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
       alignment: widget.alignment,
       child:
         Theme(
-          data: JudoComponentCustomizer.get().getInputDateThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
           child: Container(
-              decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
-              height: JudoComponentCustomizer.get().getInputHeight(),
-              alignment: Alignment.center,
               child: TextField(
                   controller: controller,
                   readOnly: widget.disabled ? true : widget.readOnly,
@@ -83,7 +79,9 @@ class _JudoDateInputState extends State<JudoDateInput> {
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),
+            decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
             ),
+          data: JudoComponentCustomizer.get().getInputDateThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         )
     );
   }

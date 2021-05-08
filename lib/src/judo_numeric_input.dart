@@ -69,8 +69,6 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
         data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
           decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
-          height: JudoComponentCustomizer.get().getInputHeight(),
-          alignment: Alignment.center,
           child: TextField(
             controller: controller,
             readOnly: widget.disabled ? true : widget.readOnly,

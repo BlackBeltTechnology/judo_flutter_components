@@ -64,7 +64,9 @@ class JudoButton extends StatelessWidget {
       Container(
           padding: JudoComponentCustomizer.get().getDefaultPadding(),
           decoration: ShapeDecoration(
-              color: Theme
+              color: disabled ? Theme
+                  .of(context)
+                  .dividerColor : Theme
                   .of(context)
                   .primaryColor,
               shape: CircleBorder()
@@ -82,7 +84,9 @@ class JudoButton extends StatelessWidget {
       Container(
           padding: JudoComponentCustomizer.get().getDefaultPadding(),
           decoration: ShapeDecoration(
-              color: Theme
+              color: disabled ? Theme
+                  .of(context)
+                  .dividerColor : Theme
                   .of(context)
                   .primaryColor,
               shape: CircleBorder()

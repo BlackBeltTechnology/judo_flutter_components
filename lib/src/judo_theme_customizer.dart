@@ -13,10 +13,7 @@ abstract class JudoComponentCustomizer {
   }
 
   double getLineHeight();
-  double getInputHeight();
   double getMenuWidth();
-  double getGeneratedButtonWidth();
-  double getWidthOfButtonContainer(BuildContext context, double col);
   EdgeInsets getDefaultPadding();
   Decoration getInputBoxCustomizer(bool disabled, bool readOnly);
 
@@ -78,11 +75,6 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  double getInputHeight() {
-    return 52;
-  }
-
-  @override
   EdgeInsets getDefaultPadding() {
     return EdgeInsets.symmetric(horizontal: 10);
   }
@@ -124,7 +116,6 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       counterText: '',
-      contentPadding:  EdgeInsets.only(left: 10.0, right: 10.0, top: 40.0, bottom: 24.0),
     );
   }
 
@@ -160,13 +151,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
 
   @override
   InputDecoration getInputComboboxDecoration(String label, Widget prefixIcon, Widget suffixIcon, bool mandatory) {
-    return label != null ?
-    getInputDecoration(label, prefixIcon, suffixIcon, mandatory).copyWith(
-      floatingLabelBehavior: FloatingLabelBehavior.always,
-    ) :
-    getInputDecoration(label, prefixIcon, suffixIcon, mandatory).copyWith(
-      contentPadding:  EdgeInsets.symmetric(vertical: 20.0, horizontal: 10.0),
-    );
+    return getInputDecoration(label, prefixIcon, suffixIcon, mandatory).copyWith();
   }
 
   @override
@@ -297,27 +282,6 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   TextStyle getUserNameTextStyle(ThemeData theme) {
     return theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w900);
-  }
-
-  double getContentMargin(BuildContext context) {
-    double ceil = 2000;
-    double floor = 1300;
-    double min_margin = 10;
-    double max_margin = 116;
-    return ((min(max(floor, MediaQuery.of(context).size.width), ceil) - floor) / (ceil - floor)) * (max_margin - min_margin) + min_margin;
-  }
-
-  @override
-  double getWidthOfButtonContainer(BuildContext context, double col) {
-    if (MediaQuery.of(context).size.width >= 0 && MediaQuery.of(context).size.width <= 599) {
-      return (col * (MediaQuery.of(context).size.width - 20.0) / 4.0) - 20.0;
-    }
-    if (MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width <= 839) {
-      return (col * (MediaQuery.of(context).size.width - 20.0) / 8.0) - 20.0;
-    }
-    if (MediaQuery.of(context).size.width >= 840 && MediaQuery.of(context).size.width <= 32767) {
-      return col * (MediaQuery.of(context).size.width - getMenuWidth() - 2 * getContentMargin(context)) / 12.0;
-    }
   }
 
   @override
