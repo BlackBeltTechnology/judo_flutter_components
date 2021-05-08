@@ -1,7 +1,5 @@
 part of judo.components;
 
-
-
 abstract class JudoComponentCustomizer {
   static JudoComponentCustomizer _instance =
       new DefaultJudoComponentsCustomizer();
@@ -16,6 +14,9 @@ abstract class JudoComponentCustomizer {
 
   double getLineHeight();
   double getInputHeight();
+  double getMenuWidth();
+  double getGeneratedButtonWidth();
+  double getWidthOfButtonContainer(BuildContext context, double col);
   EdgeInsets getDefaultPadding();
   Decoration getInputBoxCustomizer(bool disabled, bool readOnly);
 
@@ -84,6 +85,16 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   EdgeInsets getDefaultPadding() {
     return EdgeInsets.symmetric(horizontal: 10);
+  }
+
+  @override
+  double getMenuWidth() {
+    return 304.0;
+  }
+
+  @override
+  double getGeneratedButtonWidth() {
+    return 130.0;
   }
 
   @override
@@ -294,6 +305,19 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     double min_margin = 10;
     double max_margin = 116;
     return ((min(max(floor, MediaQuery.of(context).size.width), ceil) - floor) / (ceil - floor)) * (max_margin - min_margin) + min_margin;
+  }
+
+  @override
+  double getWidthOfButtonContainer(BuildContext context, double col) {
+    if (MediaQuery.of(context).size.width >= 0 && MediaQuery.of(context).size.width <= 599) {
+      return (col * (MediaQuery.of(context).size.width - 20.0) / 4.0) - 20.0;
+    }
+    if (MediaQuery.of(context).size.width >= 600 && MediaQuery.of(context).size.width <= 839) {
+      return (col * (MediaQuery.of(context).size.width - 20.0) / 8.0) - 20.0;
+    }
+    if (MediaQuery.of(context).size.width >= 840 && MediaQuery.of(context).size.width <= 32767) {
+      return col * (MediaQuery.of(context).size.width - getMenuWidth() - 2 * getContentMargin(context)) / 12.0;
+    }
   }
 
   @override

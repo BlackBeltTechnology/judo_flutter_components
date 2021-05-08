@@ -42,16 +42,58 @@ class JudoButton extends StatelessWidget {
       row: row,
       stretch: stretch,
       alignment: alignment,
-      child: icon != null
-          ? RaisedButton.icon(
-            icon: icon,
-            label: label != null ? Text(label) : Text(''),
-            onPressed: disabled ? null : onPressed,
-          )
-          : RaisedButton (
-            child: label != null ? Text(label) : Text(''),
-            onPressed: disabled ? null : onPressed,
-          ),
+      child: getButton(context),
     );
   }
+
+    Widget getButton(BuildContext context) {
+      return label != null && icon != null ?
+      RaisedButton.icon(
+        icon: icon,
+        label: Text(label),
+        onPressed: disabled ? null : onPressed,
+      ) :
+
+      label != null && icon == null ?
+      RaisedButton(
+        child: Text(label),
+        onPressed: disabled ? null : onPressed,
+      ) :
+
+      label == null && icon != null ?
+      Container(
+          padding: JudoComponentCustomizer.get().getDefaultPadding(),
+          decoration: ShapeDecoration(
+              color: Theme
+                  .of(context)
+                  .primaryColor,
+              shape: CircleBorder()
+          ),
+          child: IconButton(
+            icon: icon,
+            onPressed: disabled ? null : onPressed,
+            tooltip: label,
+            iconSize: 20.0,
+            color: Theme
+                .of(context)
+                .buttonColor,
+          )) :
+
+      Container(
+          padding: JudoComponentCustomizer.get().getDefaultPadding(),
+          decoration: ShapeDecoration(
+              color: Theme
+                  .of(context)
+                  .primaryColor,
+              shape: CircleBorder()
+          ),
+          child: IconButton(
+            icon: Icon(Icons.add_sharp),
+            onPressed: disabled ? null : onPressed,
+            iconSize: 20.0,
+            color: Theme
+                .of(context)
+                .primaryColor,
+          ));
+    }
 }
