@@ -95,8 +95,6 @@ class JudoTable extends StatelessWidget {
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
         headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
-        horizontalMargin: 24.0,
-        dividerThickness: 0.0,
       ),
       data: theme.copyWith(
           iconTheme: theme.iconTheme.copyWith(

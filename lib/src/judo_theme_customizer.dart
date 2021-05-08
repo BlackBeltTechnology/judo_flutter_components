@@ -85,11 +85,6 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  double getGeneratedButtonWidth() {
-    return 130.0;
-  }
-
-  @override
   Decoration getInputBoxCustomizer(bool disabled, bool readOnly) {
     return (disabled || readOnly) ? null :
     BoxDecoration(
