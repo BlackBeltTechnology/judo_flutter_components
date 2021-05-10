@@ -230,6 +230,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   ThemeData getMenuTheme(ThemeData theme) {
     return theme.copyWith(
+        primaryColor: theme.colorScheme.secondary,
         colorScheme: theme.colorScheme.copyWith(primary: theme.colorScheme.secondary)
     );
   }
