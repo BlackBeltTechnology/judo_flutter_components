@@ -86,7 +86,7 @@ class JudoTable extends StatelessWidget {
 
     return Theme(
       child: DataTable(
-        headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
+        headingTextStyle: JudoComponentCustomizer.get().getTableHeaderTextStyle(Theme.of(context)),
         onSelectAll: (b) {},
         showCheckboxColumn: false,
         sortAscending: sortAscending == null ? true : sortAscending,
