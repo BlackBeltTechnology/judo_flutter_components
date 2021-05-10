@@ -127,8 +127,8 @@ class JudoTable extends StatelessWidget {
                 if (states.contains(MaterialState.selected))
                   return Theme.of(context).colorScheme.primary.withOpacity(0.08);
                 // Even rows will have a grey color.
-                if (index % 2 == 0) return inCard ? Color(0xfffafafa) : Color(0xffffffff);
-                if (index % 2 == 1) return inCard ? Color(0xffffffff) : Color(0xfffafafa);
+                if (index % 2 == 0) return inCard ? Theme.of(context).backgroundColor : Theme.of(context).cardColor;
+                if (index % 2 == 1) return inCard ? Theme.of(context).cardColor : Theme.of(context).backgroundColor;
                 return null; // Use default value for other states and odd rows.
               }
             ),

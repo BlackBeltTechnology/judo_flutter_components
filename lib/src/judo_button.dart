@@ -54,13 +54,12 @@ class JudoButton extends StatelessWidget {
         onPressed: disabled ? null : onPressed,
       ) :
 
-      label != null && icon == null ?
+      label != null ?
       RaisedButton(
         child: Text(label),
         onPressed: disabled ? null : onPressed,
       ) :
 
-      label == null && icon != null ?
       Container(
           padding: JudoComponentCustomizer.get().getDefaultPadding(),
           decoration: ShapeDecoration(
@@ -79,25 +78,6 @@ class JudoButton extends StatelessWidget {
             color: Theme
                 .of(context)
                 .buttonColor,
-          )) :
-
-      Container(
-          padding: JudoComponentCustomizer.get().getDefaultPadding(),
-          decoration: ShapeDecoration(
-              color: disabled ? Theme
-                  .of(context)
-                  .dividerColor : Theme
-                  .of(context)
-                  .primaryColor,
-              shape: CircleBorder()
-          ),
-          child: IconButton(
-            icon: Icon(Icons.add_sharp),
-            onPressed: disabled ? null : onPressed,
-            iconSize: 20.0,
-            color: Theme
-                .of(context)
-                .primaryColor,
           ));
     }
 }

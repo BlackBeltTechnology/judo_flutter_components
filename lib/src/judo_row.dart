@@ -11,7 +11,7 @@ class JudoRow extends StatelessWidget {
     this.mainAxisSize,
     this.card = false,
     this.frameMargin = const EdgeInsets.all(4.0),
-    this.radius = 4.0,
+    this.radius = 10.0,
     this.elevation = 4.0,
   }) : super(key: key);
 
