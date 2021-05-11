@@ -8,12 +8,8 @@ class JudoSelectorTable extends StatelessWidget {
     @required this.dataInfo,
     @required this.rowList,
     @required this.collectionSelector,
-    // this.navigateToEditPageAction,
-    // this.navigateToViewPageAction,
-    // this.navigateToCreatePageAction,
-    // this.removeAction,
-    // this.unsetAction,
-    // this.deleteAction,
+    this.dialogTypeAdder = false,
+    this.alreadyAddedItemsComparator,
     @required this.singleSelectAction,
     @required this.multiSelectAction,
     @required this.singleSelectedComparator,
@@ -36,12 +32,8 @@ class JudoSelectorTable extends StatelessWidget {
   final bool disabled;
   final JudoTableDataInfo dataInfo;
   final List rowList;
-  // final Function navigateToEditPageAction;
-  // final Function navigateToViewPageAction;
-  // final Function navigateToCreatePageAction;
-  // final Function removeAction;
-  // final Function unsetAction;
-  // final Function deleteAction;
+  final bool dialogTypeAdder;
+  final Function alreadyAddedItemsComparator;
   final Function singleSelectAction;
   final Function multiSelectAction;
   final Function singleSelectedComparator;
@@ -99,12 +91,6 @@ class JudoSelectorTable extends StatelessWidget {
     List<DataRow> dataRowList = rowList.map<DataRow>(
         dataInfo.getRow(
           context: context,
-          // navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
-          // navigateToCreatePageAction: disabled ? null : this.navigateToCreatePageAction,
-          // navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction,
-          // deleteAction: disabled ? null : this.deleteAction,
-          // removeAction: disabled ? null : this.removeAction,
-          // unsetAction: disabled ? null : this.unsetAction
         )
     ).toList();
 
@@ -112,7 +98,9 @@ class JudoSelectorTable extends StatelessWidget {
       dataRowList.length,
           (index) => DataRow(
         selected: collectionSelector ? multiSelectedComparator(rowList[index]) : singleSelectedComparator(rowList[index]),
-        onSelectChanged: (_) => collectionSelector ? multiSelectAction(rowList[index]) : singleSelectAction(rowList[index]),
+        onSelectChanged: (_) => collectionSelector ?
+            ( dialogTypeAdder && alreadyAddedItemsComparator(rowList[index]) ? null : multiSelectAction(rowList[index]) )
+            : singleSelectAction(rowList[index]),
         color: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
               // All rows will have the same selected color.
