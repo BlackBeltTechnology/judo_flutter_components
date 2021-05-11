@@ -96,11 +96,18 @@ class JudoSelectorTable extends StatelessWidget {
 
     return List<DataRow>.generate(
       dataRowList.length,
-          (index) => DataRow(
+      (index) => DataRow(
         selected: collectionSelector ? multiSelectedComparator(rowList[index]) : singleSelectedComparator(rowList[index]),
-        onSelectChanged: (_) => collectionSelector ?
-            ( dialogTypeAdder && alreadyAddedItemsComparator(rowList[index]) ? null : multiSelectAction(rowList[index]) )
-            : singleSelectAction(rowList[index]),
+        onSelectChanged: (_) {
+          if (dialogTypeAdder && alreadyAddedItemsComparator(rowList[index])) return;
+
+          if (collectionSelector) {
+            multiSelectAction(rowList[index]);
+          } else {
+            singleSelectAction(rowList[index]);
+          }
+
+        },
         color: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
               // All rows will have the same selected color.
