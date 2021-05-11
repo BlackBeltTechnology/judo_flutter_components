@@ -19,6 +19,7 @@ class JudoDateTimeInput extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
+    this.inCard = false,
   }) : super(key: key);
 
   final double col;
@@ -35,6 +36,7 @@ class JudoDateTimeInput extends StatefulWidget {
   final DateTime lastDate;
   final bool use24HourFormat;
   final bool stretch;
+  final bool inCard;
   final Alignment alignment;
   final EdgeInsets padding;
 
@@ -70,22 +72,17 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
         Theme(
           child:
             Container(
-              child:
-
-
-                TextField(
+              child: TextField(
                   controller: controller,
                   readOnly: widget.disabled ? true : widget.readOnly,
                   enabled: widget.disabled ? false : !widget.readOnly,
-                  decoration: JudoComponentCustomizer.get().getInputDateTimeDecoration(widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context)).copyWith(
-                    labelText: widget.mandatory ? widget.label + ' *' : widget.label,
-                  ),
+                  decoration: JudoComponentCustomizer.get().getInputDateTimeDecoration(widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory),
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),
-                decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
+              decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
             ),
-          data: JudoComponentCustomizer.get().getInputDateTimeThemeCustomizer(theme, widget.disabled, widget.readOnly),
+          data: JudoComponentCustomizer.get().getInputDateTimeThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         )
     );
   }

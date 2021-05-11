@@ -67,7 +67,7 @@ class JudoSwitchState extends State<JudoSwitch> {
           ),
           Text(
               widget.mandatory ? widget.label + ' *' : widget.label,
-              style: theme.textTheme.subtitle1,
+              style: JudoComponentCustomizer.get().getSwitchTextStyle(Theme.of(context)),
           ),
 
         ],

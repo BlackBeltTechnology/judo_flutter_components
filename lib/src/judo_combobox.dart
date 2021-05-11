@@ -19,6 +19,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.padding,
     this.disabled = false,
     this.readOnly = false,
+    this.inCard = false,
   }) : super(key: key);
 
   final double col;
@@ -43,6 +44,7 @@ class JudoComboBox<T> extends StatefulWidget {
   final Function onTap;
   final bool disabled;
   final bool readOnly;
+  final bool inCard;
 
   @override
   _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
@@ -60,27 +62,25 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: Theme(
-        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly),
+        data: JudoComponentCustomizer.get().getInputComboboxThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
           decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
-          child: DropdownButtonFormField<T>(
-              decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null)
-                  .copyWith(
-                labelText: widget.mandatory ? widget.label + ' *' : widget.label,
-              ),
-              onTap: widget.onTap,
-              value: widget.value,
-              icon: Icon(Icons.arrow_drop_down),
-              elevation: 16,
-              onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
-                ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
-                  (newValue) {
-                    setState(() {
-                      widget.value = newValue;
-                    });
-                  } : null
-                ),
-              items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
+              child: DropdownButtonFormField<T>(
+                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(widget.label, widget.icon, null, widget.mandatory),
+                onTap: widget.onTap,
+                value: widget.value,
+                icon: Icon(Icons.expand_more),
+                iconEnabledColor: Theme.of(context).colorScheme.secondary,
+                elevation: 16,
+                onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
+                  ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
+                    (newValue) {
+                      setState(() {
+                        widget.value = newValue;
+                      });
+                    } : null
+                  ),
+                items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
         ),
       ),
     );

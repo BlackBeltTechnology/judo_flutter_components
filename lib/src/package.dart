@@ -20,7 +20,6 @@ import 'package:mobx/mobx.dart';
 import 'package:flutter/services.dart';
 
 part 'judo_theme_customizer.dart';
-part 'settings.dart';
 part 'judo_alert.dart';
 part 'judo_button.dart';
 part 'judo_container.dart';

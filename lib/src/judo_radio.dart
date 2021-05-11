@@ -36,7 +36,6 @@ class JudoRadio<T> extends StatefulWidget {
 }
 
 class _JudoRadioState<T> extends State<JudoRadio> {
-
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
@@ -47,20 +46,27 @@ class _JudoRadioState<T> extends State<JudoRadio> {
       alignment: widget.alignment,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: widget.items.map<JudoRadioButton<T>>((e) => JudoRadioButton<T>(
-            label: widget.getLabel(e),
-            col: ((widget.col / widget.items.length)*100).round(),
-            onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
-              ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
-                  (newValue) {
-                    setState(() {
-                      widget.groupValue = newValue;
-                    });
-                  } : null
-              ),
-            value: widget.getValue(e),
-            groupValue: widget.groupValue,
-          )).toList()),
+          children: widget.items
+              .map<JudoRadioButton<T>>((e) => JudoRadioButton<T>(
+                    label: widget.getLabel(e),
+                    col: ((widget.col / widget.items.length) * 100).round(),
+                    onChanged: widget.onChanged != null &&
+                            !widget.disabled &&
+                            !widget.readOnly
+                        ? widget.onChanged
+                        : (widget.onChanged == null &&
+                                !widget.disabled &&
+                                !widget.readOnly
+                            ? (newValue) {
+                                setState(() {
+                                  widget.groupValue = newValue;
+                                });
+                              }
+                            : null),
+                    value: widget.getValue(e),
+                    groupValue: widget.groupValue,
+                  ))
+              .toList()),
     );
   }
 }
@@ -82,22 +88,23 @@ class JudoRadioButton<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Flexible(
       flex: col,
       fit: FlexFit.loose,
       child: Row(
         children: [
-          Radio(
-//            activeColor: JudoComponentsSettings.primaryColor,
-            value: value,
-            groupValue: groupValue,
-            onChanged: onChanged,
-          ),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+              child: Radio(
+                value: value,
+                groupValue: groupValue,
+                onChanged: onChanged,
+              )),
           Text(
             label,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
+            style: JudoComponentCustomizer.get().getRadioTextStyle(Theme.of(context)),
           ),
         ],
       ),

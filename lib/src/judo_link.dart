@@ -15,6 +15,7 @@ class JudoLink extends StatelessWidget {
     this.readOnly = false,
     this.padding,
     this.stretch = false,
+    this.inCard = false,
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
@@ -31,6 +32,7 @@ class JudoLink extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool inCard;
 
   static String defaultFormatter(dynamic e) {
     return e != null ? e.toString() : '';
@@ -82,7 +84,7 @@ class JudoLink extends StatelessWidget {
                       ]
                   ),
                 ),
-            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly),
+            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly, inCard),
           )
         );
   }

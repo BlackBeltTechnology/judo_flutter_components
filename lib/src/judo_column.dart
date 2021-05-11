@@ -11,7 +11,7 @@ class JudoColumn extends StatelessWidget {
     this.mainAxisSize,
     this.card = false,
     this.frameMargin = const EdgeInsets.all(4.0),
-    this.radius = 4.0,
+    this.radius = 10.0,
     this.elevation = 4.0,
   }) : super(key: key);
 
@@ -37,6 +37,7 @@ class JudoColumn extends StatelessWidget {
         ),
         margin: frameMargin,
         child: Container(
+          padding: JudoComponentCustomizer.get().getDefaultPadding(),
           height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Column(
             mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,

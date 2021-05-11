@@ -32,6 +32,7 @@ class JudoTable extends StatelessWidget {
     this.onSort,
     this.padding,
     this.stretch = false,
+    this.inCard = false,
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
 
@@ -53,6 +54,7 @@ class JudoTable extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final bool inCard;
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +72,10 @@ class JudoTable extends StatelessWidget {
         child: SizedBox(
           height: currentRow * JudoComponentCustomizer.get().getLineHeight(),
           child: SingleChildScrollView(
-            child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
+            scrollDirection: Axis.horizontal,
+            child: SingleChildScrollView(
+              child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
+    		)
           ),
         )
     );
@@ -81,7 +86,7 @@ class JudoTable extends StatelessWidget {
 
     return Theme(
       child: DataTable(
-        headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
+        headingTextStyle: JudoComponentCustomizer.get().getTableHeaderTextStyle(Theme.of(context)),
         onSelectAll: (b) {},
         showCheckboxColumn: false,
         sortAscending: sortAscending == null ? true : sortAscending,
@@ -89,10 +94,12 @@ class JudoTable extends StatelessWidget {
         columns: dataInfo.getColumns(onAdd, onSort),
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
+        headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
       ),
       data: theme.copyWith(
           iconTheme: theme.iconTheme.copyWith(
             color:  theme.colorScheme.secondary),
+
       )
     );
   }
@@ -117,11 +124,14 @@ class JudoTable extends StatelessWidget {
               color: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 // All rows will have the same selected color.
-                if (states.contains(MaterialState.selected))
+                if (states.contains(MaterialState.selected)) {
                   return Theme.of(context).colorScheme.primary.withOpacity(0.08);
+                }
                 // Even rows will have a grey color.
-                if (index % 2 == 0) return Colors.grey.withOpacity(0.05);
-                return null; // Use default value for other states and odd rows.
+                if (index % 2 == 0) {
+                  return inCard ? Theme.of(context).backgroundColor : Theme.of(context).cardColor;
+                }
+                return inCard ? Theme.of(context).cardColor : Theme.of(context).backgroundColor;
               }
             ),
           cells: dataRowList[index].cells,
