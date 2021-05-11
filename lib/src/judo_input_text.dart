@@ -74,8 +74,8 @@ class JudoInputTextState extends State<JudoInputText> {
             margin: widget.multiline ? EdgeInsets.symmetric(vertical: 10.0) : null,
             child: TextField(
               controller: controller,
-              readOnly: widget.disabled ? true : widget.readOnly,
-              enabled: widget.disabled ? false : !widget.readOnly,
+              readOnly: widget.disabled || widget.readOnly,
+              enabled: !widget.disabled && !widget.readOnly,
               expands: widget.multiline,
               minLines: widget.multiline ? null : 1,
               maxLines: widget.multiline ? null : 1,

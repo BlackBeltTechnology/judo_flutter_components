@@ -66,21 +66,21 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
         child: Container(
           decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
               child: DropdownButtonFormField<T>(
-              decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(widget.label, widget.icon, null, widget.mandatory),
-              onTap: widget.onTap,
-              value: widget.value,
-              icon: Icon(Icons.expand_more),
-              iconEnabledColor: Theme.of(context).colorScheme.secondary,
-              elevation: 16,
-              onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
-                ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
-                  (newValue) {
-                    setState(() {
-                      widget.value = newValue;
-                    });
-                  } : null
-                ),
-              items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
+                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(widget.label, widget.icon, null, widget.mandatory),
+                onTap: widget.onTap,
+                value: widget.value,
+                icon: Icon(Icons.expand_more),
+                iconEnabledColor: Theme.of(context).colorScheme.secondary,
+                elevation: 16,
+                onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
+                  ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
+                    (newValue) {
+                      setState(() {
+                        widget.value = newValue;
+                      });
+                    } : null
+                  ),
+                items: widget.items.map<DropdownMenuItem<T>>(widget.dropdownMenuShow).toList()),
         ),
       ),
     );
