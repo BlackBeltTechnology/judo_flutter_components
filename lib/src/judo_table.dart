@@ -107,7 +107,7 @@ class JudoTable extends StatelessWidget {
   }
 
   List<DataRow> dataRow(BuildContext context) {
-    if (sortInitially && sortColumnIndex != null) {
+    if (sortInitially && sortColumnIndex != null && onSort != null) {
       onSort(sortColumnIndex, _shouldSortAscending());
       // rowList.sort(dataInfo.getSortComparator(sortColumnIndex, _shouldSortAscending()));
     }
