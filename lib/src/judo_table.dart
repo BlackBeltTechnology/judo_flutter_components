@@ -34,6 +34,7 @@ class JudoTable extends StatelessWidget {
     this.stretch = false,
     this.inCard = false,
     this.alignment = Alignment.centerLeft,
+    this.sortInitially = false,
   }) : super(key: key);
 
   final double col;
@@ -55,6 +56,7 @@ class JudoTable extends StatelessWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool inCard;
+  final bool sortInitially;
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +91,7 @@ class JudoTable extends StatelessWidget {
         headingTextStyle: JudoComponentCustomizer.get().getTableHeaderTextStyle(Theme.of(context)),
         onSelectAll: (b) {},
         showCheckboxColumn: false,
-        sortAscending: sortAscending == null ? true : sortAscending,
+        sortAscending: _shouldSortAscending(),
         sortColumnIndex: sortColumnIndex,
         columns: dataInfo.getColumns(onAdd, onSort),
         rows: dataRow(context),
@@ -105,6 +107,10 @@ class JudoTable extends StatelessWidget {
   }
 
   List<DataRow> dataRow(BuildContext context) {
+    if (sortInitially && sortColumnIndex != null) {
+      // Will sort in-place.
+      rowList.sort(dataInfo.getSortComparator(sortColumnIndex, _shouldSortAscending()));
+    }
 
     List<DataRow> dataRowList = rowList.map<DataRow>(
         dataInfo.getRow(
@@ -143,5 +149,9 @@ class JudoTable extends StatelessWidget {
 //        },
         ),
       );
+  }
+  
+  bool _shouldSortAscending() {
+    return sortAscending == null ? true : sortAscending;
   }
 }
