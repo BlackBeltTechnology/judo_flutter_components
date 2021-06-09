@@ -107,12 +107,13 @@ class JudoTable extends StatelessWidget {
   }
 
   List<DataRow> dataRow(BuildContext context) {
-    if (sortInitially && sortColumnIndex != null && onSort != null) {
-      onSort(sortColumnIndex, _shouldSortAscending());
-      // rowList.sort(dataInfo.getSortComparator(sortColumnIndex, _shouldSortAscending()));
+    List effectiveRowList = rowList;
+    if (sortInitially && sortColumnIndex != null) {
+      effectiveRowList = []..addAll(rowList); // shallow copy intentionally
+      effectiveRowList.sort(dataInfo.getSortComparator(sortColumnIndex, _shouldSortAscending()));
     }
 
-    List<DataRow> dataRowList = rowList.map<DataRow>(
+    List<DataRow> dataRowList = effectiveRowList.map<DataRow>(
         dataInfo.getRow(
           context: context,
           navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
