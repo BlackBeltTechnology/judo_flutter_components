@@ -5,10 +5,12 @@ class JudoLink extends StatelessWidget {
     Key key,
     @required this.col,
     this.row = 1.0,
+    this.mandatory = false,
     this.formatter = defaultFormatter,
     @required this.data,
     this.label,
     this.icon,
+    this.errorMessage,
     this.setAction,
     this.actions,
     this.disabled = false,
@@ -16,17 +18,19 @@ class JudoLink extends StatelessWidget {
     this.padding,
     this.stretch = false,
     this.inCard = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
   }) : super(key: key);
 
   final double col;
   final double row;
+  final bool mandatory;
   final bool disabled;
   final bool readOnly;
   final Function formatter;
   final String label;
   final Icon icon;
   final dynamic data;
+  final String errorMessage;
   final Function setAction;
   final List<Widget> actions;
   final bool stretch;
@@ -47,7 +51,6 @@ class JudoLink extends StatelessWidget {
     final ThemeData theme = Theme.of(context).copyWith();
 
     return JudoContainer(
-        // color: disabled ? JudoComponentsSettings.disabledColor : null,
         padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
         col: col,
         row: row,
@@ -68,9 +71,9 @@ class JudoLink extends StatelessWidget {
                               Container(
                                 child: InkWell(
                                     onTap: !readOnly ? setAction : null,
-                                    child: getTextField()
+                                    child: getTextField(context),
                                 ),
-                                decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
+                                decoration: errorMessage != null && errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
                               )
                         ),
                         Container(
@@ -89,14 +92,14 @@ class JudoLink extends StatelessWidget {
         );
   }
 
-  Widget getTextField() {
+  Widget getTextField(BuildContext context) {
       final TextEditingController controller = TextEditingController(text: data != null ? Function.apply(formatter, [data]) : '');
 
       return TextField(
         controller: controller,
         readOnly: true,
         enabled: false,
-        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(label, icon, null)
+        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context).copyWith(), label, icon, null, mandatory, errorMessage)
       );
   }
 

@@ -9,12 +9,13 @@ class JudoSwitch extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.errorMessage,
     this.initialValue,
     this.readOnly = false,
     this.disabled = false,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
   }) : super(key: key);
 
   final double col;
@@ -23,6 +24,7 @@ class JudoSwitch extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final String errorMessage;
   final bool initialValue;
   final bool readOnly;
   final bool disabled;
@@ -63,11 +65,12 @@ class JudoSwitchState extends State<JudoSwitch> {
             child: Checkbox(
               value: widget.initialValue ?? false,
               onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
+              fillColor: widget.errorMessage != null ? MaterialStateProperty.all(Theme.of(context).errorColor) : null
             ),
           ),
           Text(
               widget.mandatory ? widget.label + ' *' : widget.label,
-              style: JudoComponentCustomizer.get().getSwitchTextStyle(Theme.of(context)),
+              style: JudoComponentCustomizer.get().getSwitchTextStyle(Theme.of(context), widget.errorMessage),
           ),
 
         ],

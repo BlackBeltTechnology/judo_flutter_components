@@ -10,13 +10,14 @@ class JudoInputText extends StatefulWidget {
     this.icon,
     this.onChanged,
     this.onSubmitted,
+    this.errorMessage,
     this.initialValue,
     this.readOnly = false,
     this.disabled = false,
     this.inCard = false,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
     this.multiline = false,
     this.maxLength = 250,
   }) : super(key: key);
@@ -28,6 +29,7 @@ class JudoInputText extends StatefulWidget {
   final Icon icon;
   final Function onChanged;
   final Function onSubmitted;
+  final String errorMessage;
   final String initialValue;
   final bool readOnly;
   final bool disabled;
@@ -61,7 +63,6 @@ class JudoInputTextState extends State<JudoInputText> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context).copyWith();
     return JudoContainer(
-      // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
@@ -83,11 +84,11 @@ class JudoInputTextState extends State<JudoInputText> {
               inputFormatters: [
                 _Utf8LengthLimitingTextInputFormatter(widget.maxLength ?? 250),
               ],
-              decoration: JudoComponentCustomizer.get().getInputTextDecoration(widget.label, widget.icon, null, widget.mandatory, widget.multiline),
+              decoration: JudoComponentCustomizer.get().getInputTextDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.multiline, widget.errorMessage),
               onChanged: widget.onChanged,
               onSubmitted: widget.onSubmitted,
             ),
-            decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly)
+          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
         ),
         data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
       ),

@@ -11,12 +11,13 @@ class JudoNumericInput extends StatefulWidget {
     this.icon,
     this.onChanged,
     this.onSubmitted,
+    this.errorMessage,
     this.initialValue,
     this.readOnly = false,
     this.disabled = false,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
     this.inCard = false,
   }) : super(key: key);
 
@@ -27,6 +28,7 @@ class JudoNumericInput extends StatefulWidget {
   final Icon icon;
   final Function onChanged;
   final Function onSubmitted;
+  final String errorMessage;
   final String initialValue;
   final bool readOnly;
   final bool disabled;
@@ -68,7 +70,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
       child: Theme(
         data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
-          decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
           child: TextField(
             controller: controller,
             readOnly: widget.disabled ? true : widget.readOnly,
@@ -85,7 +87,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return correctTextEditingValue;
               }),
             ],
-            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(widget.label, widget.icon, null, widget.mandatory),
+            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
             onChanged: (value) {
                 return widget.onChanged(value);
             },

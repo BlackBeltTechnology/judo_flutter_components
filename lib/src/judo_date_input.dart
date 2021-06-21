@@ -10,6 +10,7 @@ class JudoDateInput extends StatefulWidget {
     this.icon,
     this.onChanged,
     this.onSubmitted,
+    this.errorMessage,
     this.initialDate,
     this.readOnly = false,
     this.disabled = false,
@@ -17,7 +18,7 @@ class JudoDateInput extends StatefulWidget {
     this.lastDate,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
     this.inCard = false,
   }) : super(key: key);
 
@@ -28,6 +29,7 @@ class JudoDateInput extends StatefulWidget {
   final Icon icon;
   final Function onChanged;
   final Function onSubmitted;
+  final String errorMessage;
   final DateTime initialDate;
   final bool readOnly;
   final bool disabled;
@@ -73,20 +75,20 @@ class _JudoDateInputState extends State<JudoDateInput> {
           child: Container(
               child: TextField(
                   controller: controller,
-                  readOnly: widget.disabled ? true : widget.readOnly,
-                  enabled: widget.disabled ? false : !widget.readOnly,
-                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory),
+                  readOnly: widget.disabled || widget.readOnly,
+                  enabled: !widget.disabled && !widget.readOnly,
+                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.errorMessage),
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),
-            decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+              decoration: widget.errorMessage != null ? null :  JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
             ),
           data: JudoComponentCustomizer.get().getInputDateThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         )
     );
   }
 
-  Widget iconDatePicker(BuildContext context) {
+  IconButton iconDatePicker(BuildContext context) {
     var tempDateTime = widget.initialDate ?? DateTime.now();
     return IconButton(
         icon: Icon(
