@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoComboBox<T> extends StatefulWidget {
 
+
   JudoComboBox({
     Key key,
     @required this.col,
@@ -11,11 +12,12 @@ class JudoComboBox<T> extends StatefulWidget {
     this.label,
     this.items,
     this.onChanged,
+    this.errorMessage,
     this.value,
     this.dropdownMenuShow,
     this.onTap,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
     this.padding,
     this.disabled = false,
     this.readOnly = false,
@@ -30,6 +32,7 @@ class JudoComboBox<T> extends StatefulWidget {
   T value;
   final List items;
   final Function onChanged;
+  final String errorMessage;
   ///  EXAMPLE:
   ///  (T value) {
   ///    return DropdownMenuItem<T>(
@@ -64,12 +67,12 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
       child: Theme(
         data: JudoComponentCustomizer.get().getInputComboboxThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
         child: Container(
-          decoration: JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
               child: DropdownButtonFormField<T>(
-                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(widget.label, widget.icon, null, widget.mandatory),
+                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
                 onTap: widget.onTap,
                 value: widget.value,
-                icon: Icon(Icons.expand_more),
+                icon: widget.disabled || widget.readOnly ? null : Icon(Icons.expand_more),
                 iconEnabledColor: Theme.of(context).colorScheme.secondary,
                 elevation: 16,
                 onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :

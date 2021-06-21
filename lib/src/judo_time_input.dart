@@ -15,7 +15,7 @@ class JudoTimeInput extends StatefulWidget {
     this.use24HourFormat,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
   }) : super(key: key);
 
   final double col;
@@ -62,8 +62,8 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
       alignment: widget.alignment,
       child: TextField(
         controller: controller,
-        readOnly: widget.disabled ? true : widget.readOnly,
-        enabled: widget.disabled ? false : !widget.readOnly,
+        readOnly: widget.disabled || widget.readOnly,
+        enabled: !widget.disabled && !widget.readOnly,
         decoration: widget.disabled ?
         InputDecoration(
           labelText: widget.label,
@@ -93,7 +93,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
     );
   }
 
-  Widget iconDatePicker(BuildContext context) {
+  IconButton iconDatePicker(BuildContext context) {
     var tempTime = widget.initialDate ?? DateTime.now();
     return IconButton(
         icon: Icon(

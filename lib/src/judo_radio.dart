@@ -7,12 +7,13 @@ class JudoRadio<T> extends StatefulWidget {
     this.row = 1.0,
     @required this.items,
     this.onChanged,
+    this.errorMessage,
     this.groupValue,
     @required this.getLabel,
     this.getValue,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.centerLeft,
+    this.alignment = Alignment.topLeft,
     this.disabled = false,
     this.readOnly = false,
   }) : super(key: key);
@@ -23,6 +24,7 @@ class JudoRadio<T> extends StatefulWidget {
   T value;
   final List items;
   final Function onChanged;
+  final String errorMessage;
   final Function getLabel;
   final Function getValue;
   final bool stretch;
@@ -63,6 +65,7 @@ class _JudoRadioState<T> extends State<JudoRadio> {
                                 });
                               }
                             : null),
+                    errorMessage: widget.errorMessage,
                     value: widget.getValue(e),
                     groupValue: widget.groupValue,
                   ))
@@ -77,6 +80,7 @@ class JudoRadioButton<T> extends StatelessWidget {
     this.value,
     this.groupValue,
     this.onChanged,
+    this.errorMessage,
     this.col,
   });
 
@@ -84,6 +88,7 @@ class JudoRadioButton<T> extends StatelessWidget {
   final T value;
   final T groupValue;
   final Function onChanged;
+  final String errorMessage;
   final int col;
 
   @override
@@ -99,12 +104,14 @@ class JudoRadioButton<T> extends StatelessWidget {
                 value: value,
                 groupValue: groupValue,
                 onChanged: onChanged,
-              )),
+                fillColor: errorMessage != null ? MaterialStateProperty.all(Theme.of(context).errorColor) : null,
+                ),
+              ),
           Text(
             label,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: JudoComponentCustomizer.get().getRadioTextStyle(Theme.of(context)),
+            style: JudoComponentCustomizer.get().getRadioTextStyle(Theme.of(context), errorMessage),
           ),
         ],
       ),
