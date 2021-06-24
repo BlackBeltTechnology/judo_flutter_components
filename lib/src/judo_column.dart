@@ -6,9 +6,9 @@ class JudoColumn extends StatelessWidget {
     this.children,
     @required this.col,
     this.row = 1.0,
-    this.mainAxisAlignment,
-    this.crossAxisAlignment,
-    this.mainAxisSize,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
+    this.mainAxisSize = MainAxisSize.min,
     this.card = false,
     this.frameMargin = const EdgeInsets.all(4.0),
     this.radius = 10.0,
@@ -40,9 +40,9 @@ class JudoColumn extends StatelessWidget {
           padding: JudoComponentCustomizer.get().getDefaultPadding(),
           height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Column(
-            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-            crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-            mainAxisSize: mainAxisSize ?? MainAxisSize.min,
+            mainAxisAlignment: mainAxisAlignment,
+            crossAxisAlignment: crossAxisAlignment,
+            mainAxisSize: mainAxisSize,
             children: children.map((e) => Row(
               children: [
                 e
@@ -55,9 +55,9 @@ class JudoColumn extends StatelessWidget {
       Container(
         height: row * JudoComponentCustomizer.get().getLineHeight(),
         child: Column(
-          mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.start,
-          crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-          mainAxisSize: mainAxisSize ?? MainAxisSize.min,
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          mainAxisSize: mainAxisSize,
           children: children.map((e) => Row(
             children: [
               e
