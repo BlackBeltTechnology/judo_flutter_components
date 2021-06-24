@@ -42,7 +42,7 @@ class JudoRow extends StatelessWidget {
           height: row * JudoComponentCustomizer.get().getLineHeight(),
           child: Row(
             mainAxisAlignment: mainAxisAlignment,
-            crossAxisAlignment: crossAxisAlignmentt,
+            crossAxisAlignment: crossAxisAlignment,
             mainAxisSize: mainAxisSize,
             children: children,
           ),
