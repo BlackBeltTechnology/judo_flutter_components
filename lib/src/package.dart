@@ -1,12 +1,3 @@
-//////////////////////////////////////////////////////////////////////////////
-// G E N E R A T E D    C L A S S
-// ------------------------------
-// Factory expression: {#application}
-// Path expression: 'lib/'+#path(#application.actor.name)+'/components/'+'package.dart'
-// Overwrite: true
-// Template name: flutter/lib/components/package.dart.hbs
-// Application: northwind::InternalUser
-
 library judo.components;
 
 import 'dart:convert';
@@ -18,6 +9,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter/services.dart';
+import 'state_handling/package.dart';
+
+export 'state_handling/package.dart';
 
 part 'judo_theme_customizer.dart';
 part 'judo_alert.dart';
