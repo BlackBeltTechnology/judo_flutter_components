@@ -1,6 +1,7 @@
 part of judo.components;
 
 class JudoButton extends StatelessWidget {
+
   JudoButton({
     Key key,
     @required this.col,
@@ -8,13 +9,10 @@ class JudoButton extends StatelessWidget {
     this.padding,
     this.label,
     this.icon,
+    this.loadingState,
     this.onPressed,
-    this.rounded = true,
     this.color,
     this.disabled = false,
-    this.disabledColor = Colors.black26,
-    this.textColor = Colors.white,
-    this.disabledTextColor = Colors.black26,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
   }) : super(key: key);
@@ -23,14 +21,11 @@ class JudoButton extends StatelessWidget {
   final double row;
   final EdgeInsets padding;
   final String label;
+  final LoadingState loadingState;
   final Function onPressed;
   final Icon icon;
-  final bool rounded;
   final Color color;
   final bool disabled;
-  final Color disabledColor;
-  final Color textColor;
-  final Color disabledTextColor;
   final bool stretch;
   final Alignment alignment;
 
@@ -42,21 +37,52 @@ class JudoButton extends StatelessWidget {
       row: row,
       stretch: stretch,
       alignment: alignment,
-      child: getButton(context),
+      child: buttonState(context),
     );
   }
 
-  Widget getButton(BuildContext context) {
+  Widget buttonState(BuildContext context) {
+    if (loadingState == null || !loadingState.isLoading) {
+      return getButtonWidget(context);
+    } else {
+      return getLoadingButtonWidget(context);
+    }
+  }
+
+  Widget getLoadingButtonWidget(BuildContext context) {
+    if (label != null) {
+      return ElevatedButton.icon(
+        icon: SizedBox(
+          height: 20,
+          width: 20,
+          child: loadingWidget(context),
+        ),
+        label: Text(label),
+        onPressed: null,
+      );
+    } else {
+      return IconButton(
+        onPressed: null,
+        iconSize: 20,
+        color: Theme.of(context).buttonColor,
+        icon: SizedBox(
+          child: loadingWidget(context),
+        ),
+      );
+    }
+  }
+
+  Widget getButtonWidget(BuildContext context) {
     if (label != null && icon != null) {
-      return RaisedButton.icon(
+      return ElevatedButton.icon(
         icon: icon,
         label: Text(label),
-        onPressed: disabled ? null : onPressed,
+        onPressed: disabled ? null : _onPressed,
       );
     } else if (label != null) {
-      return RaisedButton(
+      return ElevatedButton(
         child: Text(label),
-        onPressed: disabled ? null : onPressed,
+        onPressed: disabled ? null : _onPressed,
       );
     } else {
       return Container(
@@ -68,11 +94,26 @@ class JudoButton extends StatelessWidget {
               shape: CircleBorder()),
           child: IconButton(
             icon: icon,
-            onPressed: disabled ? null : onPressed,
+            onPressed: disabled ? null : _onPressed,
             tooltip: label,
             iconSize: 20.0,
             color: Theme.of(context).buttonColor,
           ));
+    }
+  }
+
+  Widget loadingWidget(BuildContext context) {
+    return CircularProgressIndicator(
+      backgroundColor: Theme.of(context).colorScheme.secondary,
+      strokeWidth: 4,
+    );
+  }
+
+  void _onPressed() {
+    if (loadingState != null) {
+      loadingState.onPressed(onPressed);
+    } else {
+      onPressed();
     }
   }
 }

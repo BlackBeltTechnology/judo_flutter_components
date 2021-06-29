@@ -70,7 +70,7 @@ class JudoLink extends StatelessWidget {
                           child:
                               Container(
                                 child: InkWell(
-                                    onTap: !readOnly ? setAction : null,
+                                    onTap: !readOnly && !disabled ? setAction : null,
                                     child: getTextField(context),
                                 ),
                                 decoration: errorMessage != null && errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
