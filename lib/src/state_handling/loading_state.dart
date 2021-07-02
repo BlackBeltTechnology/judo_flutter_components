@@ -18,7 +18,10 @@ abstract class _LoadingState with Store {
     Future<void> onPressed( FutureFunction onPressed ) async {
         isLoading = true;
         setDisabledByLoading(true);
-        await onPressed();
+        await onPressed().catchError((_) {
+          isLoading = false;
+          setDisabledByLoading(false);
+        });
         isLoading = false;
         setDisabledByLoading(false);
     }
