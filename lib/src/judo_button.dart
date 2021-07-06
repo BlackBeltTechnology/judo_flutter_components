@@ -29,6 +29,8 @@ class JudoButton extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
 
+  bool get _disabled => disabled || onPressed == null;
+
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
@@ -77,24 +79,24 @@ class JudoButton extends StatelessWidget {
       return ElevatedButton.icon(
         icon: icon,
         label: Text(label),
-        onPressed: disabled ? null : _onPressed,
+        onPressed: _disabled ? null : _onPressed,
       );
     } else if (label != null) {
       return ElevatedButton(
         child: Text(label),
-        onPressed: disabled ? null : _onPressed,
+        onPressed: _disabled ? null : _onPressed,
       );
     } else {
       return Container(
           padding: JudoComponentCustomizer.get().getDefaultPadding(),
           decoration: ShapeDecoration(
-              color: disabled
+              color: _disabled
                   ? Theme.of(context).dividerColor
                   : Theme.of(context).primaryColor,
               shape: CircleBorder()),
           child: IconButton(
             icon: icon,
-            onPressed: disabled ? null : _onPressed,
+            onPressed: _disabled ? null : _onPressed,
             tooltip: label,
             iconSize: 20.0,
             color: Theme.of(context).buttonColor,
