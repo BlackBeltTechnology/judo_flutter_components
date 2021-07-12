@@ -5,6 +5,10 @@ class JudoTab extends StatefulWidget {
     Key key,
     @required this.col,
     @required this.row,
+    this.disabledTabs, // TODO: JNG-2874
+    this.hiddenTabs,
+    this.disabled = false,
+    this.hidden = false,
     @required this.tabs,
     @required this.tabContent,
     this.stretch = false,
@@ -14,37 +18,46 @@ class JudoTab extends StatefulWidget {
 
   final double col;
   final double row;
+  final List<bool> disabledTabs;
+  final List<bool> hiddenTabs;
+  final bool disabled;
+  final bool hidden;
   final List<Tab> tabs;
   final List<Widget> tabContent;
-  TabController tabController;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+
+
+  TabController tabController;
 
   @override
   _JudoTabState createState() => _JudoTabState();
 }
 
 class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
+
   @override
   void initState() {
     super.initState();
     widget.tabController = TabController(
-      length: widget.tabs.length,
+      length: getTabs().length,
       vsync: this,
     );
   }
 
   @override
   void didUpdateWidget(JudoTab oldWidget) {
-    if (oldWidget.tabs.length != widget.tabs.length) {
+    int newWidgetTabsLength = getTabs().length;
+
+    if (oldWidget.tabController.length != newWidgetTabsLength) {
       widget.tabController = TabController(
-        length: widget.tabs.length,
+        length: newWidgetTabsLength,
         vsync: this,
       );
     } else {
       widget.tabController = TabController(
-        length: widget.tabs.length,
+        length: newWidgetTabsLength,
         vsync: this,
         initialIndex: oldWidget.tabController.index,
       );
@@ -53,7 +66,15 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    widget.tabController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (widget.hidden) return JudoSpacer(col: widget.col, row: widget.row);
+
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
@@ -64,22 +85,66 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
         children: [
           Container(
             constraints: BoxConstraints(maxHeight: JudoComponentCustomizer.get().getLineHeight()),
-            child: TabBar(
-              controller: widget.tabController,
-              tabs: widget.tabs,
-//              labelColor: JudoComponentsSettings.primaryColor,
-//              indicatorColor: JudoComponentsSettings.primaryColor,
-            ),
+            child: getTabBar(context),
           ),
           Expanded(
             child: TabBarView(
               controller: widget.tabController,
-              children:
-              widget.tabContent.map((e) => Column(children: [e])).toList(),
+              children: getTabContent(),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget getTabBar(BuildContext context) {
+    if (widget.disabled) {
+      return AbsorbPointer(
+        child: TabBar(
+          controller: widget.tabController,
+          tabs: getTabs(),
+          labelColor: Theme.of(context).disabledColor,
+          indicatorColor: Theme.of(context).disabledColor,
+
+        ),
+      );
+    } else {
+      return TabBar(
+        controller: widget.tabController,
+        tabs: getTabs(),
+      );
+    }
+  }
+
+  List<Widget> getTabs() {
+    List<Widget> _tabs = List.from(widget.tabs);
+
+    if (widget.hiddenTabs == null || widget.hiddenTabs.isEmpty) {
+      return _tabs;
+    }
+
+    for (int i = _tabs.length - 1; i >= 0; i--) {
+      if (widget.hiddenTabs[i] ?? false) {
+        _tabs.removeAt(i);
+      }
+    }
+    print(_tabs);
+    return _tabs;
+  }
+
+  List<Widget> getTabContent() {
+    if (widget.hiddenTabs == null || widget.hiddenTabs.isEmpty) {
+      return widget.tabContent.map((e) => Column(children: [e])).toList();
+    }
+
+    List<Widget> _tabContent = List.from(widget.tabContent);
+
+    for (int i = _tabContent.length - 1; i >= 0; i--) {
+      if (widget.hiddenTabs[i] ?? false) {
+        _tabContent.removeAt(i);
+      }
+    }
+    return _tabContent.map((e) => Column(children: [e])).toList();
   }
 }
