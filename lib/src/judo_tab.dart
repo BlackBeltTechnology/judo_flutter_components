@@ -5,8 +5,8 @@ class JudoTab extends StatefulWidget {
     Key key,
     @required this.col,
     @required this.row,
-    this.disabledTabs, // TODO: JNG-2874
-    this.hiddenTabs,
+    this.disabledTabs = const [], // TODO: JNG-2874
+    this.hiddenTabs = const [],
     this.disabled = false,
     this.hidden = false,
     @required this.tabs,
@@ -120,7 +120,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   List<Widget> getTabs() {
     List<Widget> _tabs = List.from(widget.tabs);
 
-    if (widget.hiddenTabs == null || widget.hiddenTabs.isEmpty) {
+    if (widget.hiddenTabs.isEmpty) {
       return _tabs;
     }
 
@@ -134,7 +134,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   }
 
   List<Widget> getTabContent() {
-    if (widget.hiddenTabs == null || widget.hiddenTabs.isEmpty) {
+    if (widget.hiddenTabs.isEmpty) {
       return widget.tabContent.map((e) => Column(children: [e])).toList();
     }
 
