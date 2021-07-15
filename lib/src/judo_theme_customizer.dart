@@ -15,6 +15,7 @@ abstract class JudoComponentCustomizer {
   double getLineHeight();
   double getMenuWidth();
   EdgeInsets getDefaultPadding();
+  EdgeInsets getNavigationButtonBarPadding();
   Decoration getInputBoxCustomizer(bool disabled, bool readOnly);
 
   ThemeData getInputThemeCustomizer(
@@ -78,6 +79,10 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   EdgeInsets getDefaultPadding() {
     return EdgeInsets.symmetric(horizontal: 10);
+  }
+
+  EdgeInsets getNavigationButtonBarPadding() {
+    return EdgeInsets.all(10);
   }
 
   @override
