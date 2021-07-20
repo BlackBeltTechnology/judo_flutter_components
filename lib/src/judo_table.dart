@@ -127,7 +127,7 @@ class JudoTable extends StatelessWidget {
     return List<DataRow>.generate(
           dataRowList.length,
             (index) => DataRow(
-              onSelectChanged: (newValue) => navigateToViewPageAction(rowList[index]),
+              onSelectChanged: navigateToViewPageAction != null ? (newValue) => navigateToViewPageAction(rowList[index]) : null,
               color: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 // All rows will have the same selected color.
