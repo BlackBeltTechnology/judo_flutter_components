@@ -75,6 +75,7 @@ class JudoAppBarButton extends StatelessWidget {
       );
     } else {
       return IconButton(
+        padding: EdgeInsets.all(0),
         icon: icon,
         alignment: Alignment.center,
         onPressed: _disabled ? null : _onPressed,
