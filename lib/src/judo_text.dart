@@ -34,7 +34,7 @@ class JudoText extends StatelessWidget {
       child: Row(
         children: [
           label != null && label.isNotEmpty ? Text(
-            label + ': ',
+            label + ' ',
             style: TextStyle(fontWeight: FontWeight.bold),
           ) : Text(''),
           Text(
