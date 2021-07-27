@@ -51,7 +51,10 @@ abstract class JudoComponentCustomizer {
   ThemeData getBreadcumbThemeCustomizer(ThemeData themeData);
   ThemeData getFilterThemeCustomizer(ThemeData themeData);
   ThemeData getMenuTheme(ThemeData theme);
+  @deprecated
   TextStyle getBreadcumbTextStyle();
+  TextStyle getBreadcumbItemTextStyle(ThemeData theme);
+  TextStyle getBreadcumbTitleTextStyle(ThemeData theme);
   TextStyle getTableHeaderTextStyle(ThemeData theme);
   TextStyle getSwitchTextStyle(ThemeData theme, String errorMessage);
   TextStyle getRadioTextStyle(ThemeData theme, String errorMessage);
@@ -244,6 +247,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     );
   }
 
+
   @override
   ThemeData getMenuTheme(ThemeData theme) {
     return theme.copyWith(
@@ -253,6 +257,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
+  @deprecated
   TextStyle getBreadcumbTextStyle() {
     return TextStyle(
         color: bodyColor,
@@ -260,6 +265,21 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         fontFamily: 'SourceSansPro',
         fontWeight: FontWeight.w500
     );
+  }
+
+  @override
+  TextStyle getBreadcumbItemTextStyle(ThemeData theme) {
+    return TextStyle(
+        color: bodyColor,
+        fontSize: 16,
+        fontFamily: 'SourceSansPro',
+        fontWeight: FontWeight.w500
+    );
+  }
+
+  @override
+  TextStyle getBreadcumbTitleTextStyle(ThemeData theme) {
+    return theme.textTheme.headline4.copyWith(fontSize: 16);
   }
 
   @override
