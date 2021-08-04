@@ -14,6 +14,8 @@ class JudoTab extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.padding,
+    this.tabIndex = 0,
+    this.setTabIndex,
   }) : super(key: key);
 
   final double col;
@@ -27,6 +29,8 @@ class JudoTab extends StatefulWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final int tabIndex;
+  final Function setTabIndex;
 
 
   TabController tabController;
@@ -37,36 +41,61 @@ class JudoTab extends StatefulWidget {
 
 class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
 
+  void initTabControllerListener() {
+    if (widget.setTabIndex != null) {
+      widget.tabController.addListener(() {
+        widget.setTabIndex(widget.tabController.index);
+      });
+    }
+  }
+
+  void removeTabControllerListener() {
+    if (widget.setTabIndex != null) {
+      widget.tabController.removeListener(() {
+        widget.setTabIndex(widget.tabController.index);
+      });
+    }
+  }
+
   @override
   void initState() {
-    super.initState();
+    int tabsLength = getTabs().length;
+
     widget.tabController = TabController(
-      length: getTabs().length,
+      length: tabsLength,
+      initialIndex: widget.tabIndex < tabsLength ? widget.tabIndex : 0,
       vsync: this,
     );
+
+    initTabControllerListener();
+    super.initState();
   }
 
   @override
   void didUpdateWidget(JudoTab oldWidget) {
-    int newWidgetTabsLength = getTabs().length;
+    int newTabsLength = getTabs().length;
 
-    if (oldWidget.tabController.length != newWidgetTabsLength) {
+    if (oldWidget.tabController.length != newTabsLength) {
       widget.tabController = TabController(
-        length: newWidgetTabsLength,
+        length: newTabsLength,
         vsync: this,
       );
     } else {
       widget.tabController = TabController(
-        length: newWidgetTabsLength,
+        length: newTabsLength,
         vsync: this,
-        initialIndex: oldWidget.tabController.index,
+        initialIndex: widget.tabIndex < newTabsLength ? widget.tabIndex : 0,
       );
     }
+
+    initTabControllerListener();
+
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void dispose() {
+    removeTabControllerListener();
     widget.tabController.dispose();
     super.dispose();
   }
