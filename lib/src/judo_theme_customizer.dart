@@ -59,8 +59,10 @@ abstract class JudoComponentCustomizer {
   TextStyle getSwitchTextStyle(ThemeData theme, String errorMessage);
   TextStyle getRadioTextStyle(ThemeData theme, String errorMessage);
   TextStyle getAppNameTextStyle(ThemeData theme);
+  TextStyle getSloganTextStyle(ThemeData theme);
   TextStyle getActorNameTextStyle(ThemeData theme);
   TextStyle getUserNameTextStyle(ThemeData theme);
+  TextStyle getEmailTextStyle(ThemeData theme);
   TextStyle getRowCounterTextStyle(ThemeData theme);
 }
 
@@ -314,13 +316,29 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
+  TextStyle getSloganTextStyle(ThemeData theme) {
+    return theme.textTheme.headline6.copyWith(
+        fontWeight: FontWeight.w100,
+        color: theme.textTheme.subtitle1.color
+    );
+  }
+
+  @override
   TextStyle getActorNameTextStyle(ThemeData theme) {
-    return theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w100);
+    return theme.textTheme.subtitle1.copyWith(
+        fontWeight: FontWeight.w900,
+        color: theme.colorScheme.secondary,
+    );
   }
 
   @override
   TextStyle getUserNameTextStyle(ThemeData theme) {
     return theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w900);
+  }
+
+  @override
+  TextStyle getEmailTextStyle(ThemeData theme) {
+    return theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w100);
   }
 
   @override
