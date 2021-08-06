@@ -72,7 +72,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
                 decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
                 onTap: widget.onTap,
                 value: widget.value,
-                icon: widget.disabled || widget.readOnly ? null : Icon(Icons.expand_more),
+                icon: widget.disabled || widget.readOnly ? Visibility(visible: false, child: Icon(Icons.expand_more),) : Icon(Icons.expand_more),
                 iconEnabledColor: Theme.of(context).colorScheme.secondary,
                 elevation: 16,
                 onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
