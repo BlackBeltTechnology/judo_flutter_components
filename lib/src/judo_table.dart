@@ -9,7 +9,6 @@ abstract class JudoTableDataInfo {
     Function removeAction,
     Function unsetAction,
     Function deleteAction});
-  Comparator getSortComparator(int columnIndex, bool asc);
 }
 
 class JudoTable extends StatelessWidget {
@@ -107,13 +106,7 @@ class JudoTable extends StatelessWidget {
   }
 
   List<DataRow> dataRow(BuildContext context) {
-    List effectiveRowList = rowList;
-    if (sortInitially && sortColumnIndex != null) {
-      effectiveRowList = []..addAll(rowList); // shallow copy intentionally
-      effectiveRowList.sort(dataInfo.getSortComparator(sortColumnIndex, _shouldSortAscending()));
-    }
-
-    List<DataRow> dataRowList = effectiveRowList.map<DataRow>(
+    List<DataRow> dataRowList = rowList.map<DataRow>(
         dataInfo.getRow(
           context: context,
           navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
