@@ -17,6 +17,7 @@ export 'state_handling/package.dart';
 part 'judo_theme_customizer.dart';
 part 'judo_alert.dart';
 part 'judo_app_bar_button.dart';
+part 'judo_action_group_button.dart';
 part 'judo_button.dart';
 part 'judo_button_widget.dart';
 part 'judo_container.dart';
