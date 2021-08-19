@@ -3,6 +3,7 @@ library judo.components;
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,6 +18,7 @@ part 'judo_theme_customizer.dart';
 part 'judo_alert.dart';
 part 'judo_app_bar_button.dart';
 part 'judo_button.dart';
+part 'judo_button_widget.dart';
 part 'judo_container.dart';
 part 'judo_input_text.dart';
 part 'judo_radio.dart';
