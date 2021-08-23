@@ -18,7 +18,7 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
   final Color color;
   final bool disabled;
   final LoadingState loadingState;
-  final Map<T,JudoMenuItemData> items;
+  final Map<T, JudoMenuItemData> items;
   final bool outlined;
 
   @override
@@ -36,6 +36,4 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
       ),
     );
   }
-
 }
-

@@ -25,12 +25,14 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
       label: label,
       icon: icon,
       loadingState: loadingState,
-      onPressed: items.isEmpty ? null : () async {
-        T selected = await showButtonMenu<T>(context);
-        if (selected != null) {
-          items[selected].onSelected.call();
-        }
-      },
+      onPressed: (items == null || items.isEmpty)
+          ? null
+          : () async {
+              T selected = await showButtonMenu<T>(context);
+              if (selected != null) {
+                items[selected].onSelected.call();
+              }
+            },
       color: color,
       disabled: disabled,
       outlined: outlined,
@@ -41,9 +43,7 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
     final double scale = MediaQuery.maybeOf(context)?.textScaleFactor ?? 1;
     final double gap = scale <= 1 ? 8 : lerpDouble(8, 4, min(scale - 1, 1));
     return (context) => items.entries.map((e) {
-          return PopupMenuItem<T>(
-              value: e.key,
-              child: e.value.getChild(gap));
+          return PopupMenuItem<T>(value: e.key, child: e.value.getChild(gap));
         }).toList();
   }
 
@@ -61,6 +61,7 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
       context: context,
       items: getItemBuilder(context).call(context),
       position: position,
+
       /// "The `useRootNavigator` argument is used to determine whether to push the
       /// menu to the [Navigator] furthest from or nearest to the given `context`. It
       /// is `false` by default."

@@ -83,7 +83,8 @@ class JudoButtonWidget extends StatelessWidget {
               tooltip: label,
               splashRadius: 20.0,
               color: _disabled
-                  ? Theme.of(context).disabledColor : (icon.color == null
+                  ? Theme.of(context).disabledColor
+                  : (icon.color == null
                       ? Theme.of(context).colorScheme.primary
                       : icon.color),
             )

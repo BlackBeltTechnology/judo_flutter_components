@@ -26,7 +26,7 @@ class JudoPopupButton<T> extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final LoadingState loadingState;
-  final Map<T,JudoMenuItemData> items;
+  final Map<T, JudoMenuItemData> items;
   final bool outlined;
 
   @override
@@ -48,6 +48,4 @@ class JudoPopupButton<T> extends StatelessWidget {
       ),
     );
   }
-
 }
-
