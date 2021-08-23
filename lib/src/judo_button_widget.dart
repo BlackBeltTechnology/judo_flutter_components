@@ -9,8 +9,7 @@ class JudoButtonWidget extends StatelessWidget {
     this.color,
     this.disabled = false,
     this.outlined = false,
-    this.key,
-  }) : super(key: key);
+  });
 
   final String label;
   final LoadingState loadingState;
@@ -19,7 +18,6 @@ class JudoButtonWidget extends StatelessWidget {
   final Color color;
   final bool disabled;
   final bool outlined;
-  final Key key;
 
   bool get _disabled => disabled || onPressed == null;
 

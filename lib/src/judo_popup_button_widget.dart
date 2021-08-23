@@ -1,58 +1,38 @@
 part of judo.components;
 
-class JudoActionGroupButton extends StatelessWidget {
-  JudoActionGroupButton({
-    Key key,
-    @required this.col,
-    this.row = 1,
-    this.padding,
+class JudoPopupButtonWidget<T> extends StatelessWidget {
+  JudoPopupButtonWidget({
     this.label,
     this.icon,
     this.loadingState,
-    this.onSelected,
-    this.itemBuilder,
     this.color,
     this.disabled = false,
-    this.stretch = false,
-    this.alignment = Alignment.centerLeft,
     this.items,
     this.outlined = false,
-  }) : super(key: key);
+  });
 
-  final double col;
-  final double row;
-  final EdgeInsets padding;
   final Icon icon;
   final String label;
   final Color color;
   final bool disabled;
-  final bool stretch;
-  final Alignment alignment;
-  final Function onSelected;
-  final Function itemBuilder;
   final LoadingState loadingState;
-  final List<JudoMenuItemData> items;
+  final Map<T, JudoMenuItemData> items;
   final bool outlined;
 
   @override
   Widget build(BuildContext context) {
-    return JudoButton(
-      padding: padding,
-      col: col,
-      row: row,
-      stretch: stretch,
+    return JudoButtonWidget(
       label: label,
       icon: icon,
       loadingState: loadingState,
-      onPressed: () async {
-        int selected = await showButtonMenu<int>(context);
+      onPressed: items.isEmpty ? null : () async {
+        T selected = await showButtonMenu<T>(context);
         if (selected != null) {
           items[selected].onSelected.call();
         }
       },
       color: color,
       disabled: disabled,
-      alignment: alignment,
       outlined: outlined,
     );
   }
@@ -60,41 +40,51 @@ class JudoActionGroupButton extends StatelessWidget {
   Function getItemBuilder(BuildContext context) {
     final double scale = MediaQuery.maybeOf(context)?.textScaleFactor ?? 1;
     final double gap = scale <= 1 ? 8 : lerpDouble(8, 4, min(scale - 1, 1));
-    return (context) => items.map((e) {
-          return PopupMenuItem<int>(
-              value: items.indexOf(e), child: e.getChild(gap));
+    return (context) => items.entries.map((e) {
+          return PopupMenuItem<T>(
+              value: e.key,
+              child: e.value.getChild(gap));
         }).toList();
   }
 
-  Future<int> showButtonMenu<int>(BuildContext context) {
+  Future<T> showButtonMenu<T>(BuildContext context) {
     final RenderBox button = context.findRenderObject() as RenderBox;
 
     final RelativeRect position = RelativeRect.fromLTRB(
-      button.localToGlobal(button.size.bottomLeft(Offset.zero)).dx + 10.0,
-      button.localToGlobal(button.size.bottomLeft(Offset.zero)).dy - 16.0,
+      button.localToGlobal(button.size.bottomLeft(Offset.zero)).dx,
+      button.localToGlobal(button.size.bottomLeft(Offset.zero)).dy,
       button.localToGlobal(button.size.bottomRight(Offset.zero)).dx,
       button.localToGlobal(button.size.bottomRight(Offset.zero)).dy,
     );
 
-    return showMenu<int>(
+    return showMenu<T>(
       context: context,
       items: getItemBuilder(context).call(context),
       position: position,
+      /// "The `useRootNavigator` argument is used to determine whether to push the
+      /// menu to the [Navigator] furthest from or nearest to the given `context`. It
+      /// is `false` by default."
+      ///
+      /// The flag is set to true here, because when the default value is used,
+      /// app bar buttons remain active, e.g. page can be refreshed,
+      /// or worse, object can be deleted, while popup menu is open.
       useRootNavigator: true,
     );
   }
 }
 
-class JudoMenuItemData {
+class JudoMenuItemData<T> {
   JudoMenuItemData({
     this.label,
     this.icon,
     this.onSelected,
+    this.value,
   });
 
   final Function onSelected;
   final Icon icon;
   final String label;
+  final T value;
 
   Widget getChild(double gap) {
     return icon != null && label != null
