@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoPopupButtonWidget<T> extends StatelessWidget {
   JudoPopupButtonWidget({
+    Key key,
     this.label,
     this.icon,
     this.loadingState,
@@ -9,7 +10,7 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
     this.disabled = false,
     this.items,
     this.outlined = false,
-  });
+  }) : super(key: key);
 
   final Icon icon;
   final String label;

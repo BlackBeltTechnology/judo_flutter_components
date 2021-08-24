@@ -3,6 +3,7 @@ part of judo.components;
 class JudoButton extends StatelessWidget {
 
   JudoButton({
+    Key key,
     @required this.col,
     this.row = 1,
     this.padding,
@@ -15,7 +16,7 @@ class JudoButton extends StatelessWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.outlined = false,
-  });
+  }) : super(key: key);
 
   final double col;
   final double row;

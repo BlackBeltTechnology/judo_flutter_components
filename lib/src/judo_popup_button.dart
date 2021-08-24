@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoPopupButton<T> extends StatelessWidget {
   JudoPopupButton({
+    Key key,
     @required this.col,
     this.row = 1,
     this.padding,
@@ -14,7 +15,7 @@ class JudoPopupButton<T> extends StatelessWidget {
     this.alignment = Alignment.centerLeft,
     this.items,
     this.outlined = false,
-  });
+  }) : super(key: key);
 
   final double col;
   final double row;

@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoButtonWidget extends StatelessWidget {
   JudoButtonWidget({
+    Key key,
     this.label,
     this.icon,
     this.loadingState,
@@ -9,7 +10,7 @@ class JudoButtonWidget extends StatelessWidget {
     this.color,
     this.disabled = false,
     this.outlined = false,
-  });
+  }) : super(key: key);
 
   final String label;
   final LoadingState loadingState;

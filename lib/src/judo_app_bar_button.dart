@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoAppBarButton extends StatelessWidget {
   JudoAppBarButton({
+    Key key,
     this.padding,
     this.label,
     this.icon,
@@ -10,7 +11,7 @@ class JudoAppBarButton extends StatelessWidget {
     this.color,
     this.disabled = false,
     this.outlined = false,
-  });
+  }) : super(key: key);
 
   final EdgeInsets padding;
   final String label;

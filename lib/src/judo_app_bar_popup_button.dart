@@ -2,6 +2,7 @@ part of judo.components;
 
 class JudoAppBarPopupButton<T> extends StatelessWidget {
   JudoAppBarPopupButton({
+    Key key,
     this.padding,
     this.label,
     this.icon,
@@ -10,7 +11,7 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
     this.disabled = false,
     this.items,
     this.outlined = false,
-  });
+  }) : super(key: key);
 
   final EdgeInsets padding;
   final Icon icon;
