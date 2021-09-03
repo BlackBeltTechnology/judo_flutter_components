@@ -25,7 +25,7 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding,
+      padding: padding == null ? EdgeInsets.all(0) : padding,
       child: JudoPopupButtonWidget(
         label: label,
         loadingState: loadingState,

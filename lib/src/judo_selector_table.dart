@@ -76,7 +76,7 @@ class JudoSelectorTable extends StatelessWidget {
               showCheckboxColumn: true,
               sortAscending: sortAscending == null ? true : sortAscending,
               sortColumnIndex: sortColumnIndex,
-              columns: dataInfo.getColumns(onAdd, onSort),
+              columns: dataInfo.getColumns(onAdd, onSort, null),
               rows: dataRow(context),
               dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
           ),

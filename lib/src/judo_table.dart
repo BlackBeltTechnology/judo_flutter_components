@@ -1,7 +1,7 @@
 part of judo.components;
 
 abstract class JudoTableDataInfo {
-  List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
+  List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort, Widget popupActions);
   Function getRow({BuildContext context,
     Function navigateToEditPageAction,
     Function navigateToViewPageAction,
@@ -34,6 +34,7 @@ class JudoTable extends StatelessWidget {
     this.inCard = false,
     this.alignment = Alignment.centerLeft,
     this.sortInitially = false,
+    this.tableActions,
   }) : super(key: key);
 
   final double col;
@@ -56,6 +57,7 @@ class JudoTable extends StatelessWidget {
   final EdgeInsets padding;
   final bool inCard;
   final bool sortInitially;
+  final Map<int, JudoMenuItemData> tableActions;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +94,7 @@ class JudoTable extends StatelessWidget {
         showCheckboxColumn: false,
         sortAscending: _shouldSortAscending(),
         sortColumnIndex: sortColumnIndex,
-        columns: dataInfo.getColumns(onAdd, onSort),
+        columns: dataInfo.getColumns(onAdd, onSort, getPopupButton()),
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
         headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
@@ -147,5 +149,14 @@ class JudoTable extends StatelessWidget {
   
   bool _shouldSortAscending() {
     return sortAscending == null ? true : sortAscending;
+  }
+
+  JudoAppBarPopupButton getPopupButton() {
+    return JudoAppBarPopupButton<int>(
+      icon: Icon(Icons.more_vert),
+      items: tableActions,
+      outlined: true,
+      padding: EdgeInsets.all(0),
+    );
   }
 }
