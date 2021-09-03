@@ -1,7 +1,7 @@
 part of judo.components;
 
 abstract class JudoTableDataInfo {
-  List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort, Widget popupActions);
+  List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
   Function getRow({BuildContext context,
     Function navigateToEditPageAction,
     Function navigateToViewPageAction,
@@ -94,7 +94,8 @@ class JudoTable extends StatelessWidget {
         showCheckboxColumn: false,
         sortAscending: _shouldSortAscending(),
         sortColumnIndex: sortColumnIndex,
-        columns: dataInfo.getColumns(onAdd, onSort, getPopupButton()),
+        columns: tableActions == null || tableActions.isEmpty ?
+          dataInfo.getColumns(onAdd, onSort) : getColumns(),
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
         headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
@@ -149,6 +150,12 @@ class JudoTable extends StatelessWidget {
   
   bool _shouldSortAscending() {
     return sortAscending == null ? true : sortAscending;
+  }
+
+  List<DataColumn> getColumns() {
+    List<DataColumn> cols = dataInfo.getColumns(onAdd, onSort);
+    cols.add(DataColumn(label: getPopupButton()));
+    return cols;
   }
 
   JudoAppBarPopupButton getPopupButton() {
