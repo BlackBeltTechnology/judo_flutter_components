@@ -162,7 +162,7 @@ class JudoTable extends StatelessWidget {
     return JudoAppBarPopupButton<int>(
       icon: Icon(Icons.more_vert),
       items: tableActions,
-      outlined: true,
+      outlined: false,
       padding: EdgeInsets.all(0),
     );
   }
