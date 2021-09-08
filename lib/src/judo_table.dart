@@ -57,7 +57,7 @@ class JudoTable extends StatelessWidget {
   final EdgeInsets padding;
   final bool inCard;
   final bool sortInitially;
-  final Map<int, JudoMenuItemData> tableActions;
+  final Map<int, JudoMenuItemData> tableActions = Map<int, JudoMenuItemData>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +94,7 @@ class JudoTable extends StatelessWidget {
         showCheckboxColumn: false,
         sortAscending: _shouldSortAscending(),
         sortColumnIndex: sortColumnIndex,
-        columns: tableActions == null || tableActions.isEmpty ?
+        columns: tableActions.isEmpty ?
           dataInfo.getColumns(onAdd, onSort) : getColumns(),
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
