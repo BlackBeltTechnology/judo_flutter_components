@@ -34,7 +34,7 @@ class JudoTable extends StatelessWidget {
     this.inCard = false,
     this.alignment = Alignment.centerLeft,
     this.sortInitially = false,
-    this.tableActions,
+    this.tableActions = const <int, JudoMenuItemData>{},
   }) : super(key: key);
 
   final double col;
@@ -57,7 +57,7 @@ class JudoTable extends StatelessWidget {
   final EdgeInsets padding;
   final bool inCard;
   final bool sortInitially;
-  final Map<int, JudoMenuItemData> tableActions = Map<int, JudoMenuItemData>();
+  final Map<int, JudoMenuItemData> tableActions;
 
   @override
   Widget build(BuildContext context) {
