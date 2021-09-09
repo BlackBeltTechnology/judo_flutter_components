@@ -94,8 +94,7 @@ class JudoTable extends StatelessWidget {
         showCheckboxColumn: false,
         sortAscending: _shouldSortAscending(),
         sortColumnIndex: sortColumnIndex,
-        columns: tableActions.isEmpty ?
-          dataInfo.getColumns(onAdd, onSort) : getColumns(),
+        columns: tableActions.isEmpty ? dataInfo.getColumns(onAdd, onSort) : [...dataInfo.getColumns(onAdd, onSort), DataColumn(label: getPopupButton())],
         rows: dataRow(context),
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
         headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
@@ -150,12 +149,6 @@ class JudoTable extends StatelessWidget {
   
   bool _shouldSortAscending() {
     return sortAscending == null ? true : sortAscending;
-  }
-
-  List<DataColumn> getColumns() {
-    List<DataColumn> cols = dataInfo.getColumns(onAdd, onSort);
-    cols.add(DataColumn(label: getPopupButton()));
-    return cols;
   }
 
   JudoAppBarPopupButton getPopupButton() {
