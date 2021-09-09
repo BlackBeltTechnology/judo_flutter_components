@@ -62,6 +62,7 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
       context: context,
       items: getItemBuilder(context).call(context),
       position: position,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
 
       /// "The `useRootNavigator` argument is used to determine whether to push the
       /// menu to the [Navigator] furthest from or nearest to the given `context`. It
