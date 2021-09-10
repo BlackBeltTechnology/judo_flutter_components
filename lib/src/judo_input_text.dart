@@ -9,6 +9,8 @@ class JudoInputText extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onFocus,
+    this.onBlur,
     this.onSubmitted,
     this.errorMessage,
     this.initialValue,
@@ -28,6 +30,8 @@ class JudoInputText extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onFocus;
+  final Function onBlur;
   final Function onSubmitted;
   final String errorMessage;
   final String initialValue;
@@ -46,11 +50,30 @@ class JudoInputText extends StatefulWidget {
 
 class JudoInputTextState extends State<JudoInputText> {
   final TextEditingController controller = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+
+  @override
+  void didUpdateWidget(JudoInputText oldWidget) {
+    super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
+    if (controller.text != widget.initialValue) {
+      controller.text = widget.initialValue;
+    }
+  }
 
   @override
   void initState() {
     super.initState();
     controller.text = widget.initialValue;
+
+    if (widget.onFocus != null || widget.onBlur != null) {
+      focusNode.addListener(() {
+        if (focusNode.hasFocus && widget.onFocus != null) {
+          widget.onFocus();
+        } else if (!focusNode.hasFocus && widget.onBlur != null) {
+          widget.onBlur();
+        }
+      });
+    }
   }
 
   @override
@@ -87,6 +110,7 @@ class JudoInputTextState extends State<JudoInputText> {
               decoration: JudoComponentCustomizer.get().getInputTextDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.multiline, widget.errorMessage),
               onChanged: widget.onChanged,
               onSubmitted: widget.onSubmitted,
+              focusNode: focusNode,
             ),
           decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
         ),
