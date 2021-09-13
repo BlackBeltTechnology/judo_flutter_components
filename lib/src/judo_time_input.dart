@@ -46,6 +46,14 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
   }
 
   @override
+  void didUpdateWidget(JudoInputText oldWidget) {
+    super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
+    if (controller.text != widget.initialDate) {
+      controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+    }
+  }
+
+  @override
   void dispose() {
     controller.dispose();
     super.dispose();

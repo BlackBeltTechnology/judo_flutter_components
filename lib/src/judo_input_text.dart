@@ -53,14 +53,6 @@ class JudoInputTextState extends State<JudoInputText> {
   final FocusNode focusNode = FocusNode();
 
   @override
-  void didUpdateWidget(JudoInputText oldWidget) {
-    super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
-    if (controller.text != widget.initialValue) {
-      controller.text = widget.initialValue;
-    }
-  }
-
-  @override
   void initState() {
     super.initState();
     controller.text = widget.initialValue;
@@ -73,6 +65,14 @@ class JudoInputTextState extends State<JudoInputText> {
           widget.onBlur();
         }
       });
+    }
+  }
+
+  @override
+  void didUpdateWidget(JudoInputText oldWidget) {
+    super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
+    if (controller.text != widget.initialValue) {
+      controller.text = widget.initialValue;
     }
   }
 
