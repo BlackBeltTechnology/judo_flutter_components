@@ -10,6 +10,8 @@ class JudoNumericInput extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onFocus,
+    this.onBlur,
     this.onSubmitted,
     this.errorMessage,
     this.initialValue,
@@ -27,6 +29,8 @@ class JudoNumericInput extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onFocus;
+  final Function onBlur;
   final Function onSubmitted;
   final String errorMessage;
   final String initialValue;
@@ -44,11 +48,22 @@ class JudoNumericInput extends StatefulWidget {
 class _JudoNumericInputState extends State<JudoNumericInput> {
   RegExp _regExp = RegExp(r"^[+|\-]{0,1}\d*\.{0,1}\d*$");
   final TextEditingController controller = TextEditingController();
+  final FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
     controller.text = widget.initialValue;
+
+    if (widget.onFocus != null || widget.onBlur != null) {
+      focusNode.addListener(() {
+        if (focusNode.hasFocus && widget.onFocus != null) {
+          widget.onFocus();
+        } else if (!focusNode.hasFocus && widget.onBlur != null) {
+          widget.onBlur();
+        }
+      });
+    }
   }
 
   @override
@@ -100,6 +115,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return widget.onChanged(value);
             },
             onSubmitted: widget.onSubmitted,
+            focusNode: focusNode,
           ),
         ),
       ),
