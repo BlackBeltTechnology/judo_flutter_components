@@ -51,6 +51,7 @@ class JudoInputText extends StatefulWidget {
 class JudoInputTextState extends State<JudoInputText> {
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
+  bool _focused = false;
 
   @override
   void initState() {
@@ -58,13 +59,22 @@ class JudoInputTextState extends State<JudoInputText> {
     controller.text = widget.initialValue;
 
     if (widget.onFocus != null || widget.onBlur != null) {
-      focusNode.addListener(() {
-        if (focusNode.hasFocus && widget.onFocus != null) {
-          widget.onFocus();
-        } else if (!focusNode.hasFocus && widget.onBlur != null) {
-          widget.onBlur();
-        }
+      focusNode.addListener(_focusHandler);
+    }
+  }
+
+  void _focusHandler() {
+    // According to docs, focus is lost on node every time a build happens, so we
+    // store it locally, and only trigger handlers where there is an actual change
+    if (focusNode.hasFocus != _focused) {
+      this.setState(() {
+        _focused = focusNode.hasFocus;
       });
+      if (_focused && widget.onFocus != null) {
+        widget.onFocus();
+      } else if (!_focused && widget.onBlur != null) {
+        widget.onBlur();
+      }
     }
   }
 
