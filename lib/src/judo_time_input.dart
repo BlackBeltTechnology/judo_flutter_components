@@ -49,7 +49,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
   void didUpdateWidget(JudoTimeInput oldWidget) {
     super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
     if (controller.text != widget.initialDate) {
-      controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+      controller.text = widget.initialDate != null ? widget.initialDate.toString() : null;
     }
   }
 
