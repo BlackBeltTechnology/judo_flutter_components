@@ -9,6 +9,8 @@ class JudoInputText extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onFocus,
+    this.onBlur,
     this.onSubmitted,
     this.errorMessage,
     this.initialValue,
@@ -28,6 +30,8 @@ class JudoInputText extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onFocus;
+  final Function onBlur;
   final Function onSubmitted;
   final String errorMessage;
   final String initialValue;
@@ -46,11 +50,40 @@ class JudoInputText extends StatefulWidget {
 
 class JudoInputTextState extends State<JudoInputText> {
   final TextEditingController controller = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+  bool _focused = false;
 
   @override
   void initState() {
     super.initState();
     controller.text = widget.initialValue;
+
+    if (widget.onFocus != null || widget.onBlur != null) {
+      focusNode.addListener(_focusHandler);
+    }
+  }
+
+  void _focusHandler() {
+    // According to docs, focus is lost on node every time a build happens, so we
+    // store it locally, and only trigger handlers where there is an actual change
+    if (focusNode.hasFocus != _focused) {
+      this.setState(() {
+        _focused = focusNode.hasFocus;
+      });
+      if (_focused && widget.onFocus != null) {
+        widget.onFocus();
+      } else if (!_focused && widget.onBlur != null) {
+        widget.onBlur();
+      }
+    }
+  }
+
+  @override
+  void didUpdateWidget(JudoInputText oldWidget) {
+    super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
+    if (controller.text != widget.initialValue) {
+      controller.text = widget.initialValue;
+    }
   }
 
   @override
@@ -87,6 +120,7 @@ class JudoInputTextState extends State<JudoInputText> {
               decoration: JudoComponentCustomizer.get().getInputTextDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.multiline, widget.errorMessage),
               onChanged: widget.onChanged,
               onSubmitted: widget.onSubmitted,
+              focusNode: focusNode,
             ),
           decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
         ),

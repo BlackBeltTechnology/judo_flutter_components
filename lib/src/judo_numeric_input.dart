@@ -10,6 +10,8 @@ class JudoNumericInput extends StatefulWidget {
     this.label,
     this.icon,
     this.onChanged,
+    this.onFocus,
+    this.onBlur,
     this.onSubmitted,
     this.errorMessage,
     this.initialValue,
@@ -27,6 +29,8 @@ class JudoNumericInput extends StatefulWidget {
   final String label;
   final Icon icon;
   final Function onChanged;
+  final Function onFocus;
+  final Function onBlur;
   final Function onSubmitted;
   final String errorMessage;
   final String initialValue;
@@ -44,11 +48,40 @@ class JudoNumericInput extends StatefulWidget {
 class _JudoNumericInputState extends State<JudoNumericInput> {
   RegExp _regExp = RegExp(r"^[+|\-]{0,1}\d*\.{0,1}\d*$");
   final TextEditingController controller = TextEditingController();
+  final FocusNode focusNode = FocusNode();
+  bool _focused = false;
 
   @override
   void initState() {
     super.initState();
     controller.text = widget.initialValue;
+
+    if (widget.onFocus != null || widget.onBlur != null) {
+      focusNode.addListener(_focusHandler);
+    }
+  }
+
+  void _focusHandler() {
+    // According to docs, focus is lost on node every time a build happens, so we
+    // store it locally, and only trigger handlers where there is an actual change
+    if (focusNode.hasFocus != _focused) {
+      this.setState(() {
+        _focused = focusNode.hasFocus;
+      });
+      if (_focused && widget.onFocus != null) {
+        widget.onFocus();
+      } else if (!_focused && widget.onBlur != null) {
+        widget.onBlur();
+      }
+    }
+  }
+
+  @override
+  void didUpdateWidget(JudoNumericInput oldWidget) {
+    super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
+    if (controller.text != widget.initialValue) {
+      controller.text = widget.initialValue;
+    }
   }
 
   @override
@@ -92,6 +125,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return widget.onChanged(value);
             },
             onSubmitted: widget.onSubmitted,
+            focusNode: focusNode,
           ),
         ),
       ),
