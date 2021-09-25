@@ -1,5 +1,14 @@
 part of judo.components;
 
+/// We need a custom API, so that we can detach the initialValue definition due
+/// to a bug mentioned below.
+class JudoNumericInputMaskSpec {
+  final String mask;
+  final Map<String, RegExp> filter;
+
+  const JudoNumericInputMaskSpec(this.mask, this.filter);
+}
+
 class JudoNumericInput extends StatefulWidget {
 
   JudoNumericInput({
@@ -21,6 +30,7 @@ class JudoNumericInput extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.topLeft,
     this.inCard = false,
+    this.inputMask,
   }) : super(key: key);
 
   final double col;
@@ -40,6 +50,7 @@ class JudoNumericInput extends StatefulWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool inCard;
+  final JudoNumericInputMaskSpec inputMask;
 
   @override
   _JudoNumericInputState createState() => _JudoNumericInputState();
@@ -49,12 +60,26 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
   RegExp _regExp = RegExp(r"^[+|\-]{0,1}\d*\.{0,1}\d*$");
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
+  MaskTextInputFormatter _maskFormatter;
   bool _focused = false;
 
   @override
   void initState() {
     super.initState();
-    controller.text = widget.initialValue;
+
+    if (widget.inputMask != null) {
+      /// lib is bugged, we need to set constructor init value AND controller text BOTH
+      /// for the initial value to show AND if we type later it not to clear out the
+      /// whole value.......
+      _maskFormatter = MaskTextInputFormatter(
+        mask: widget.inputMask.mask,
+        filter: widget.inputMask.filter,
+        initialText: widget.initialValue,
+      );
+      controller.text = _maskFormatter.maskText(widget.initialValue);
+    } else {
+      controller.text = widget.initialValue;
+    }
 
     if (widget.onFocus != null || widget.onBlur != null) {
       focusNode.addListener(_focusHandler);
@@ -80,7 +105,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
   void didUpdateWidget(JudoNumericInput oldWidget) {
     super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
     if (controller.text != widget.initialValue) {
-      controller.text = widget.initialValue;
+      controller.text = _maskFormatter != null ? _maskFormatter.maskText(widget.initialValue) : widget.initialValue;
     }
   }
 
@@ -109,7 +134,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
             readOnly: widget.disabled ? true : widget.readOnly,
             enabled: widget.disabled ? false : !widget.readOnly,
             keyboardType: TextInputType.number,
-            inputFormatters: [
+            inputFormatters: [ _maskFormatter != null ? _maskFormatter :
               TextInputFormatter.withFunction((oldValue, newValue) {
                 var correctTextEditingValue = TextEditingValue();
                 if(_regExp.hasMatch(newValue.text)){
@@ -122,7 +147,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
             ],
             decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
             onChanged: (value) {
-                return widget.onChanged(value);
+                return widget.onChanged(_maskFormatter != null ? _maskFormatter.getUnmaskedText() : value);
             },
             onSubmitted: widget.onSubmitted,
             focusNode: focusNode,
