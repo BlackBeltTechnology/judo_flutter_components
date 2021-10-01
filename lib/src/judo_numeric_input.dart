@@ -120,7 +120,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return correctTextEditingValue;
               }),
             ],
-            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
+            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
             onChanged: (value) {
                 return widget.onChanged(value);
             },

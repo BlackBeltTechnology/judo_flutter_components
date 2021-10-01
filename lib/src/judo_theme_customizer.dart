@@ -34,19 +34,19 @@ abstract class JudoComponentCustomizer {
       ThemeData theme, bool disabled, bool readOnly, bool inCard);
 
   InputDecoration getInputDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage);
   InputDecoration getInputTextDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool multiline, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool multiline, bool disabled, bool readOnly, String errorMessage);
   InputDecoration getInputDateDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage);
   InputDecoration getInputDateTimeDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage);
   InputDecoration getInputLinkDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage);
   InputDecoration getInputNumericDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage);
   InputDecoration getInputComboboxDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage);
 
   ThemeData getBreadcumbThemeCustomizer(ThemeData themeData);
   ThemeData getFilterThemeCustomizer(ThemeData themeData);
@@ -64,6 +64,7 @@ abstract class JudoComponentCustomizer {
   TextStyle getUserNameTextStyle(ThemeData theme);
   TextStyle getEmailTextStyle(ThemeData theme);
   TextStyle getRowCounterTextStyle(ThemeData theme);
+  MaterialStateProperty<Color> getRowColour(ThemeData theme, int index, bool inCard);
 }
 
 class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
@@ -110,7 +111,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  InputDecoration getInputDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage) {
     return InputDecoration(
       labelText: label != null ?
       ( mandatory ? label + ' *' : label )
@@ -138,37 +139,37 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  InputDecoration getInputTextDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool multiline, String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage).copyWith(
+  InputDecoration getInputTextDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool multiline, bool disabled, bool readOnly, String errorMessage) {
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage).copyWith(
         floatingLabelBehavior: multiline ? FloatingLabelBehavior.always : null
     );
   }
 
   @override
-  InputDecoration getInputDateDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage);
+  InputDecoration getInputDateDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage) {
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage);
   }
 
   @override
-  InputDecoration getInputDateTimeDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage);
+  InputDecoration getInputDateTimeDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage) {
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage);
   }
 
   @override
-  InputDecoration getInputLinkDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage).copyWith(
+  InputDecoration getInputLinkDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage) {
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage).copyWith(
       errorBorder: errorMessage != null ? OutlineInputBorder(borderSide: BorderSide(color: errorColor, width: 2.0)) : null,
     );
   }
 
   @override
-  InputDecoration getInputNumericDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage);
+  InputDecoration getInputNumericDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage) {
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage);
   }
 
   @override
-  InputDecoration getInputComboboxDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage).copyWith();
+  InputDecoration getInputComboboxDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool disabled, bool readOnly, String errorMessage) {
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage).copyWith();
   }
 
   @override
@@ -349,6 +350,23 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   ThemeData getFilterThemeCustomizer(ThemeData theme) {
     return theme;
+  }
+
+  @override
+  MaterialStateProperty<Color> getRowColour(ThemeData theme, int index, bool inCard) {
+    return MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+          // All rows will have the same selected color.
+          if (states.contains(MaterialState.selected)) {
+            return theme.colorScheme.primary.withOpacity(0.08);
+          }
+          // Even rows will have a grey color.
+          if (index % 2 == 0) {
+            return inCard ? theme.backgroundColor : theme.cardColor;
+          }
+          return inCard ? theme.cardColor : theme.backgroundColor;
+        }
+    );
   }
 
 

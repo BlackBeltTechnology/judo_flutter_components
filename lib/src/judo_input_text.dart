@@ -117,7 +117,7 @@ class JudoInputTextState extends State<JudoInputText> {
               inputFormatters: [
                 _Utf8LengthLimitingTextInputFormatter(widget.maxLength ?? 250),
               ],
-              decoration: JudoComponentCustomizer.get().getInputTextDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.multiline, widget.errorMessage),
+              decoration: JudoComponentCustomizer.get().getInputTextDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.multiline, widget.disabled, widget.readOnly, widget.errorMessage),
               onChanged: widget.onChanged,
               onSubmitted: widget.onSubmitted,
               focusNode: focusNode,

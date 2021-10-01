@@ -86,7 +86,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
                   controller: controller,
                   readOnly: widget.disabled || widget.readOnly,
                   enabled: !widget.disabled && !widget.readOnly,
-                  decoration: JudoComponentCustomizer.get().getInputDateTimeDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.errorMessage),
+                  decoration: JudoComponentCustomizer.get().getInputDateTimeDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),

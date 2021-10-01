@@ -85,7 +85,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
                   controller: controller,
                   readOnly: widget.disabled || widget.readOnly,
                   enabled: !widget.disabled && !widget.readOnly,
-                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.errorMessage),
+                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),
@@ -103,13 +103,12 @@ class _JudoDateInputState extends State<JudoDateInput> {
           Icons.calendar_today,
         ),
         onPressed: (widget.disabled || widget.readOnly) ? null : () async {
-          tempDateTime = await showDatePicker(
+          await showDatePicker(
             context: context,
             initialDate: tempDateTime,
             firstDate: widget.firstDate ?? DateTime(1900),
             lastDate: widget.lastDate ?? DateTime(2100),
-          );
-          onChangedHandler(tempDateTime);
+          ).then((selectedDate) => onChangedHandler(selectedDate));
         }
     );
 

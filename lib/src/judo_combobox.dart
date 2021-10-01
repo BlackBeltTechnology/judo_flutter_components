@@ -69,7 +69,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
         child: Container(
           decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
               child: DropdownButtonFormField<T>(
-                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
+                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
                 onTap: widget.onTap,
                 value: widget.value,
                 icon: widget.disabled || widget.readOnly ? Visibility(visible: false, child: Icon(Icons.expand_more),) : Icon(Icons.expand_more),

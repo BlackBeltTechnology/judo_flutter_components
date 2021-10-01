@@ -99,7 +99,7 @@ class JudoLink extends StatelessWidget {
         controller: controller,
         readOnly: true,
         enabled: false,
-        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context).copyWith(), label, icon, null, mandatory, errorMessage)
+        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context).copyWith(), label, icon, null, mandatory, disabled, readOnly, errorMessage)
       );
   }
 
