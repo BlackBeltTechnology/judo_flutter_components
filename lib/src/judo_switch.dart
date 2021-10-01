@@ -68,11 +68,15 @@ class JudoSwitchState extends State<JudoSwitch> {
               fillColor: widget.errorMessage != null ? MaterialStateProperty.all(Theme.of(context).errorColor) : null
             ),
           ),
-          Text(
-              widget.mandatory ? widget.label + ' *' : widget.label,
+          GestureDetector(
+            onTap: widget.disabled || widget.readOnly ? null : () {
+              widget.onChanged(!(widget.initialValue ?? false));
+            },
+            child: Text(
+              widget.label,
               style: JudoComponentCustomizer.get().getSwitchTextStyle(Theme.of(context), widget.errorMessage),
+            )
           ),
-
         ],
       ),
     );
