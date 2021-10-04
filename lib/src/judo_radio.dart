@@ -2,15 +2,15 @@ part of judo.components;
 
 class JudoRadio<T> extends StatefulWidget {
   JudoRadio({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
-    @required this.items,
+    required this.items,
     this.onChanged,
     this.errorMessage,
-    this.groupValue,
-    @required this.getLabel,
-    this.getValue,
+    required this.groupValue,
+    required this.getLabel,
+    required this.getValue,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.topLeft,
@@ -21,15 +21,14 @@ class JudoRadio<T> extends StatefulWidget {
   final double col;
   final double row;
   T groupValue;
-  T value;
   final List items;
-  final Function onChanged;
-  final String errorMessage;
+  final ValueChanged<T?>? onChanged;
+  final String? errorMessage;
   final Function getLabel;
   final Function getValue;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool disabled;
   final bool readOnly;
 
@@ -78,12 +77,12 @@ class _JudoRadioState<T> extends State<JudoRadio> {
 
 class JudoRadioButton<T> extends StatelessWidget {
   JudoRadioButton({
-    this.label,
-    this.value,
-    this.groupValue,
-    this.onChanged,
+    required this.label,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
     this.errorMessage,
-    this.col,
+    required this.col,
     this.disabled = false,
     this.readOnly = false,
   });
@@ -91,8 +90,8 @@ class JudoRadioButton<T> extends StatelessWidget {
   final String label;
   final T value;
   final T groupValue;
-  final Function onChanged;
-  final String errorMessage;
+  final ValueChanged<T?>? onChanged;
+  final String? errorMessage;
   final int col;
   final bool disabled;
   final bool readOnly;

@@ -2,18 +2,18 @@ part of judo.components;
 
 class JudoAppBarPopupButton<T> extends StatelessWidget {
   JudoAppBarPopupButton({
-    Key key,
+    Key? key,
     this.padding,
-    this.label,
-    this.icon,
-    this.loadingState,
-    this.color,
+    required this.label,
+    required this.icon,
+    required this.loadingState,
+    required this.color,
     this.disabled = false,
-    this.items,
+    this.items = const {},
     this.outlined = false,
   }) : super(key: key);
 
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final Icon icon;
   final String label;
   final Color color;
@@ -25,7 +25,7 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding == null ? EdgeInsets.all(0) : padding,
+      padding: padding ?? EdgeInsets.all(0),
       child: JudoPopupButtonWidget(
         label: label,
         loadingState: loadingState,

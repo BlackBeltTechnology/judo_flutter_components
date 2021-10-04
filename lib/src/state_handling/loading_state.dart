@@ -9,7 +9,7 @@ class LoadingState extends _LoadingState with _$LoadingState {
 }
 
 abstract class _LoadingState with Store {
-    Function setDisabledByLoading;
+    late Function setDisabledByLoading;
 
     @observable
     bool isLoading = false;

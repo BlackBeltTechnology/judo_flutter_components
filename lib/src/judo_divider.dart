@@ -3,8 +3,8 @@ part of judo.components;
 class JudoDivider extends StatelessWidget {
 
   JudoDivider({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.padding,
     this.alignment = Alignment.center,
@@ -12,7 +12,7 @@ class JudoDivider extends StatelessWidget {
 
   final double col;
   final double row;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final Alignment alignment;
 
   @override

@@ -2,12 +2,12 @@ part of judo.components;
 
 class JudoLink extends StatelessWidget {
   JudoLink({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.mandatory = false,
     this.formatter = defaultFormatter,
-    @required this.data,
+    required this.data,
     this.label,
     this.icon,
     this.errorMessage,
@@ -27,15 +27,15 @@ class JudoLink extends StatelessWidget {
   final bool disabled;
   final bool readOnly;
   final Function formatter;
-  final String label;
-  final Icon icon;
+  final String? label;
+  final Icon? icon;
   final dynamic data;
-  final String errorMessage;
-  final Function setAction;
-  final List<Widget> actions;
+  final String? errorMessage;
+  final GestureTapCallback? setAction;
+  final List<Widget>? actions;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool inCard;
 
   static String defaultFormatter(dynamic e) {
@@ -73,7 +73,7 @@ class JudoLink extends StatelessWidget {
                                     onTap: !readOnly && !disabled ? setAction : null,
                                     child: getTextField(context),
                                 ),
-                                decoration: errorMessage != null && errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, disabled, readOnly),
+                                decoration: errorMessage != null && errorMessage!.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, disabled, readOnly),
                               )
                         ),
                         Container(
@@ -105,11 +105,10 @@ class JudoLink extends StatelessWidget {
   }
 
   List<Widget> getActionWidgets() {
-    List ret = actions;
-    if (ret == null) {
+    if (actions == null) {
       return [];
     }
-    ret.removeWhere((value) => value == null);
-    return ret;
+    actions!.removeWhere((value) => value == null);
+    return actions!;
   }
 }

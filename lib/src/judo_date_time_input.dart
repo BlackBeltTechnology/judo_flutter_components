@@ -26,12 +26,12 @@ class JudoDateTimeInput extends StatefulWidget {
   final double col;
   final double row;
   final bool mandatory;
-  final String label;
-  final Icon icon;
-  final Function onChanged;
-  final Function onSubmitted;
-  final String errorMessage;
-  final DateTime initialDate;
+  final String? label;
+  final Icon? icon;
+  final Function? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final String? errorMessage;
+  final DateTime? initialDate;
   final bool readOnly;
   final bool disabled;
   final DateTime firstDate;
@@ -53,14 +53,14 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+    controller.text = widget.initialDate != null ? formatter.format(widget.initialDate!) : '';
   }
 
   @override
   void didUpdateWidget(JudoDateTimeInput oldWidget) {
     super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
     if (controller.text != widget.initialDate) {
-      controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+      controller.text = widget.initialDate != null ? formatter.format(widget.initialDate!) : '';
     }
   }
 
@@ -131,12 +131,12 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
 
   }
 
-  void onChangedHandler(DateTime value) {
+  void onChangedHandler(DateTime? value) {
     if (widget.onChanged != null) {
       if (value != null) {
         controller.text = formatter.format(value);
       }
-      widget.onChanged(value);
+      widget.onChanged!(value);
     }
   }
 }

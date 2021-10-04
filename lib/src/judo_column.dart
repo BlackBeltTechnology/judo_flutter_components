@@ -2,9 +2,9 @@ part of judo.components;
 
 class JudoColumn extends StatelessWidget {
   JudoColumn({
-    Key key,
-    this.children,
-    @required this.col,
+    Key? key,
+    required this.children,
+    required this.col,
     this.row = 1.0,
     this.mainAxisAlignment = MainAxisAlignment.start,
     this.crossAxisAlignment = CrossAxisAlignment.center,
