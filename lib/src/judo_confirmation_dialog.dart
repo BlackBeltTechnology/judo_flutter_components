@@ -1,6 +1,6 @@
 part of judo.components;
 
-Future<bool> judoConfirmationDialog<T>({@required BuildContext context, String confirmationMessage}) async {
+Future<bool> judoConfirmationDialog<T>({required BuildContext context, required String confirmationMessage}) async {
   return await showDialog<bool>(
     context: context,
     builder: (context) {

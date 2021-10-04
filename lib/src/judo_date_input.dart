@@ -2,8 +2,8 @@ part of judo.components;
 
 class JudoDateInput extends StatefulWidget {
   JudoDateInput({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1,
     this.mandatory = false,
     this.label,
@@ -25,12 +25,12 @@ class JudoDateInput extends StatefulWidget {
   final double col;
   final double row;
   final bool mandatory;
-  final String label;
-  final Icon icon;
-  final Function onChanged;
-  final Function onSubmitted;
-  final String errorMessage;
-  final DateTime initialDate;
+  final String? label;
+  final Icon? icon;
+  final Function? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final String? errorMessage;
+  final DateTime? initialDate;
   final bool readOnly;
   final bool disabled;
   final bool inCard;
@@ -38,7 +38,7 @@ class JudoDateInput extends StatefulWidget {
   final DateTime lastDate;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   _JudoDateInputState createState() => _JudoDateInputState();
@@ -51,14 +51,14 @@ class _JudoDateInputState extends State<JudoDateInput> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+    controller.text = widget.initialDate != null ? formatter.format(widget.initialDate!) : '';
   }
 
   @override
   void didUpdateWidget(JudoDateInput oldWidget) {
     super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
     if (controller.text != widget.initialDate) {
-      controller.text = widget.initialDate != null ? formatter.format(widget.initialDate) : null;
+      controller.text = widget.initialDate != null ? formatter.format(widget.initialDate!) : '';
     }
   }
 
@@ -97,7 +97,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
   }
 
   IconButton iconDatePicker(BuildContext context) {
-    var tempDateTime = widget.initialDate ?? DateTime.now();
+    DateTime tempDateTime = widget.initialDate ?? DateTime.now();
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
@@ -115,12 +115,12 @@ class _JudoDateInputState extends State<JudoDateInput> {
 
   }
 
-  void onChangedHandler(DateTime value) {
+  void onChangedHandler(DateTime? value) {
     if (widget.onChanged != null) {
       if (value != null) {
         controller.text = formatter.format(value);
       }
-      widget.onChanged(value);
+      widget.onChanged!(value);
     }
   }
 }

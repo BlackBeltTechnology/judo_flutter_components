@@ -3,15 +3,15 @@ part of judo.components;
 class JudoButton extends StatelessWidget {
 
   JudoButton({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1,
     this.padding,
-    this.label,
-    this.icon,
-    this.loadingState,
-    this.onPressed,
-    this.color,
+    required this.label,
+    required this.icon,
+    required this.loadingState,
+    required this.onPressed,
+    required this.color,
     this.disabled = false,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -20,10 +20,10 @@ class JudoButton extends StatelessWidget {
 
   final double col;
   final double row;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final String label;
   final LoadingState loadingState;
-  final Function onPressed;
+  final FutureFunction onPressed;
   final Icon icon;
   final Color color;
   final bool disabled;

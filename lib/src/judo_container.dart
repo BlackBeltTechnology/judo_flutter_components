@@ -3,8 +3,8 @@ part of judo.components;
 class JudoContainer extends StatefulWidget {
 
   JudoContainer({
-    Key key,
-    this.child,
+    Key? key,
+    required this.child,
     this.col = 4,
     this.row = 1.0,
     this.padding,
@@ -14,10 +14,10 @@ class JudoContainer extends StatefulWidget {
   }) : super(key: key);
 
   final Widget child;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final double col;
   final double row;
-  final Color color;
+  final Color? color;
   final bool stretch;
   final Alignment alignment;
 

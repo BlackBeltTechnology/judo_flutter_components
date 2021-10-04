@@ -2,23 +2,23 @@ part of judo.components;
 
 class JudoSelectorTable extends StatelessWidget {
   JudoSelectorTable({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
-    @required this.dataInfo,
-    @required this.rowList,
-    @required this.collectionSelector,
+    required this.dataInfo,
+    required this.rowList,
+    required this.collectionSelector,
     this.dialogTypeAdder = false,
     this.alreadyAddedItemsComparator,
-    @required this.singleSelectAction,
-    @required this.multiSelectAction,
-    @required this.singleSelectedComparator,
-    @required this.multiSelectedComparator,
+    required this.singleSelectAction,
+    required this.multiSelectAction,
+    required this.singleSelectedComparator,
+    required this.multiSelectedComparator,
     this.sortAscending = true,
     this.sortColumnIndex = 0,
     this.disabled = false,
     this.onAdd,
-    this.onSort,
+    required this.onSort,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -27,7 +27,7 @@ class JudoSelectorTable extends StatelessWidget {
   final bool collectionSelector;
   final double col;
   final double row;
-  final bool sortAscending;
+  final bool? sortAscending;
   final int sortColumnIndex;
   final bool disabled;
   final JudoTableDataInfo dataInfo;
@@ -39,7 +39,7 @@ class JudoSelectorTable extends StatelessWidget {
   final Function singleSelectedComparator;
   final Function multiSelectedComparator;
   final Function onAdd;
-  final Function onSort;
+  final DataColumnSortCallback onSort;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
@@ -50,7 +50,7 @@ class JudoSelectorTable extends StatelessWidget {
   }
 
   Widget container(BuildContext context) {
-    var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
+    double currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
     return JudoContainer(
         col: col,
         row: currentRow,
@@ -72,9 +72,9 @@ class JudoSelectorTable extends StatelessWidget {
     return Theme(
         child: DataTable(
               onSelectAll: collectionSelector ? null : (_) {},
-              headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
+              headingTextStyle: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
               showCheckboxColumn: true,
-              sortAscending: sortAscending == null ? true : sortAscending,
+              sortAscending: sortAscending == null ? true : sortAscending!,
               sortColumnIndex: sortColumnIndex,
               columns: dataInfo.getColumns(onAdd, onSort),
               rows: dataRow(context),

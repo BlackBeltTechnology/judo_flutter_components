@@ -2,8 +2,8 @@ part of judo.components;
 
 class JudoPopupButton<T> extends StatelessWidget {
   JudoPopupButton({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1,
     this.padding,
     this.label,
@@ -19,15 +19,15 @@ class JudoPopupButton<T> extends StatelessWidget {
 
   final double col;
   final double row;
-  final EdgeInsets padding;
-  final Icon icon;
-  final String label;
-  final Color color;
+  final EdgeInsets? padding;
+  final Icon? icon;
+  final String? label;
+  final Color? color;
   final bool disabled;
   final bool stretch;
   final Alignment alignment;
-  final LoadingState loadingState;
-  final Map<T, JudoMenuItemData> items;
+  final LoadingState? loadingState;
+  final Map<T, JudoMenuItemData>? items;
   final bool outlined;
 
   @override

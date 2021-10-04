@@ -2,10 +2,9 @@ part of judo.components;
 
 class JudoComboBox<T> extends StatefulWidget {
 
-
   JudoComboBox({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.mandatory = false,
     this.icon,
@@ -14,7 +13,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.onChanged,
     this.errorMessage,
     this.value,
-    this.dropdownMenuShow,
+    required this.dropdownMenuShow,
     this.onTap,
     this.stretch = false,
     this.alignment = Alignment.topLeft,
@@ -31,20 +30,13 @@ class JudoComboBox<T> extends StatefulWidget {
   final Icon icon;
   T value;
   final List items;
-  final Function onChanged;
-  final String errorMessage;
-  ///  EXAMPLE:
-  ///  (T value) {
-  ///    return DropdownMenuItem<T>(
-  ///      value: value,
-  ///      child: Text(value.name),
-  ///    );
-  ///  }
+  final Function? onChanged;
+  final String? errorMessage;
   final Function dropdownMenuShow;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
-  final Function onTap;
+  final VoidCallback? onTap;
   final bool disabled;
   final bool readOnly;
   final bool inCard;

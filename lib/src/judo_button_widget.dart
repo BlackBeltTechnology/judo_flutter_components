@@ -2,7 +2,7 @@ part of judo.components;
 
 class JudoButtonWidget extends StatelessWidget {
   JudoButtonWidget({
-    Key key,
+    Key? key,
     this.label,
     this.icon,
     this.loadingState,
@@ -12,11 +12,11 @@ class JudoButtonWidget extends StatelessWidget {
     this.outlined = false,
   }) : super(key: key);
 
-  final String label;
-  final LoadingState loadingState;
-  final Function onPressed;
-  final Icon icon;
-  final Color color;
+  final String? label;
+  final LoadingState? loadingState;
+  final FutureFunction? onPressed;
+  final Icon? icon;
+  final Color? color;
   final bool disabled;
   final bool outlined;
 
@@ -24,7 +24,7 @@ class JudoButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return loadingState == null || !loadingState.isLoading
+    return loadingState == null || !loadingState!.isLoading
         ? getButtonWidget(context)
         : getLoadingButtonWidget(context);
   }
@@ -37,7 +37,7 @@ class JudoButtonWidget extends StatelessWidget {
           width: 20,
           child: loadingWidget(context),
         ),
-        label: Text(label),
+        label: Text(label!),
         onPressed: null,
       );
     } else {
@@ -55,29 +55,29 @@ class JudoButtonWidget extends StatelessWidget {
     if (label != null && icon != null) {
       return outlined
           ? OutlinedButton.icon(
-              icon: icon,
-              label: Text(label),
+              icon: icon!,
+              label: Text(label!),
               onPressed: _disabled ? null : _onPressed,
             )
           : ElevatedButton.icon(
-              icon: icon,
-              label: Text(label),
+              icon: icon!,
+              label: Text(label!),
               onPressed: _disabled ? null : _onPressed,
             );
     } else if (label != null) {
       return outlined
           ? OutlinedButton(
-              child: Text(label),
+              child: Text(label!),
               onPressed: _disabled ? null : _onPressed,
             )
           : ElevatedButton(
-              child: Text(label),
+              child: Text(label!),
               onPressed: _disabled ? null : _onPressed,
             );
     } else {
       return outlined
           ? IconButton(
-              icon: Icon(icon.icon),
+              icon: Icon(icon!.icon),
               padding: EdgeInsets.all(0),
               alignment: Alignment.center,
               onPressed: _disabled ? null : _onPressed,
@@ -85,9 +85,9 @@ class JudoButtonWidget extends StatelessWidget {
               splashRadius: 20.0,
               color: _disabled
                   ? Theme.of(context).disabledColor
-                  : (icon.color == null
+                  : (icon!.color == null
                       ? Theme.of(context).colorScheme.primary
-                      : icon.color),
+                      : icon!.color),
             )
           : Container(
               decoration: ShapeDecoration(
@@ -96,7 +96,7 @@ class JudoButtonWidget extends StatelessWidget {
                       : Theme.of(context).primaryColor,
                   shape: StadiumBorder()),
               child: IconButton(
-                icon: Icon(icon.icon),
+                icon: Icon(icon!.icon),
                 color: Theme.of(context).cardColor,
                 alignment: Alignment.center,
                 constraints: BoxConstraints(),
@@ -115,10 +115,13 @@ class JudoButtonWidget extends StatelessWidget {
   }
 
   void _onPressed() {
+    /// The check for `disabled` handles the case where `onPressed` can be null.
     if (loadingState != null) {
-      loadingState.onPressed(onPressed);
+      loadingState!.onPressed(onPressed!);
     } else {
-      onPressed();
+      (() async {
+        onPressed!();
+      })();
     }
   }
 }
