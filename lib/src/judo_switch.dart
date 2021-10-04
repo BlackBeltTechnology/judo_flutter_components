@@ -2,13 +2,12 @@ part of judo.components;
 
 class JudoSwitch extends StatefulWidget {
   JudoSwitch({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.mandatory = false,
-    this.label,
-    this.icon,
-    this.onChanged,
+    required this.label,
+    required this.onChanged,
     this.errorMessage,
     this.initialValue,
     this.readOnly = false,
@@ -22,15 +21,14 @@ class JudoSwitch extends StatefulWidget {
   final double row;
   final bool mandatory;
   final String label;
-  final Icon icon;
-  final Function onChanged;
-  final String errorMessage;
-  final bool initialValue;
+  final ValueChanged<bool?> onChanged;
+  final String? errorMessage;
+  final bool? initialValue;
   final bool readOnly;
   final bool disabled;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   JudoSwitchState createState() => JudoSwitchState();
@@ -50,16 +48,6 @@ class JudoSwitchState extends State<JudoSwitch> {
       alignment: widget.alignment,
       child: Row(
         children: [
-          /*
-          Text(
-            widget.label + ' '
-          ),
-          Switch(
-//            activeColor: widget.disabled ? JudoComponentsSettings.disabledColor : JudoComponentsSettings.primaryColor,
-            value: widget.initialValue ?? false,
-            onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
-          ), */
-
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
             child: Checkbox(

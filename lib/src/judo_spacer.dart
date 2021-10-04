@@ -3,8 +3,8 @@ part of judo.components;
 class JudoSpacer extends StatelessWidget {
 
   JudoSpacer({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
   }) : super(key: key);
 

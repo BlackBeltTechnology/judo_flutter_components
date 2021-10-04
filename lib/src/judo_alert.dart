@@ -1,6 +1,6 @@
 part of judo.components;
 
-Future<T> judoAlert<T>({@required BuildContext context, @required String title, @required String text}) async {
+Future<T?> judoAlert<T>({required BuildContext context, required String title, required String text}) async {
   return await showDialog<T>(
     context: context,
     builder: (context) {

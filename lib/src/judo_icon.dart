@@ -3,18 +3,18 @@ part of judo.components;
 class JudoIcon extends StatelessWidget {
 
   JudoIcon({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
-    this.icon,
+    required this.icon,
   }) : super(key: key);
 
   final double col;
   final double row;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool stretch;
   final Alignment alignment;
   final Icon icon;

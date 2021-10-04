@@ -2,8 +2,8 @@ part of judo.components;
 
 class JudoInputText extends StatefulWidget {
   JudoInputText({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.mandatory = false,
     this.label,
@@ -27,22 +27,22 @@ class JudoInputText extends StatefulWidget {
   final double col;
   final double row;
   final bool mandatory;
-  final String label;
-  final Icon icon;
-  final Function onChanged;
-  final Function onFocus;
-  final Function onBlur;
-  final Function onSubmitted;
-  final String errorMessage;
-  final String initialValue;
+  final String? label;
+  final Icon? icon;
+  final ValueChanged<String>? onChanged;
+  final Function? onFocus;
+  final Function? onBlur;
+  final ValueChanged<String>? onSubmitted;
+  final String? errorMessage;
+  final String? initialValue;
   final bool readOnly;
   final bool disabled;
   final bool inCard;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool multiline;
-  final int maxLength;
+  final int? maxLength;
 
   @override
   JudoInputTextState createState() => JudoInputTextState();
@@ -56,7 +56,7 @@ class JudoInputTextState extends State<JudoInputText> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.initialValue;
+    controller.text = widget.initialValue ?? '';
 
     if (widget.onFocus != null || widget.onBlur != null) {
       focusNode.addListener(_focusHandler);
@@ -71,9 +71,9 @@ class JudoInputTextState extends State<JudoInputText> {
         _focused = focusNode.hasFocus;
       });
       if (_focused && widget.onFocus != null) {
-        widget.onFocus();
+        widget.onFocus!();
       } else if (!_focused && widget.onBlur != null) {
-        widget.onBlur();
+        widget.onBlur!();
       }
     }
   }
@@ -82,7 +82,7 @@ class JudoInputTextState extends State<JudoInputText> {
   void didUpdateWidget(JudoInputText oldWidget) {
     super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
     if (controller.text != widget.initialValue) {
-      controller.text = widget.initialValue;
+      controller.text = widget.initialValue ?? '';
     }
   }
 
@@ -134,7 +134,7 @@ class _Utf8LengthLimitingTextInputFormatter extends TextInputFormatter {
   _Utf8LengthLimitingTextInputFormatter(this.maxLength)
       : assert(maxLength == null || maxLength == -1 || maxLength > 0);
 
-  final int maxLength;
+  final int? maxLength;
 
   @override
   TextEditingValue formatEditUpdate(
@@ -142,13 +142,13 @@ class _Utf8LengthLimitingTextInputFormatter extends TextInputFormatter {
       TextEditingValue newValue,
       ) {
     if (maxLength != null &&
-        maxLength > 0 &&
-        bytesLength(newValue.text) > maxLength) {
+        maxLength! > 0 &&
+        bytesLength(newValue.text) > maxLength!) {
       // If already at the maximum and tried to enter even more, keep the old value.
       if (bytesLength(oldValue.text) == maxLength) {
         return oldValue;
       }
-      return truncate(newValue, maxLength);
+      return truncate(newValue, maxLength!);
     }
     return newValue;
   }

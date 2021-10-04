@@ -16,7 +16,7 @@ abstract class JudoComponentCustomizer {
   double getMenuWidth();
   EdgeInsets getDefaultPadding();
   EdgeInsets getNavigationButtonBarPadding();
-  Decoration getInputBoxCustomizer(bool disabled, bool readOnly);
+  Decoration? getInputBoxCustomizer(bool disabled, bool readOnly);
 
   ThemeData getInputThemeCustomizer(
       ThemeData theme, bool disabled, bool readOnly, bool inCard);
@@ -34,19 +34,19 @@ abstract class JudoComponentCustomizer {
       ThemeData theme, bool disabled, bool readOnly, bool inCard);
 
   InputDecoration getInputDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage);
   InputDecoration getInputTextDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool multiline, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, bool multiline, String? errorMessage);
   InputDecoration getInputDateDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage);
   InputDecoration getInputDateTimeDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage);
   InputDecoration getInputLinkDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage);
   InputDecoration getInputNumericDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage);
   InputDecoration getInputComboboxDecoration(
-      ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage);
+      ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage);
 
   ThemeData getBreadcumbThemeCustomizer(ThemeData themeData);
   ThemeData getFilterThemeCustomizer(ThemeData themeData);
@@ -54,16 +54,16 @@ abstract class JudoComponentCustomizer {
   @deprecated
   TextStyle getBreadcumbTextStyle();
   TextStyle getBreadcumbItemTextStyle(ThemeData theme);
-  TextStyle getBreadcumbTitleTextStyle(ThemeData theme);
-  TextStyle getTableHeaderTextStyle(ThemeData theme);
-  TextStyle getSwitchTextStyle(ThemeData theme, String errorMessage);
-  TextStyle getRadioTextStyle(ThemeData theme, String errorMessage);
-  TextStyle getAppNameTextStyle(ThemeData theme);
-  TextStyle getSloganTextStyle(ThemeData theme);
-  TextStyle getActorNameTextStyle(ThemeData theme);
-  TextStyle getUserNameTextStyle(ThemeData theme);
-  TextStyle getEmailTextStyle(ThemeData theme);
-  TextStyle getRowCounterTextStyle(ThemeData theme);
+  TextStyle? getBreadcumbTitleTextStyle(ThemeData theme);
+  TextStyle? getTableHeaderTextStyle(ThemeData theme);
+  TextStyle? getSwitchTextStyle(ThemeData theme, String? errorMessage);
+  TextStyle? getRadioTextStyle(ThemeData theme, String? errorMessage);
+  TextStyle? getAppNameTextStyle(ThemeData theme);
+  TextStyle? getSloganTextStyle(ThemeData theme);
+  TextStyle? getActorNameTextStyle(ThemeData theme);
+  TextStyle? getUserNameTextStyle(ThemeData theme);
+  TextStyle? getEmailTextStyle(ThemeData theme);
+  TextStyle? getRowCounterTextStyle(ThemeData theme);
 }
 
 class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
@@ -74,7 +74,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   Color shadowColor = Colors.black12;
   Color transparentColor = Colors.transparent;
   Color inputLabelColor = Color(0xff8f8f8f);
-  Color errorColor = Colors.red[700];
+  Color errorColor = Colors.red[700]!;
 
   @override
   double getLineHeight() {
@@ -96,7 +96,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  Decoration getInputBoxCustomizer(bool disabled, bool readOnly) {
+  Decoration? getInputBoxCustomizer(bool disabled, bool readOnly) {
     return (disabled || readOnly) ? null :
     BoxDecoration(
         boxShadow: [
@@ -110,7 +110,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  InputDecoration getInputDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage) {
     return InputDecoration(
       labelText: label != null ?
       ( mandatory ? label + ' *' : label )
@@ -130,7 +130,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         fontSize: 11,
         height: 0.4,
       ),
-      labelStyle: errorMessage != null ? theme.inputDecorationTheme.labelStyle.copyWith(
+      labelStyle: errorMessage != null ? theme.inputDecorationTheme.labelStyle?.copyWith(
         color: errorColor.withOpacity(0.8),
 
       ) : null,
@@ -138,36 +138,36 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  InputDecoration getInputTextDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, bool multiline, String errorMessage) {
+  InputDecoration getInputTextDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, bool multiline, String? errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage).copyWith(
         floatingLabelBehavior: multiline ? FloatingLabelBehavior.always : null
     );
   }
 
   @override
-  InputDecoration getInputDateDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputDateDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage);
   }
 
   @override
-  InputDecoration getInputDateTimeDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputDateTimeDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage);
   }
 
   @override
-  InputDecoration getInputLinkDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputLinkDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage).copyWith(
       errorBorder: errorMessage != null ? OutlineInputBorder(borderSide: BorderSide(color: errorColor, width: 2.0)) : null,
     );
   }
 
   @override
-  InputDecoration getInputNumericDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputNumericDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage);
   }
 
   @override
-  InputDecoration getInputComboboxDecoration(ThemeData theme, String label, Icon prefixIcon, Widget suffixIcon, bool mandatory, String errorMessage) {
+  InputDecoration getInputComboboxDecoration(ThemeData theme, String? label, Icon? prefixIcon, Widget? suffixIcon, bool mandatory, String? errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, errorMessage).copyWith();
   }
 
@@ -176,7 +176,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       ThemeData theme, bool disabled, bool readOnly, bool inCard) {
     return theme.copyWith(
         textTheme: theme.textTheme.copyWith(
-          subtitle1: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500),
+          subtitle1: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w500),
         ),
         primaryColor: (disabled || readOnly)
             ? theme.iconTheme.color
@@ -214,7 +214,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       ThemeData theme, bool disabled, bool readOnly, bool inCard) {
     return theme.copyWith(
         textTheme: theme.textTheme.copyWith(
-          subtitle1: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500),
+          subtitle1: theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w500),
         ),
         primaryColor: theme.colorScheme.secondary,
         iconTheme: theme.iconTheme.copyWith(color: theme.colorScheme.secondary),
@@ -280,65 +280,65 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  TextStyle getBreadcumbTitleTextStyle(ThemeData theme) {
-    return theme.textTheme.headline4.copyWith(fontSize: 16);
+  TextStyle? getBreadcumbTitleTextStyle(ThemeData theme) {
+    return theme.textTheme.headline4?.copyWith(fontSize: 16);
   }
 
   @override
-  TextStyle getRowCounterTextStyle(ThemeData theme) {
-    return theme.textTheme.caption.copyWith(color: theme.colorScheme.primaryVariant);
+  TextStyle? getRowCounterTextStyle(ThemeData theme) {
+    return theme.textTheme.caption?.copyWith(color: theme.colorScheme.primaryVariant);
   }
 
   @override
-  TextStyle getTableHeaderTextStyle(ThemeData theme) {
-    return theme.textTheme.subtitle1.copyWith(color: displayColor);
+  TextStyle? getTableHeaderTextStyle(ThemeData theme) {
+    return theme.textTheme.subtitle1?.copyWith(color: displayColor);
   }
 
   @override
-  TextStyle getSwitchTextStyle(ThemeData theme, String errorMessage) {
-    return theme.textTheme.subtitle1.copyWith(
+  TextStyle? getSwitchTextStyle(ThemeData theme, String? errorMessage) {
+    return theme.textTheme.subtitle1?.copyWith(
         fontWeight: errorMessage != null ? FontWeight.w700 : FontWeight.w500,
         color: errorMessage != null ? errorColor : null,
     );
   }
 
   @override
-  TextStyle getRadioTextStyle(ThemeData theme, String errorMessage) {
-    return theme.textTheme.subtitle1.copyWith(
+  TextStyle? getRadioTextStyle(ThemeData theme, String? errorMessage) {
+    return theme.textTheme.subtitle1?.copyWith(
         fontWeight: errorMessage != null ? FontWeight.w700 : FontWeight.w500,
         color: errorMessage != null ? errorColor : null,
     );
   }
 
   @override
-  TextStyle getAppNameTextStyle(ThemeData theme) {
-    return theme.textTheme.headline6.copyWith(fontWeight: FontWeight.w900);
+  TextStyle? getAppNameTextStyle(ThemeData theme) {
+    return theme.textTheme.headline6?.copyWith(fontWeight: FontWeight.w900);
   }
 
   @override
-  TextStyle getSloganTextStyle(ThemeData theme) {
-    return theme.textTheme.headline6.copyWith(
+  TextStyle? getSloganTextStyle(ThemeData theme) {
+    return theme.textTheme.headline6?.copyWith(
         fontWeight: FontWeight.w100,
-        color: theme.textTheme.subtitle1.color
+        color: theme.textTheme.subtitle1?.color
     );
   }
 
   @override
-  TextStyle getActorNameTextStyle(ThemeData theme) {
-    return theme.textTheme.subtitle1.copyWith(
+  TextStyle? getActorNameTextStyle(ThemeData theme) {
+    return theme.textTheme.subtitle1?.copyWith(
         fontWeight: FontWeight.w900,
         color: theme.colorScheme.secondary,
     );
   }
 
   @override
-  TextStyle getUserNameTextStyle(ThemeData theme) {
-    return theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w900);
+  TextStyle? getUserNameTextStyle(ThemeData theme) {
+    return theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w900);
   }
 
   @override
-  TextStyle getEmailTextStyle(ThemeData theme) {
-    return theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w100);
+  TextStyle? getEmailTextStyle(ThemeData theme) {
+    return theme.textTheme.subtitle1?.copyWith(fontWeight: FontWeight.w100);
   }
 
   @override
@@ -350,6 +350,5 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   ThemeData getFilterThemeCustomizer(ThemeData theme) {
     return theme;
   }
-
 
 }

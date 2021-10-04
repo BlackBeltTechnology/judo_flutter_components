@@ -2,8 +2,8 @@ part of judo.components;
 
 class JudoLabel extends StatelessWidget {
   JudoLabel({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.padding,
     this.stretch = false,
@@ -16,11 +16,11 @@ class JudoLabel extends StatelessWidget {
 
   final double col;
   final double row;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool stretch;
   final Alignment alignment;
-  final String label;
-  final Icon icon;
+  final String? label;
+  final Icon? icon;
   final double iconMargin;
   final double labelMargin;
 
@@ -41,7 +41,7 @@ class JudoLabel extends StatelessWidget {
                 ),
                 Container(
                   child: Text(
-                    label,
+                    label!,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
@@ -53,7 +53,7 @@ class JudoLabel extends StatelessWidget {
             : label != null
                 ? [
                     Text(
-                      label,
+                      label!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 25,
@@ -61,7 +61,7 @@ class JudoLabel extends StatelessWidget {
                     ),
                   ]
                 : [
-                    icon,
+                    icon!,
                   ],
       ),
     );

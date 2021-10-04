@@ -2,13 +2,13 @@ part of judo.components;
 
 class JudoAppBarButton extends StatelessWidget {
   JudoAppBarButton({
-    Key key,
-    this.padding,
-    this.label,
-    this.icon,
-    this.loadingState,
-    this.onPressed,
-    this.color,
+    Key? key,
+    required this.padding,
+    required this.label,
+    required this.icon,
+    required this.loadingState,
+    required this.onPressed,
+    required this.color,
     this.disabled = false,
     this.outlined = false,
   }) : super(key: key);
@@ -16,7 +16,7 @@ class JudoAppBarButton extends StatelessWidget {
   final EdgeInsets padding;
   final String label;
   final LoadingState loadingState;
-  final Function onPressed;
+  final FutureFunction onPressed;
   final Icon icon;
   final Color color;
   final bool disabled;

@@ -2,15 +2,15 @@ part of judo.components;
 
 class JudoTab extends StatefulWidget {
   JudoTab({
-    Key key,
-    @required this.col,
-    @required this.row,
+    Key? key,
+    required this.col,
+    required this.row,
     this.disabledTabs = const [], // TODO: JNG-2874
     this.hiddenTabs = const [],
     this.disabled = false,
     this.hidden = false,
-    @required this.tabs,
-    @required this.tabContent,
+    required this.tabs,
+    required this.tabContent,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.padding,
@@ -28,12 +28,12 @@ class JudoTab extends StatefulWidget {
   final List<Widget> tabContent;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final int tabIndex;
-  final Function setTabIndex;
+  final Function? setTabIndex;
 
 
-  TabController tabController;
+  late TabController tabController;
 
   @override
   _JudoTabState createState() => _JudoTabState();
@@ -44,7 +44,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   void initTabControllerListener() {
     if (widget.setTabIndex != null) {
       widget.tabController.addListener(() {
-        widget.setTabIndex(widget.tabController.index);
+        widget.setTabIndex!(widget.tabController.index);
       });
     }
   }
@@ -52,7 +52,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
   void removeTabControllerListener() {
     if (widget.setTabIndex != null) {
       widget.tabController.removeListener(() {
-        widget.setTabIndex(widget.tabController.index);
+        widget.setTabIndex!(widget.tabController.index);
       });
     }
   }
