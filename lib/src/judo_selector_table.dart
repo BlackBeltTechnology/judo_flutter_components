@@ -9,7 +9,7 @@ class JudoSelectorTable extends StatelessWidget {
     required this.rowList,
     required this.collectionSelector,
     this.dialogTypeAdder = false,
-    this.alreadyAddedItemsComparator,
+    required this.alreadyAddedItemsComparator,
     required this.singleSelectAction,
     required this.multiSelectAction,
     required this.singleSelectedComparator,
@@ -17,7 +17,7 @@ class JudoSelectorTable extends StatelessWidget {
     this.sortAscending = true,
     this.sortColumnIndex = 0,
     this.disabled = false,
-    this.onAdd,
+    required this.onAdd,
     required this.onSort,
     this.padding,
     this.stretch = false,
@@ -42,7 +42,7 @@ class JudoSelectorTable extends StatelessWidget {
   final DataColumnSortCallback onSort;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {

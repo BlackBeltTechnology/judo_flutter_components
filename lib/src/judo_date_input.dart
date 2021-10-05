@@ -34,8 +34,8 @@ class JudoDateInput extends StatefulWidget {
   final bool readOnly;
   final bool disabled;
   final bool inCard;
-  final DateTime firstDate;
-  final DateTime lastDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets? padding;
@@ -97,7 +97,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
   }
 
   IconButton iconDatePicker(BuildContext context) {
-    DateTime tempDateTime = widget.initialDate ?? DateTime.now();
+    DateTime? tempDateTime = widget.initialDate ?? DateTime.now();
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
@@ -105,7 +105,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
         onPressed: (widget.disabled || widget.readOnly) ? null : () async {
           tempDateTime = await showDatePicker(
             context: context,
-            initialDate: tempDateTime,
+            initialDate: tempDateTime!,
             firstDate: widget.firstDate ?? DateTime(1900),
             lastDate: widget.lastDate ?? DateTime(2100),
           );

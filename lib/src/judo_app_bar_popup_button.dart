@@ -4,10 +4,10 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
   JudoAppBarPopupButton({
     Key? key,
     this.padding,
-    required this.label,
+    this.label,
     required this.icon,
-    required this.loadingState,
-    required this.color,
+    this.loadingState,
+    this.color,
     this.disabled = false,
     this.items = const {},
     this.outlined = false,
@@ -15,10 +15,10 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
 
   final EdgeInsets? padding;
   final Icon icon;
-  final String label;
-  final Color color;
+  final String? label;
+  final Color? color;
   final bool disabled;
-  final LoadingState loadingState;
+  final LoadingState? loadingState;
   final Map<T, JudoMenuItemData> items;
   final bool outlined;
 

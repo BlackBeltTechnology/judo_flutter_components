@@ -9,7 +9,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.mandatory = false,
     this.icon,
     this.label,
-    this.items,
+    required this.items,
     this.onChanged,
     this.errorMessage,
     this.value,
@@ -26,16 +26,16 @@ class JudoComboBox<T> extends StatefulWidget {
   final double col;
   final double row;
   final bool mandatory;
-  final String label;
-  final Icon icon;
-  T value;
+  final String? label;
+  final Icon? icon;
+  T? value;
   final List items;
-  final Function? onChanged;
+  final ValueChanged<T?>? onChanged;
   final String? errorMessage;
-  final Function dropdownMenuShow;
+  final DropdownMenuItem<T> Function(dynamic) dropdownMenuShow;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final VoidCallback? onTap;
   final bool disabled;
   final bool readOnly;
@@ -69,11 +69,11 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
                 value: widget.value,
                 icon: Icon(Icons.expand_more),
                 elevation: 16,
-                onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
+                onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ? widget.onChanged :
                   ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?
                     (newValue) {
                       setState(() {
-                        widget.value = newValue;
+                        widget.value = newValue; /// oh...
                       });
                     } : null
                   ),

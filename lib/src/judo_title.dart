@@ -2,10 +2,10 @@ part of judo.components;
 
 class JudoTitle extends StatelessWidget {
   JudoTitle({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
-    @required this.text,
+    required this.text,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -16,7 +16,7 @@ class JudoTitle extends StatelessWidget {
   final double row;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {

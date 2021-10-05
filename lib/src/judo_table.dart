@@ -2,22 +2,22 @@ part of judo.components;
 
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
-  Function getRow({BuildContext context,
-    Function navigateToEditPageAction,
-    Function navigateToViewPageAction,
-    Function navigateToCreatePageAction,
-    Function removeAction,
-    Function unsetAction,
-    Function deleteAction});
+  DataRow Function(dynamic) getRow({BuildContext context,
+    Function? navigateToEditPageAction,
+    Function? navigateToViewPageAction,
+    Function? navigateToCreatePageAction,
+    Function? removeAction,
+    Function? unsetAction,
+    Function? deleteAction});
 }
 
 class JudoTable extends StatelessWidget {
   JudoTable({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 2.0,
-    @required this.dataInfo,
-    @required this.rowList,
+    required this.dataInfo,
+    required this.rowList,
     this.navigateToEditPageAction,
     this.navigateToViewPageAction,
     this.navigateToCreatePageAction,
@@ -27,8 +27,8 @@ class JudoTable extends StatelessWidget {
     this.sortAscending = true,
     this.sortColumnIndex = 0,
     this.disabled = false,
-    this.onAdd,
-    this.onSort,
+    required this.onAdd,
+    required this.onSort,
     this.padding,
     this.stretch = false,
     this.inCard = false,
@@ -39,22 +39,22 @@ class JudoTable extends StatelessWidget {
 
   final double col;
   final double row;
-  final bool sortAscending;
+  final bool? sortAscending;
   final int sortColumnIndex;
   final bool disabled;
   final JudoTableDataInfo dataInfo;
   final List rowList;
-  final Function navigateToEditPageAction;
-  final Function navigateToViewPageAction;
-  final Function navigateToCreatePageAction;
-  final Function removeAction;
-  final Function unsetAction;
-  final Function deleteAction;
+  final Function? navigateToEditPageAction;
+  final Function? navigateToViewPageAction;
+  final Function? navigateToCreatePageAction;
+  final Function? removeAction;
+  final Function? unsetAction;
+  final Function? deleteAction;
   final Function onAdd;
-  final Function onSort;
+  final DataColumnSortCallback onSort;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
   final bool inCard;
   final bool sortInitially;
   final Map<int, JudoMenuItemData> tableActions;
@@ -65,7 +65,7 @@ class JudoTable extends StatelessWidget {
   }
 
   Widget container(BuildContext context) {
-    var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
+    double currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
     return JudoContainer(
         col: col,
         row: currentRow,
@@ -132,7 +132,7 @@ class JudoTable extends StatelessWidget {
   }
   
   bool _shouldSortAscending() {
-    return sortAscending == null ? true : sortAscending;
+    return sortAscending == null ? true : sortAscending!;
   }
 
   JudoAppBarPopupButton getPopupButton() {

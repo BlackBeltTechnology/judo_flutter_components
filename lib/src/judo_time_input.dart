@@ -2,8 +2,8 @@ part of judo.components;
 
 class JudoTimeInput extends StatefulWidget {
   JudoTimeInput({
-    Key key,
-    @required this.col,
+    Key? key,
+    required this.col,
     this.row = 1.0,
     this.label,
     this.icon,
@@ -12,7 +12,7 @@ class JudoTimeInput extends StatefulWidget {
     this.initialDate,
     this.readOnly = false,
     this.disabled = false,
-    this.use24HourFormat,
+    required this.use24HourFormat,
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.topLeft,
@@ -20,17 +20,17 @@ class JudoTimeInput extends StatefulWidget {
 
   final double col;
   final double row;
-  final String label;
-  final Icon icon;
-  final Function onChanged;
-  final Function onSubmitted;
-  final TimeOfDay initialDate;
+  final String? label;
+  final Icon? icon;
+  final Function? onChanged;
+  final ValueChanged<String>? onSubmitted;
+  final TimeOfDay? initialDate;
   final bool readOnly;
   final bool disabled;
   final bool use24HourFormat;
   final bool stretch;
   final Alignment alignment;
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
   @override
   _JudoTimeInputState createState() => _JudoTimeInputState();
@@ -42,14 +42,14 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.initialDate != null ? widget.initialDate.toString() : null;
+    controller.text = widget.initialDate != null ? widget.initialDate.toString() : '';
   }
 
   @override
   void didUpdateWidget(JudoTimeInput oldWidget) {
     super.didUpdateWidget(oldWidget); // placement of this is SUPER IMPORTANT!
     if (controller.text != widget.initialDate) {
-      controller.text = widget.initialDate != null ? widget.initialDate.toString() : null;
+      controller.text = widget.initialDate != null ? widget.initialDate.toString() : '';
     }
   }
 
@@ -102,7 +102,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
   }
 
   IconButton iconDatePicker(BuildContext context) {
-    var tempTime = widget.initialDate ?? DateTime.now();
+    TimeOfDay? tempTime = widget.initialDate ?? TimeOfDay.now();
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
@@ -111,18 +111,18 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
         onPressed: widget.disabled ? null : () async {
           tempTime = await showTimePicker(
               context: context,
-              initialTime: tempTime,
+              initialTime: tempTime!,
               initialEntryMode: TimePickerEntryMode.input,
-              builder: widget.use24HourFormat ? (BuildContext context, Widget child) {
+              builder: widget.use24HourFormat ? (BuildContext context, Widget? child) {
                 return MediaQuery(
                   data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                  child: child,
+                  child: child!,
                 );
               }
                   :
               null
           );
-          onChangedHandler(tempTime);
+          onChangedHandler(tempTime!);
         }
     );
   }
@@ -130,7 +130,7 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
   void onChangedHandler(TimeOfDay value) {
     if (widget.onChanged != null) {
       controller.text = value.toString();
-      widget.onChanged(value);
+      widget.onChanged!(value);
     }
   }
 }
