@@ -25,7 +25,7 @@ class JudoButton extends StatelessWidget {
   final LoadingState loadingState;
   final FutureFunction onPressed;
   final Icon icon;
-  final Color color;
+  final Color? color;
   final bool disabled;
   final bool stretch;
   final Alignment alignment;
