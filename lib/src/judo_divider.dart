@@ -23,9 +23,7 @@ class JudoDivider extends StatelessWidget {
       row: row,
       stretch: true,
       alignment: alignment,
-      child: Divider(
-        thickness: 1,
-      ),
+      child: Divider(),
     );
   }
 
