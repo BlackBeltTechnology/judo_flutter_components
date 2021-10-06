@@ -92,22 +92,21 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith();
+    final ThemeData theme = Theme.of(context);
     return JudoContainer(
-      // color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: Theme(
-        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
+        data: JudoComponentCustomizer.get().getInputTextThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard, widget.errorMessage),
         child: Container(
-          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, widget.disabled, widget.readOnly),
           child: TextField(
             controller: controller,
-            readOnly: widget.disabled ? true : widget.readOnly,
-            enabled: widget.disabled ? false : !widget.readOnly,
+            readOnly: widget.readOnly,
+            enabled: !widget.disabled,
             keyboardType: TextInputType.number,
             inputFormatters: [
               TextInputFormatter.withFunction((oldValue, newValue) {
@@ -120,7 +119,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
                 return correctTextEditingValue;
               }),
             ],
-            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
+            decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
             onChanged: (value) {
                 return widget.onChanged(value);
             },

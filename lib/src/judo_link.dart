@@ -48,7 +48,7 @@ class JudoLink extends StatelessWidget {
   }
 
   Widget getWidget(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith();
+    final ThemeData theme = Theme.of(context);
 
     return JudoContainer(
         padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
@@ -69,11 +69,11 @@ class JudoLink extends StatelessWidget {
                         Flexible(
                           child:
                               Container(
-                                child: InkWell(
+                                  child: InkWell(
                                     onTap: !readOnly && !disabled ? setAction : null,
                                     child: getTextField(context),
                                 ),
-                                decoration: errorMessage != null && errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(disabled, readOnly),
+                                decoration: errorMessage != null && errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, disabled, readOnly),
                               )
                         ),
                         Container(
@@ -87,19 +87,20 @@ class JudoLink extends StatelessWidget {
                       ]
                   ),
                 ),
-            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly, inCard),
+            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly, inCard, errorMessage),
           )
         );
   }
 
   Widget getTextField(BuildContext context) {
       final TextEditingController controller = TextEditingController(text: data != null ? Function.apply(formatter, [data]) : '');
-
-      return TextField(
-        controller: controller,
-        readOnly: true,
-        enabled: false,
-        decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context).copyWith(), label, icon, null, mandatory, errorMessage)
+      return IgnorePointer(
+          child: TextField(
+            controller: controller,
+            readOnly: readOnly,
+            enabled: !disabled,
+            decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context), label, icon, null, mandatory, disabled, readOnly, errorMessage)
+          )
       );
   }
 
