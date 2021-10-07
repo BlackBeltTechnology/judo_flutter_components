@@ -20,9 +20,6 @@ abstract class JudoComponentCustomizer {
 
   EdgeInsets getNavigationButtonBarPadding();
 
-  Decoration getInputBoxCustomizer(
-      ThemeData theme, bool disabled, bool readOnly);
-
   ThemeData getInputThemeCustomizer(ThemeData theme, bool disabled,
       bool readOnly, bool inCard, String errorMessage);
 
@@ -52,6 +49,17 @@ abstract class JudoComponentCustomizer {
 
   ThemeData getTableThemeData(ThemeData theme);
 
+  ThemeData getBreadcrumbThemeCustomizer(ThemeData themeData);
+
+  ThemeData getFilterThemeCustomizer(ThemeData themeData);
+
+  ThemeData getMenuTheme(ThemeData theme);
+
+  ThemeData getBooleanColorTheme(ThemeData theme, bool value);
+
+  Decoration getInputBoxCustomizer(
+      ThemeData theme, bool disabled, bool readOnly);
+
   InputDecoration getInputDecoration(
       ThemeData theme,
       String label,
@@ -122,15 +130,6 @@ abstract class JudoComponentCustomizer {
       bool disabled,
       bool readOnly,
       String errorMessage);
-
-  MaterialStateProperty<Color> getRowColor(
-      ThemeData theme, int index, bool inCard);
-
-  ThemeData getBreadcrumbThemeCustomizer(ThemeData themeData);
-
-  ThemeData getFilterThemeCustomizer(ThemeData themeData);
-
-  ThemeData getMenuTheme(ThemeData theme);
 
   TextStyle getBreadcrumbItemTextStyle(ThemeData theme);
 
@@ -160,11 +159,11 @@ abstract class JudoComponentCustomizer {
 
   TextStyle getRowCounterTextStyle(ThemeData theme);
 
-  ThemeData getBooleanColorTheme(ThemeData theme, bool value);
+  MaterialStateProperty<Color> getRowColor(
+      ThemeData theme, int index, bool inCard);
 }
 
 class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
-
   Color booleanTrueColor = Colors.green.shade500.withOpacity(0.7);
   Color booleanFalseColor = Colors.red.shade500.withOpacity(0.7);
 
@@ -174,17 +173,204 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
+  double getMenuWidth() {
+    return 304.0;
+  }
+
+  @override
   EdgeInsets getDefaultPadding() {
     return EdgeInsets.symmetric(horizontal: 10);
   }
 
+  @override
   EdgeInsets getNavigationButtonBarPadding() {
     return EdgeInsets.all(10);
   }
 
   @override
-  double getMenuWidth() {
-    return 304.0;
+  ThemeData getInputThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    if (errorMessage != null) {
+      return theme.copyWith(
+          colorScheme:
+              theme.colorScheme.copyWith(primary: theme.colorScheme.secondary),
+          textTheme: theme.textTheme.copyWith(
+            subtitle1: theme.textTheme.subtitle1.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+                color: theme.errorColor),
+          ),
+          inputDecorationTheme: theme.inputDecorationTheme.copyWith(
+            fillColor: theme.errorColor.withOpacity(0.1),
+            hoverColor: theme.errorColor.withOpacity(0.1),
+          ),
+          iconTheme: theme.iconTheme.copyWith(color: theme.errorColor),
+          buttonTheme: theme.buttonTheme.copyWith());
+    }
+    return theme.copyWith(
+        colorScheme:
+            theme.colorScheme.copyWith(primary: theme.colorScheme.secondary),
+        textTheme: disabled
+            ? theme.textTheme.copyWith(
+                subtitle1: theme.textTheme.subtitle1.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 16.0,
+                    color: theme.disabledColor),
+              )
+            : theme.textTheme.copyWith(
+                subtitle1: theme.textTheme.subtitle1
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 16.0),
+              ),
+        inputDecorationTheme: (disabled || readOnly)
+            ? theme.inputDecorationTheme.copyWith(filled: false)
+            : inCard
+                ? theme.inputDecorationTheme.copyWith(
+                    fillColor: theme.backgroundColor,
+                    hoverColor: theme.cardColor,
+                  )
+                : null);
+  }
+
+  @override
+  ThemeData getInputTextThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    return getInputThemeCustomizer(
+        theme, disabled, readOnly, inCard, errorMessage);
+  }
+
+  @override
+  ThemeData getInputDateThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    return getInputThemeCustomizer(
+        theme, disabled, readOnly, inCard, errorMessage);
+  }
+
+  @override
+  ThemeData getInputDateTimeThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    return getInputThemeCustomizer(
+        theme, disabled, readOnly, inCard, errorMessage);
+  }
+
+  @override
+  ThemeData getInputLinkThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    return getInputThemeCustomizer(
+            theme, disabled, readOnly, inCard, errorMessage)
+        .copyWith(
+      iconTheme: theme.iconTheme.copyWith(color: theme.colorScheme.secondary),
+    );
+  }
+
+  @override
+  ThemeData getInputNumericTimeThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    return getInputThemeCustomizer(
+        theme, disabled, readOnly, inCard, errorMessage);
+  }
+
+  @override
+  ThemeData getInputComboboxThemeCustomizer(ThemeData theme, bool disabled,
+      bool readOnly, bool inCard, String errorMessage) {
+    return readOnly
+        ? getInputThemeCustomizer(
+                theme, disabled, readOnly, inCard, errorMessage)
+            .copyWith(
+            disabledColor: theme.unselectedWidgetColor,
+          )
+        : getInputThemeCustomizer(
+            theme, disabled, readOnly, inCard, errorMessage);
+  }
+
+  @override
+  ThemeData getSwitchThemeData(
+      ThemeData theme, bool disabled, bool readOnly, String errorMessage) {
+    return disabled
+        ? theme.copyWith(
+            checkboxTheme: theme.checkboxTheme.copyWith(
+              fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
+              side: BorderSide(width: 2.0, color: theme.disabledColor),
+            ),
+          )
+        : errorMessage != null
+            ? theme.copyWith(
+                checkboxTheme: theme.checkboxTheme.copyWith(
+                  fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
+                  side: BorderSide(width: 2.0, color: theme.errorColor),
+                ),
+              )
+            : theme;
+  }
+
+  @override
+  ThemeData getRadioThemeData(ThemeData theme, bool disabled, bool readOnly,
+      bool selected, String errorMessage) {
+    if (errorMessage != null) {
+      return theme.copyWith(
+        radioTheme: theme.radioTheme.copyWith(
+          fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
+        ),
+      );
+    }
+    if (disabled) {
+      return theme.copyWith(
+        radioTheme: theme.radioTheme.copyWith(
+          fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
+        ),
+      );
+    }
+    if (selected) {
+      return theme.copyWith(
+        radioTheme: theme.radioTheme.copyWith(
+          fillColor:
+              MaterialStateProperty.all<Color>(theme.colorScheme.secondary),
+        ),
+      );
+    }
+    return theme;
+  }
+
+  @override
+  ThemeData getTableThemeData(ThemeData theme) {
+    return theme.copyWith(
+      iconTheme: theme.iconTheme.copyWith(
+        color: theme.colorScheme.secondary,
+        size: 24,
+      ),
+    );
+  }
+
+  @override
+  ThemeData getBreadcrumbThemeCustomizer(ThemeData theme) {
+    return theme.copyWith(
+        iconTheme: theme.iconTheme.copyWith(
+      color: theme.dividerColor,
+      size: 20,
+    ));
+  }
+
+  @override
+  ThemeData getFilterThemeCustomizer(ThemeData theme) {
+    return theme;
+  }
+
+  @override
+  ThemeData getMenuTheme(ThemeData theme) {
+    return theme.copyWith(
+        primaryColor: theme.colorScheme.secondary,
+        colorScheme:
+            theme.colorScheme.copyWith(primary: theme.colorScheme.secondary));
+  }
+
+  @override
+  ThemeData getBooleanColorTheme(ThemeData theme, bool value) {
+    return theme.copyWith(
+        iconTheme: theme.iconTheme.copyWith(
+            color: value == null
+                ? theme.dividerColor
+                : value
+                    ? booleanTrueColor
+                    : booleanFalseColor));
   }
 
   @override
@@ -210,32 +396,37 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       bool disabled,
       bool readOnly,
       String errorMessage) {
+    if (errorMessage != null) {
+      return InputDecoration(
+          labelText: label != null ? (mandatory ? label + ' *' : label) : null,
+          prefixIcon: Icon(
+            prefixIcon.icon,
+            color: theme.errorColor,
+          ),
+          suffixIcon: suffixIcon is Icon
+              ? Icon(suffixIcon.icon, color: theme.errorColor)
+              : suffixIcon is IconButton
+                  ? IconButton(
+                      onPressed: suffixIcon.onPressed,
+                      icon: suffixIcon.icon,
+                      color: theme.errorColor,
+                    )
+                  : suffixIcon,
+          counterText: '',
+          errorText: errorMessage,
+          fillColor: theme.errorColor.withOpacity(0.1),
+          labelStyle: theme.inputDecorationTheme.labelStyle.copyWith(
+            color: theme.errorColor,
+          ));
+    }
     return InputDecoration(
       labelText: label != null ? (mandatory ? label + ' *' : label) : null,
-      prefixIcon: errorMessage != null && prefixIcon != null
-          ? Icon(
-              prefixIcon.icon,
-              color: theme.errorColor,
-            )
-          : prefixIcon,
+      prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
       counterText: '',
-      errorText: errorMessage,
-      errorBorder: errorMessage != null
-          ? UnderlineInputBorder(
-              borderSide: BorderSide(color: theme.errorColor, width: 2.0))
-          : null,
-      fillColor:
-          errorMessage != null ? theme.errorColor.withOpacity(0.1) : null,
-      errorStyle: TextStyle(
-        color: theme.errorColor,
-        fontWeight: FontWeight.bold,
-        fontSize: 11,
-        height: 0.4,
-      ),
-      labelStyle: errorMessage != null
+      labelStyle: disabled
           ? theme.inputDecorationTheme.labelStyle.copyWith(
-              color: theme.errorColor,
+              color: theme.disabledColor,
             )
           : null,
     );
@@ -255,8 +446,8 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory,
             disabled, readOnly, errorMessage)
         .copyWith(
-            floatingLabelBehavior:
-                multiline ? FloatingLabelBehavior.always : null);
+      floatingLabelBehavior: multiline ? FloatingLabelBehavior.always : null,
+    );
   }
 
   @override
@@ -298,13 +489,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       bool readOnly,
       String errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory,
-            disabled, readOnly, errorMessage)
-        .copyWith(
-      errorBorder: errorMessage != null
-          ? OutlineInputBorder(
-              borderSide: BorderSide(color: theme.errorColor, width: 2.0))
-          : null,
-    );
+        disabled, readOnly, errorMessage);
   }
 
   @override
@@ -332,148 +517,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       bool readOnly,
       String errorMessage) {
     return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory,
-            disabled, readOnly, errorMessage)
-        .copyWith();
-  }
-
-  @override
-  ThemeData getInputThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return theme.copyWith(
-        textTheme: theme.textTheme.copyWith(
-          subtitle1:
-              theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500),
-        ),
-        primaryColor: (disabled || readOnly)
-            ? theme.iconTheme.color
-            : theme.colorScheme.secondary,
-        inputDecorationTheme: (disabled || readOnly)
-            ? theme.inputDecorationTheme.copyWith(filled: false)
-            : inCard
-                ? theme.inputDecorationTheme.copyWith(
-                    fillColor: theme.backgroundColor,
-                  )
-                : null);
-  }
-
-  @override
-  ThemeData getInputTextThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return getInputThemeCustomizer(
-        theme, disabled, readOnly, inCard, errorMessage);
-  }
-
-  @override
-  ThemeData getInputDateThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return getInputThemeCustomizer(
-        theme, disabled, readOnly, inCard, errorMessage);
-  }
-
-  @override
-  ThemeData getInputDateTimeThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return getInputThemeCustomizer(
-        theme, disabled, readOnly, inCard, errorMessage);
-  }
-
-  @override
-  ThemeData getInputLinkThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return theme.copyWith(
-        textTheme: theme.textTheme.copyWith(
-          subtitle1:
-              theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w500),
-        ),
-        primaryColor: theme.colorScheme.secondary,
-        iconTheme: theme.iconTheme.copyWith(color: theme.colorScheme.secondary),
-        inputDecorationTheme: (disabled || readOnly)
-            ? theme.inputDecorationTheme.copyWith(filled: false)
-            : inCard
-                ? theme.inputDecorationTheme.copyWith(
-                    fillColor: theme.backgroundColor,
-                  )
-                : theme.inputDecorationTheme);
-  }
-
-  @override
-  ThemeData getInputNumericTimeThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return getInputThemeCustomizer(
-        theme, disabled, readOnly, inCard, errorMessage);
-  }
-
-  @override
-  ThemeData getInputComboboxThemeCustomizer(ThemeData theme, bool disabled,
-      bool readOnly, bool inCard, String errorMessage) {
-    return getInputThemeCustomizer(
-            theme, disabled, readOnly, inCard, errorMessage)
-        .copyWith(
-      iconTheme: theme.iconTheme.copyWith(color: theme.highlightColor),
-    );
-  }
-
-  @override
-  ThemeData getMenuTheme(ThemeData theme) {
-    return theme.copyWith(
-        primaryColor: theme.colorScheme.secondary,
-        colorScheme:
-            theme.colorScheme.copyWith(primary: theme.colorScheme.secondary));
-  }
-
-  @override
-  ThemeData getSwitchThemeData(
-      ThemeData theme, bool disabled, bool readOnly, String errorMessage) {
-    return disabled
-        ? theme.copyWith(
-            checkboxTheme: theme.checkboxTheme.copyWith(
-              fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
-              side: BorderSide(width: 2.0, color: theme.disabledColor),
-            ),
-          )
-        : errorMessage != null
-            ? theme.copyWith(
-                checkboxTheme: theme.checkboxTheme.copyWith(
-                  fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
-                  side: BorderSide(width: 2.0, color: theme.errorColor),
-                ),
-              )
-            : theme;
-  }
-
-  @override
-  ThemeData getRadioThemeData(ThemeData theme, bool disabled, bool readOnly,
-      bool selected, String errorMessage) {
-    return disabled
-        ? theme.copyWith(
-            radioTheme: theme.radioTheme.copyWith(
-              fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
-            ),
-          )
-        : errorMessage != null
-            ? theme.copyWith(
-                radioTheme: theme.radioTheme.copyWith(
-                  fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
-                ),
-              )
-            : selected
-                ? theme.copyWith(
-                    radioTheme: theme.radioTheme.copyWith(
-                      fillColor: MaterialStateProperty.all<Color>(
-                          theme.colorScheme.secondary),
-                    ),
-                  )
-                : theme;
-  }
-
-  @override
-  ThemeData getTableThemeData(ThemeData theme) {
-    return theme.copyWith(
-      iconTheme: theme.iconTheme.copyWith(
-        color: theme.colorScheme.secondary,
-        size: 24,
-      ),
-    );
+        disabled, readOnly, errorMessage);
   }
 
   @override
@@ -487,15 +531,9 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  TextStyle getRowCounterTextStyle(ThemeData theme) {
-    return theme.textTheme.caption
-        .copyWith(color: theme.colorScheme.primaryVariant);
-  }
-
-  @override
   TextStyle getTableHeaderTextStyle(ThemeData theme) {
     return theme.textTheme.headline4
-        .copyWith(fontSize: 16.0, fontWeight: FontWeight.w400);
+        .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600);
   }
 
   @override
@@ -516,7 +554,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   TextStyle getRadioTextStyle(
       ThemeData theme, bool disabled, bool readOnly, String errorMessage) {
     return theme.textTheme.subtitle1.copyWith(
-      fontWeight: errorMessage != null ? FontWeight.w600 : FontWeight.w600,
+      fontWeight: FontWeight.w600,
       fontSize: 16.0,
       color: errorMessage != null
           ? theme.errorColor
@@ -533,8 +571,9 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
 
   @override
   TextStyle getSloganTextStyle(ThemeData theme) {
-    return theme.textTheme.headline6.copyWith(
-        fontWeight: FontWeight.w100, color: theme.textTheme.subtitle1.color);
+    return theme.textTheme.bodyText1.copyWith(
+      fontWeight: FontWeight.w300,
+    );
   }
 
   @override
@@ -556,16 +595,6 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  ThemeData getBreadcrumbThemeCustomizer(ThemeData theme) {
-    return theme.copyWith(
-        iconTheme: theme.iconTheme.copyWith(
-          color: theme.dividerColor,
-          size: 20,
-        )
-    );
-  }
-
-  @override
   TextStyle getLabelTextStyle(ThemeData theme) {
     return theme.textTheme.subtitle1
         .copyWith(fontWeight: FontWeight.w700, fontSize: 25);
@@ -577,13 +606,9 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   }
 
   @override
-  ThemeData getTableTheme(ThemeData theme) {
-    return theme.copyWith(
-      iconTheme: theme.iconTheme.copyWith(
-        color: theme.colorScheme.secondary,
-        size: 24,
-      ),
-    );
+  TextStyle getRowCounterTextStyle(ThemeData theme) {
+    return theme.textTheme.caption
+        .copyWith(color: theme.colorScheme.primaryVariant);
   }
 
   @override
@@ -591,27 +616,16 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       ThemeData theme, int index, bool inCard) {
     return MaterialStateProperty.resolveWith<Color>(
         (Set<MaterialState> states) {
-      // All rows will have the same selected color.
+      /// All rows will have the same selected color.
       if (states.contains(MaterialState.selected)) {
         return theme.colorScheme.primary.withOpacity(0.08);
       }
-      // Even rows will have a grey color.
+
+      /// Even rows will have a grey color.
       if (index % 2 == 0) {
         return inCard ? theme.backgroundColor : theme.cardColor;
       }
       return inCard ? theme.cardColor : theme.backgroundColor;
     });
-  }
-
-  @override
-  ThemeData getBooleanColorTheme(ThemeData theme, bool value) {
-    return theme.copyWith(iconTheme: theme.iconTheme.copyWith(
-        color: value == null ? theme.dividerColor : value ? booleanTrueColor : booleanFalseColor
-    ));
-  }
-
-  @override
-  ThemeData getFilterThemeCustomizer(ThemeData theme) {
-    return theme;
   }
 }
