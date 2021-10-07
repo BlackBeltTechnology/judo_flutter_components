@@ -421,7 +421,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     }
     return InputDecoration(
       labelText: label != null ? (mandatory ? label + ' *' : label) : null,
-      prefixIcon: prefixIcon,
+      prefixIcon: disabled ? Icon(prefixIcon.icon, color: theme.disabledColor,) : prefixIcon,
       suffixIcon: suffixIcon,
       counterText: '',
       labelStyle: disabled
