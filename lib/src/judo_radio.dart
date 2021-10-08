@@ -50,6 +50,8 @@ class _JudoRadioState<T> extends State<JudoRadio> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: widget.items
               .map<JudoRadioButton<T>>((e) => JudoRadioButton<T>(
+                    disabled: widget.disabled,
+                    readOnly: widget.readOnly,
                     label: widget.getLabel(e),
                     col: ((widget.col / widget.items.length) * 100).round(),
                     onChanged: widget.onChanged != null &&
@@ -82,6 +84,8 @@ class JudoRadioButton<T> extends StatelessWidget {
     this.onChanged,
     this.errorMessage,
     this.col,
+    this.disabled = false,
+    this.readOnly = false,
   });
 
   final String label;
@@ -90,6 +94,8 @@ class JudoRadioButton<T> extends StatelessWidget {
   final Function onChanged;
   final String errorMessage;
   final int col;
+  final bool disabled;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -100,18 +106,19 @@ class JudoRadioButton<T> extends StatelessWidget {
         children: [
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-              child: Radio(
-                value: value,
-                groupValue: groupValue,
-                onChanged: onChanged,
-                fillColor: errorMessage != null ? MaterialStateProperty.all(Theme.of(context).errorColor) : null,
-                ),
+              child: Theme(
+                  data: JudoComponentCustomizer.get().getRadioThemeData(Theme.of(context), disabled, readOnly, value == groupValue, errorMessage),
+                  child: Radio(
+                    value: value,
+                    groupValue: groupValue,
+                    onChanged: onChanged,
+                )),
               ),
           Text(
             label,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: JudoComponentCustomizer.get().getRadioTextStyle(Theme.of(context), errorMessage),
+            style: JudoComponentCustomizer.get().getRadioTextStyle(Theme.of(context), disabled, readOnly, errorMessage),
           ),
         ],
       ),

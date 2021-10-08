@@ -72,7 +72,7 @@ class JudoSelectorTable extends StatelessWidget {
     return Theme(
         child: DataTable(
               onSelectAll: collectionSelector ? null : (_) {},
-              headingTextStyle: theme.textTheme.subtitle1.copyWith(fontWeight: FontWeight.w400, color: theme.colorScheme.secondary),
+              headingTextStyle: JudoComponentCustomizer.get().getTableHeaderTextStyle(theme),
               showCheckboxColumn: true,
               sortAscending: sortAscending == null ? true : sortAscending,
               sortColumnIndex: sortColumnIndex,
@@ -80,11 +80,8 @@ class JudoSelectorTable extends StatelessWidget {
               rows: dataRow(context),
               dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
           ),
-        data: theme.copyWith(
-          iconTheme: theme.iconTheme.copyWith(
-              color:  theme.colorScheme.secondary),
-        )
-    );
+        data: JudoComponentCustomizer.get().getTableThemeData(theme),
+        );
   }
 
   List<DataRow> dataRow(BuildContext context) {
@@ -106,18 +103,8 @@ class JudoSelectorTable extends StatelessWidget {
           } else {
             singleSelectAction(rowList[index]);
           }
-
         },
-        color: MaterialStateProperty.resolveWith<Color>(
-                (Set<MaterialState> states) {
-              // All rows will have the same selected color.
-              if (states.contains(MaterialState.selected))
-                return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-              // Even rows will have a grey color.
-              if (index % 2 == 0) return Colors.grey.withOpacity(0.05);
-              return null; // Use default value for other states and odd rows.
-            }
-        ),
+        color: JudoComponentCustomizer.get().getRowColor(Theme.of(context), index, true),
         cells: dataRowList[index].cells,
       ),
     );

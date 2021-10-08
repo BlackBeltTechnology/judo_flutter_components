@@ -32,19 +32,11 @@ class JudoTitle extends StatelessWidget {
         children: [
           Text(
             text,
-            style:
-                  Theme.of(context).textTheme.headline1
-            //TextStyle(
-            //    fontWeight: FontWeight.w900,
-//                color: JudoComponentsSettings.secondaryColor,
-            //    fontSize: 24),
+            style: JudoComponentCustomizer.get().getTitleTextStyle(Theme.of(context))
           ),
           SizedBox(
             height: 10,
-            child: Divider(
-              color: Colors.grey,
-              thickness: 1,
-            ),
+            child: Divider(),
           ),
         ],
       ),

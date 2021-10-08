@@ -71,7 +71,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith();
+    final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
@@ -83,15 +83,15 @@ class _JudoDateInputState extends State<JudoDateInput> {
           child: Container(
               child: TextField(
                   controller: controller,
-                  readOnly: widget.disabled || widget.readOnly,
-                  enabled: !widget.disabled && !widget.readOnly,
-                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.errorMessage),
+                  readOnly: widget.readOnly,
+                  enabled: !widget.disabled,
+                  decoration: JudoComponentCustomizer.get().getInputDateDecoration(theme, widget.label, widget.icon, (widget.disabled || widget.readOnly) ? null : iconDatePicker(context), widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
                   onChanged: (value) => onChangedHandler(value != '' ? DateTime.parse(value) : null),
                   onSubmitted: widget.onSubmitted,
                 ),
-              decoration: widget.errorMessage != null ? null :  JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+              decoration: widget.errorMessage != null ? null :  JudoComponentCustomizer.get().getInputBoxCustomizer(theme, widget.disabled, widget.readOnly),
             ),
-          data: JudoComponentCustomizer.get().getInputDateThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
+          data: JudoComponentCustomizer.get().getInputDateThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard, widget.errorMessage),
         )
     );
   }

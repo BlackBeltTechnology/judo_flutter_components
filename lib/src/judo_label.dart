@@ -26,6 +26,7 @@ class JudoLabel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: col,
@@ -42,10 +43,7 @@ class JudoLabel extends StatelessWidget {
                 Container(
                   child: Text(
                     label,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                    ),
+                    style: JudoComponentCustomizer.get().getLabelTextStyle(theme)
                   ),
                   margin: EdgeInsets.only(left: labelMargin),
                 )
@@ -54,10 +52,7 @@ class JudoLabel extends StatelessWidget {
                 ? [
                     Text(
                       label,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                      ),
+                      style: JudoComponentCustomizer.get().getLabelTextStyle(theme)
                     ),
                   ]
                 : [

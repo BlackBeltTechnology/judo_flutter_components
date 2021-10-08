@@ -99,11 +99,7 @@ class JudoTable extends StatelessWidget {
         dataRowHeight: JudoComponentCustomizer.get().getLineHeight(),
         headingRowHeight: JudoComponentCustomizer.get().getLineHeight(),
       ),
-      data: theme.copyWith(
-          iconTheme: theme.iconTheme.copyWith(
-            color:  theme.colorScheme.secondary),
-
-      )
+      data: JudoComponentCustomizer.get().getTableThemeData(theme),
     );
   }
 
@@ -123,28 +119,16 @@ class JudoTable extends StatelessWidget {
           dataRowList.length,
             (index) => DataRow(
               onSelectChanged: navigateToViewPageAction != null ? (newValue) => navigateToViewPageAction(rowList[index]) : null,
-              color: MaterialStateProperty.resolveWith<Color>(
-              (Set<MaterialState> states) {
-                // All rows will have the same selected color.
-                if (states.contains(MaterialState.selected)) {
-                  return Theme.of(context).colorScheme.primary.withOpacity(0.08);
-                }
-                // Even rows will have a grey color.
-                if (index % 2 == 0) {
-                  return inCard ? Theme.of(context).backgroundColor : Theme.of(context).cardColor;
-                }
-                return inCard ? Theme.of(context).cardColor : Theme.of(context).backgroundColor;
-              }
-            ),
-          cells: dataRowList[index].cells,
+              color: JudoComponentCustomizer.get().getRowColor(Theme.of(context), index, inCard),
+              cells: dataRowList[index].cells,
 //        selected: selected[index],
 //        onSelectChanged: (bool value) {
 //          setState(() {
 //            selected[index] = value;
 //          });
 //        },
-        ),
-      );
+              ),
+          );
   }
   
   bool _shouldSortAscending() {

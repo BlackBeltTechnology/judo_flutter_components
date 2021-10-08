@@ -57,7 +57,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith();
+    final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
@@ -65,15 +65,19 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
       stretch: widget.stretch,
       alignment: widget.alignment,
       child: Theme(
-        data: JudoComponentCustomizer.get().getInputComboboxThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard),
+        data: JudoComponentCustomizer.get().getInputComboboxThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard, widget.errorMessage),
         child: Container(
-          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(widget.disabled, widget.readOnly),
+          decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, widget.disabled, widget.readOnly),
               child: DropdownButtonFormField<T>(
-                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.errorMessage),
-                onTap: widget.onTap,
+                iconDisabledColor: widget.errorMessage != null ? Theme.of(context).errorColor :
+                  widget.disabled ? Theme.of(context).disabledColor :
+                    Theme.of(context).unselectedWidgetColor,
+                iconEnabledColor: widget.errorMessage != null ? Theme.of(context).errorColor :
+                  Theme.of(context).unselectedWidgetColor,
+                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
+                onTap: !widget.disabled && !widget.readOnly ? widget.onTap : null,
                 value: widget.value,
-                icon: widget.disabled || widget.readOnly ? Visibility(visible: false, child: Icon(Icons.expand_more),) : Icon(Icons.expand_more),
-                iconEnabledColor: Theme.of(context).colorScheme.secondary,
+                icon: Icon(Icons.expand_more),
                 elevation: 16,
                 onChanged: widget.onChanged != null && !widget.disabled && !widget.readOnly ?  widget.onChanged :
                   ( widget.onChanged == null && !widget.disabled && !widget.readOnly ?

@@ -40,7 +40,7 @@ class JudoSwitchState extends State<JudoSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context).copyWith();
+    final ThemeData theme = Theme.of(context);
     return JudoContainer(
 //      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
@@ -62,11 +62,12 @@ class JudoSwitchState extends State<JudoSwitch> {
 
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-            child: Checkbox(
+            child: Theme(
+                data: JudoComponentCustomizer.get().getSwitchThemeData(Theme.of(context), widget.disabled, widget.readOnly, widget.errorMessage),
+                child: Checkbox(
               value: widget.initialValue ?? false,
               onChanged: widget.disabled || widget.readOnly ? null : widget.onChanged,
-              fillColor: widget.errorMessage != null ? MaterialStateProperty.all(Theme.of(context).errorColor) : null
-            ),
+            )),
           ),
           GestureDetector(
             onTap: widget.disabled || widget.readOnly ? null : () {
@@ -74,7 +75,7 @@ class JudoSwitchState extends State<JudoSwitch> {
             },
             child: Text(
               widget.label,
-              style: JudoComponentCustomizer.get().getSwitchTextStyle(Theme.of(context), widget.errorMessage),
+              style: JudoComponentCustomizer.get().getSwitchTextStyle(Theme.of(context), widget.disabled, widget.readOnly, widget.errorMessage),
             )
           ),
         ],

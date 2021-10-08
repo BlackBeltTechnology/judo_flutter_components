@@ -70,8 +70,8 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
       alignment: widget.alignment,
       child: TextField(
         controller: controller,
-        readOnly: widget.disabled || widget.readOnly,
-        enabled: !widget.disabled && !widget.readOnly,
+        readOnly: widget.readOnly,
+        enabled: !widget.disabled,
         decoration: widget.disabled ?
         InputDecoration(
           labelText: widget.label,
