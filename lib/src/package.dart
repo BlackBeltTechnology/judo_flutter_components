@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter/services.dart';
 import 'state_handling/package.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 export 'state_handling/package.dart';
 
