@@ -82,7 +82,7 @@ class JudoMenuItemData<T> {
     this.icon,
     this.onSelected,
     this.value,
-    this.disabled,
+    this.disabled = false,
   });
 
   final Function onSelected;
