@@ -399,13 +399,13 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     if (errorMessage != null) {
       return InputDecoration(
           labelText: label != null ? (mandatory ? label + ' *' : label) : null,
-          prefixIcon: Icon(
+          prefixIcon: prefixIcon != null ? Icon(
             prefixIcon.icon,
             color: theme.errorColor,
-          ),
-          suffixIcon: suffixIcon is Icon
+          ) : prefixIcon,
+          suffixIcon: suffixIcon != null && suffixIcon is Icon
               ? Icon(suffixIcon.icon, color: theme.errorColor)
-              : suffixIcon is IconButton
+              : suffixIcon != null && suffixIcon is IconButton
                   ? IconButton(
                       onPressed: suffixIcon.onPressed,
                       icon: suffixIcon.icon,
@@ -421,7 +421,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     }
     return InputDecoration(
       labelText: label != null ? (mandatory ? label + ' *' : label) : null,
-      prefixIcon: disabled ? Icon(prefixIcon.icon, color: theme.disabledColor,) : prefixIcon,
+      prefixIcon: disabled && prefixIcon != null ? Icon(prefixIcon.icon, color: theme.disabledColor,) : prefixIcon,
       suffixIcon: suffixIcon,
       counterText: '',
       labelStyle: disabled
