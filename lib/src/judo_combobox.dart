@@ -71,7 +71,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
               child: DropdownButtonFormField<T>(
                 iconDisabledColor: widget.errorMessage != null ? Theme.of(context).errorColor : Theme.of(context).disabledColor,
                 iconEnabledColor: widget.errorMessage != null ? Theme.of(context).errorColor :
-                  Theme.of(context).unselectedWidgetColor,
+                  Theme.of(context).colorScheme.secondary,
                 decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
                 onTap: !widget.disabled && !widget.readOnly ? widget.onTap : null,
                 value: widget.value,
