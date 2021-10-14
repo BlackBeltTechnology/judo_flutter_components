@@ -285,21 +285,23 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   ThemeData getSwitchThemeData(
       ThemeData theme, bool disabled, bool readOnly, String errorMessage) {
-    return disabled
-        ? theme.copyWith(
-            checkboxTheme: theme.checkboxTheme.copyWith(
-              fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
-              side: BorderSide(width: 2.0, color: theme.disabledColor),
-            ),
-          )
-        : errorMessage != null
-            ? theme.copyWith(
-                checkboxTheme: theme.checkboxTheme.copyWith(
-                  fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
-                  side: BorderSide(width: 2.0, color: theme.errorColor),
-                ),
-              )
-            : theme;
+    if (errorMessage != null) {
+      return theme.copyWith(
+        checkboxTheme: theme.checkboxTheme.copyWith(
+          fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
+          side: BorderSide(width: 2.0, color: theme.errorColor),
+        ),
+      );
+    }
+    if (disabled || readOnly) {
+      return theme.copyWith(
+        checkboxTheme: theme.checkboxTheme.copyWith(
+          fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
+          side: BorderSide(width: 2.0, color: theme.disabledColor),
+        ),
+      );
+    }
+    return theme;
   }
 
   @override
@@ -312,7 +314,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         ),
       );
     }
-    if (disabled) {
+    if (disabled || readOnly) {
       return theme.copyWith(
         radioTheme: theme.radioTheme.copyWith(
           fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
