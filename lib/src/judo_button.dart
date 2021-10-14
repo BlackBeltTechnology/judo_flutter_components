@@ -16,6 +16,7 @@ class JudoButton extends StatelessWidget {
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
     this.outlined = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -30,11 +31,13 @@ class JudoButton extends StatelessWidget {
   final bool stretch;
   final Alignment alignment;
   final bool outlined;
+  final double order;
 
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
       padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: order,
       col: col,
       row: row,
       stretch: stretch,

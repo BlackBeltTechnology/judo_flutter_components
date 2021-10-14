@@ -21,6 +21,7 @@ class JudoDateTimeInput extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.topLeft,
     this.inCard = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -41,6 +42,7 @@ class JudoDateTimeInput extends StatefulWidget {
   final bool inCard;
   final Alignment alignment;
   final EdgeInsets padding;
+  final double order;
 
   @override
   _JudoDateTimeInputState createState() => _JudoDateTimeInputState();
@@ -75,6 +77,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
     final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: widget.order,
       col: widget.col,
       stretch: widget.stretch,
       alignment: widget.alignment,

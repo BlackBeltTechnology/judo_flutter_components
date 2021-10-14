@@ -15,6 +15,7 @@ class JudoPopupButton<T> extends StatelessWidget {
     this.alignment = Alignment.centerLeft,
     this.items,
     this.outlined = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -29,11 +30,13 @@ class JudoPopupButton<T> extends StatelessWidget {
   final LoadingState loadingState;
   final Map<T, JudoMenuItemData> items;
   final bool outlined;
+  final double order;
 
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
       padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: order,
       col: col,
       row: row,
       stretch: stretch,

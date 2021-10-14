@@ -16,6 +16,7 @@ class JudoSwitch extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.alignment = Alignment.topLeft,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -31,6 +32,7 @@ class JudoSwitch extends StatefulWidget {
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets padding;
+  final double order;
 
   @override
   JudoSwitchState createState() => JudoSwitchState();
@@ -44,6 +46,7 @@ class JudoSwitchState extends State<JudoSwitch> {
     return JudoContainer(
 //      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: widget.order,
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,

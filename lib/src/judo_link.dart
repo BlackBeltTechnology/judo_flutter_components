@@ -19,6 +19,7 @@ class JudoLink extends StatelessWidget {
     this.stretch = false,
     this.inCard = false,
     this.alignment = Alignment.topLeft,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -37,6 +38,7 @@ class JudoLink extends StatelessWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool inCard;
+  final double order;
 
   static String defaultFormatter(dynamic e) {
     return e != null ? e.toString() : '';
@@ -52,6 +54,7 @@ class JudoLink extends StatelessWidget {
 
     return JudoContainer(
         padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
+        order: order,
         col: col,
         row: row,
         stretch: stretch,
