@@ -49,7 +49,7 @@ class JudoComboBox<T> extends StatefulWidget {
   final bool disabled;
   final bool readOnly;
   final bool inCard;
-  final double order,
+  final double order;
 
   @override
   _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
