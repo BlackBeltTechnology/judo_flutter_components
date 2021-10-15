@@ -40,7 +40,6 @@ class JudoSwitchState extends State<JudoSwitch> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return JudoContainer(
-//      color: widget.disabled ? JudoComponentsSettings.disabledColor : null,
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
       row: widget.row,

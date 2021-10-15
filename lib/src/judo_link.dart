@@ -32,7 +32,7 @@ class JudoLink extends StatelessWidget {
   final dynamic data;
   final String? errorMessage;
   final GestureTapCallback? setAction;
-  final List<Widget>? actions;
+  final List<Widget?>? actions;
   final bool stretch;
   final Alignment alignment;
   final EdgeInsets? padding;
@@ -108,7 +108,6 @@ class JudoLink extends StatelessWidget {
     if (actions == null) {
       return [];
     }
-    actions!.removeWhere((value) => value == null);
-    return actions!;
+    return actions!.where((element) => element != null).toList() as List<Widget>;
   }
 }

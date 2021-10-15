@@ -1,7 +1,6 @@
 library judo.components;
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:math';
 import 'dart:ui';
 

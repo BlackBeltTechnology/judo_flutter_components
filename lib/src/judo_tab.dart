@@ -154,7 +154,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
     }
 
     for (int i = _tabs.length - 1; i >= 0; i--) {
-      if (widget.hiddenTabs[i] ?? false) {
+      if (widget.hiddenTabs[i]) {
         _tabs.removeAt(i);
       }
     }
@@ -170,7 +170,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
     List<Widget> _tabContent = List.from(widget.tabContent);
 
     for (int i = _tabContent.length - 1; i >= 0; i--) {
-      if (widget.hiddenTabs[i] ?? false) {
+      if (widget.hiddenTabs[i]) {
         _tabContent.removeAt(i);
       }
     }
