@@ -9,9 +9,9 @@ class JudoButton extends StatelessWidget {
     this.padding,
     required this.label,
     required this.icon,
-    required this.loadingState,
+    this.loadingState,
     required this.onPressed,
-    required this.color,
+    this.color,
     this.disabled = false,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
@@ -22,7 +22,7 @@ class JudoButton extends StatelessWidget {
   final double row;
   final EdgeInsets? padding;
   final String label;
-  final LoadingState loadingState;
+  final LoadingState? loadingState;
   final FutureFunction onPressed;
   final Icon icon;
   final Color? color;
