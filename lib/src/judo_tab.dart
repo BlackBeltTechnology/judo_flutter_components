@@ -16,6 +16,7 @@ class JudoTab extends StatefulWidget {
     this.padding,
     this.tabIndex = 0,
     this.setTabIndex,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -31,6 +32,7 @@ class JudoTab extends StatefulWidget {
   final EdgeInsets padding;
   final int tabIndex;
   final Function setTabIndex;
+  final double order;
 
 
   TabController tabController;
@@ -106,6 +108,7 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
 
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: widget.order,
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
@@ -158,7 +161,6 @@ class _JudoTabState extends State<JudoTab> with TickerProviderStateMixin {
         _tabs.removeAt(i);
       }
     }
-    print(_tabs);
     return _tabs;
   }
 

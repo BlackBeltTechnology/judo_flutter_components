@@ -109,7 +109,8 @@ abstract class JudoComponentCustomizer {
       bool mandatory,
       bool disabled,
       bool readOnly,
-      String errorMessage);
+      String errorMessage,
+      bool hasFocus);
 
   InputDecoration getInputNumericDecoration(
       ThemeData theme,
@@ -489,9 +490,22 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       bool mandatory,
       bool disabled,
       bool readOnly,
-      String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory,
-        disabled, readOnly, errorMessage);
+      String errorMessage,
+      bool hasFocus) {
+    if (hasFocus) {
+      return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage)
+          .copyWith(
+        disabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+            borderSide: BorderSide(color: theme.colorScheme.secondary, width: 2)
+        ),
+        prefixIcon: prefixIcon != null ? Icon(
+          prefixIcon.icon,
+          color: theme.colorScheme.secondary,
+        ) : prefixIcon,
+      );
+    }
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage);
   }
 
   @override

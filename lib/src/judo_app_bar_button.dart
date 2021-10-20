@@ -11,6 +11,7 @@ class JudoAppBarButton extends StatelessWidget {
     this.color,
     this.disabled = false,
     this.outlined = false,
+    this.order,
   }) : super(key: key);
 
   final EdgeInsets padding;
@@ -21,12 +22,14 @@ class JudoAppBarButton extends StatelessWidget {
   final Color color;
   final bool disabled;
   final bool outlined;
+  final double order;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: padding,
       child: JudoButtonWidget(
+        order: order,
         label: label,
         loadingState: loadingState,
         onPressed: onPressed,

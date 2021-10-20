@@ -1,25 +1,25 @@
 part of judo.components;
 
-class JudoLink extends StatelessWidget {
+class JudoLink extends StatefulWidget {
   JudoLink({
-    Key key,
-    @required this.col,
-    this.row = 1.0,
-    this.mandatory = false,
-    this.formatter = defaultFormatter,
-    @required this.data,
-    this.label,
-    this.icon,
-    this.errorMessage,
-    this.setAction,
-    this.actions,
-    this.disabled = false,
-    this.readOnly = false,
-    this.padding,
-    this.stretch = false,
-    this.inCard = false,
-    this.alignment = Alignment.topLeft,
-    this.order,
+  Key key,
+  @required this.col,
+  this.row = 1.0,
+  this.mandatory = false,
+  this.formatter = defaultFormatter,
+  @required this.data,
+  this.label,
+  this.icon,
+  this.errorMessage,
+  this.setAction,
+  this.actions,
+  this.disabled = false,
+  this.readOnly = false,
+  this.padding,
+  this.stretch = false,
+  this.inCard = false,
+  this.alignment = Alignment.topLeft,
+  this.order,
   }) : super(key: key);
 
   final double col;
@@ -40,9 +40,18 @@ class JudoLink extends StatelessWidget {
   final bool inCard;
   final double order;
 
+
+
   static String defaultFormatter(dynamic e) {
     return e != null ? e.toString() : '';
   }
+
+  @override
+  _JudoLinkState createState() => _JudoLinkState();
+}
+
+class _JudoLinkState extends State<JudoLink> {
+  bool _hasFocus = false;
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +62,12 @@ class JudoLink extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
 
     return JudoContainer(
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 10),
-        order: order,
-        col: col,
-        row: row,
-        stretch: stretch,
-        alignment: alignment,
+        padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+        order: widget.order,
+        col: widget.col,
+        row: widget.row,
+        stretch: widget.stretch,
+        alignment: widget.alignment,
         child:
           Theme(
             child:
@@ -73,10 +82,16 @@ class JudoLink extends StatelessWidget {
                           child:
                               Container(
                                   child: InkWell(
-                                    onTap: !readOnly && !disabled ? setAction : null,
+                                    onTap: !widget.readOnly && !widget.disabled ? widget.setAction : null,
                                     child: getTextField(context),
+                                    focusColor: Colors.transparent,
+                                    onFocusChange: (hasFocus) {
+                                      setState(() {
+                                        _hasFocus = hasFocus;
+                                      });
+                                    },
                                 ),
-                                decoration: errorMessage != null && errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, disabled, readOnly),
+                                decoration: widget.errorMessage != null && widget.errorMessage.isNotEmpty ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, widget.disabled, widget.readOnly),
                               )
                         ),
                         Container(
@@ -90,25 +105,25 @@ class JudoLink extends StatelessWidget {
                       ]
                   ),
                 ),
-            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, disabled, readOnly, inCard, errorMessage),
+            data: JudoComponentCustomizer.get().getInputLinkThemeCustomizer(theme, widget.disabled, widget.readOnly, widget.inCard, widget.errorMessage),
           )
         );
   }
 
   Widget getTextField(BuildContext context) {
-      final TextEditingController controller = TextEditingController(text: data != null ? Function.apply(formatter, [data]) : '');
+      final TextEditingController controller = TextEditingController(text: widget.data != null ? Function.apply(widget.formatter, [widget.data]) : '');
       return IgnorePointer(
           child: TextField(
             controller: controller,
-            readOnly: readOnly,
-            enabled: !disabled,
-            decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context), label, icon, null, mandatory, disabled, readOnly, errorMessage)
+            readOnly: widget.readOnly,
+            enabled: widget.readOnly, // use readOnly here to prevent focus on TextField when creating/editing and to enable copying text from Link component on view pages, while using tab key
+            decoration: JudoComponentCustomizer.get().getInputLinkDecoration(Theme.of(context), widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage, _hasFocus)
           )
       );
   }
 
   List<Widget> getActionWidgets() {
-    List ret = actions;
+    List ret = widget.actions;
     if (ret == null) {
       return [];
     }
