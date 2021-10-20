@@ -1,0 +1,24 @@
+#!/bin/bash
+
+set -e
+
+if [ ! -d ".flutter" ] 
+then
+    echo "Flutter not installed locally, installing..." 
+    curl https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.5.2-stable.tar.xz --output flutter_linux_2.5.2-stable.tar.xz
+    mkdir .flutter
+    tar xf ./flutter_linux_2.5.2-stable.tar.xz --strip-components=1 -C .flutter
+    rm ./flutter_linux_2.5.2-stable.tar.xz
+
+    echo "Running: flutter precache..."
+    .flutter/bin/flutter precache
+
+    echo "Running: flutter devices..."
+    .flutter/bin/flutter devices
+
+    echo "Flutter installed successfully under ./flutter!"
+fi
+
+.flutter/bin/flutter "$@"
+
+
