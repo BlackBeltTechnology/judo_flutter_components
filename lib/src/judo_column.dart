@@ -13,6 +13,7 @@ class JudoColumn extends StatelessWidget {
     this.frameMargin = const EdgeInsets.all(4.0),
     this.radius = 10.0,
     this.elevation = 4.0,
+    this.hidden = false,
   }) : super(key: key);
 
   final List<Widget> children;
@@ -25,9 +26,12 @@ class JudoColumn extends StatelessWidget {
   final EdgeInsets frameMargin;
   final double radius;
   final double elevation;
+  final bool hidden;
 
   @override
   Widget build(BuildContext context) {
+    if (hidden) return JudoSpacer(col: col, row: row);
+
     return Expanded(
       flex: (col*100).round(),
       child: card ? Card(
