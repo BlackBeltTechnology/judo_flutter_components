@@ -10,7 +10,7 @@ class JudoButton extends StatelessWidget {
     required this.label,
     required this.icon,
     this.loadingState,
-    required this.onPressed,
+    this.onPressed,
     this.color,
     this.disabled = false,
     this.stretch = false,
