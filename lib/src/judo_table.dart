@@ -2,7 +2,7 @@ part of judo.components;
 
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function? onAdd, DataColumnSortCallback onSort);
-  DataRow Function(dynamic) getRow({BuildContext context,
+  DataRow Function(dynamic) getRow({required BuildContext context,
     Function? navigateToEditPageAction,
     Function? navigateToViewPageAction,
     Function? navigateToCreatePageAction,
