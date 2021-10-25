@@ -4,7 +4,7 @@ class JudoAppBarButton extends StatelessWidget {
   JudoAppBarButton({
     Key? key,
     required this.padding,
-    required this.label,
+    this.label,
     this.icon,
     this.loadingState,
     this.onPressed,
@@ -14,7 +14,7 @@ class JudoAppBarButton extends StatelessWidget {
   }) : super(key: key);
 
   final EdgeInsets padding;
-  final String label;
+  final String? label;
   final LoadingState? loadingState;
   final FutureFunction? onPressed;
   final Icon? icon;
