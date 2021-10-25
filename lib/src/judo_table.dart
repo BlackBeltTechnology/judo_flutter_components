@@ -1,7 +1,7 @@
 part of judo.components;
 
 abstract class JudoTableDataInfo {
-  List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
+  List<DataColumn> getColumns(Function? onAdd, DataColumnSortCallback onSort);
   DataRow Function(dynamic) getRow({BuildContext context,
     Function? navigateToEditPageAction,
     Function? navigateToViewPageAction,
@@ -27,7 +27,7 @@ class JudoTable extends StatelessWidget {
     this.sortAscending = true,
     this.sortColumnIndex = 0,
     this.disabled = false,
-    required this.onAdd,
+    this.onAdd,
     required this.onSort,
     this.padding,
     this.stretch = false,
@@ -50,7 +50,7 @@ class JudoTable extends StatelessWidget {
   final Function? removeAction;
   final Function? unsetAction;
   final Function? deleteAction;
-  final Function onAdd;
+  final Function? onAdd;
   final DataColumnSortCallback onSort;
   final bool stretch;
   final Alignment alignment;
