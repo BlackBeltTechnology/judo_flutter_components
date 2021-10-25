@@ -9,7 +9,7 @@ class JudoSelectorTable extends StatelessWidget {
     required this.rowList,
     required this.collectionSelector,
     this.dialogTypeAdder = false,
-    required this.alreadyAddedItemsComparator,
+    this.alreadyAddedItemsComparator,
     required this.singleSelectAction,
     required this.multiSelectAction,
     required this.singleSelectedComparator,
@@ -33,7 +33,7 @@ class JudoSelectorTable extends StatelessWidget {
   final JudoTableDataInfo dataInfo;
   final List rowList;
   final bool dialogTypeAdder;
-  final Function alreadyAddedItemsComparator;
+  final Function? alreadyAddedItemsComparator;
   final Function singleSelectAction;
   final Function multiSelectAction;
   final Function singleSelectedComparator;
