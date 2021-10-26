@@ -9,7 +9,7 @@ class JudoNumericInput extends StatefulWidget {
     this.mandatory = false,
     this.label,
     this.icon,
-    required this.onChanged,
+    this.onChanged,
     this.onFocus,
     this.onBlur,
     this.onSubmitted,
@@ -28,7 +28,7 @@ class JudoNumericInput extends StatefulWidget {
   final bool mandatory;
   final String? label;
   final Icon? icon;
-  final Function onChanged;
+  final ValueChanged<String>? onChanged;
   final Function? onFocus;
   final Function? onBlur;
   final ValueChanged<String>? onSubmitted;
@@ -120,9 +120,9 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
               }),
             ],
             decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
-            onChanged: (value) {
-                return widget.onChanged(value);
-            },
+            onChanged: widget.onChanged != null ? (value) {
+              return widget.onChanged!(value);
+            } : null,
             onSubmitted: widget.onSubmitted,
             focusNode: focusNode,
           ),
