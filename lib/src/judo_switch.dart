@@ -38,7 +38,6 @@ class JudoSwitchState extends State<JudoSwitch> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
       col: widget.col,
