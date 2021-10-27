@@ -10,6 +10,7 @@ class JudoButtonWidget extends StatelessWidget {
     this.color,
     this.disabled = false,
     this.outlined = false,
+    this.order,
   }) : super(key: key);
 
   final String label;
@@ -19,14 +20,23 @@ class JudoButtonWidget extends StatelessWidget {
   final Color color;
   final bool disabled;
   final bool outlined;
+  final double order;
 
   bool get _disabled => disabled || onPressed == null;
 
   @override
   Widget build(BuildContext context) {
-    return loadingState == null || !loadingState.isLoading
-        ? getButtonWidget(context)
-        : getLoadingButtonWidget(context);
+    if (loadingState == null || !loadingState.isLoading) {
+      if (order != null) {
+        return FocusTraversalOrder(
+          order: NumericFocusOrder(order),
+          child: getButtonWidget(context),
+        );
+      }
+      return getButtonWidget(context);
+    }
+
+    return getLoadingButtonWidget(context);
   }
 
   Widget getLoadingButtonWidget(BuildContext context) {

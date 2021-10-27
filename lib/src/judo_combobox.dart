@@ -23,6 +23,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.readOnly = false,
     this.inCard = false,
     this.hidden = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -50,6 +51,7 @@ class JudoComboBox<T> extends StatefulWidget {
   final bool readOnly;
   final bool inCard;
   final bool hidden;
+  final double order;
 
   @override
   _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
@@ -64,6 +66,7 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
     final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: widget.order,
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
