@@ -7,7 +7,7 @@ class JudoSwitch extends StatefulWidget {
     this.row = 1.0,
     this.mandatory = false,
     required this.label,
-    required this.onChanged,
+    this.onChanged,
     this.errorMessage,
     this.initialValue,
     this.readOnly = false,
@@ -21,7 +21,7 @@ class JudoSwitch extends StatefulWidget {
   final double row;
   final bool mandatory;
   final String label;
-  final ValueChanged<bool?> onChanged;
+  final ValueChanged<bool?>? onChanged;
   final String? errorMessage;
   final bool? initialValue;
   final bool readOnly;
@@ -57,7 +57,7 @@ class JudoSwitchState extends State<JudoSwitch> {
           ),
           GestureDetector(
             onTap: widget.disabled || widget.readOnly ? null : () {
-              widget.onChanged(!(widget.initialValue ?? false));
+              widget.onChanged!(!(widget.initialValue ?? false));
             },
             child: Text(
               widget.label,
