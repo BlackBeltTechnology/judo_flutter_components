@@ -19,6 +19,7 @@ class JudoLink extends StatelessWidget {
     this.stretch = false,
     this.inCard = false,
     this.alignment = Alignment.topLeft,
+    this.hidden = false,
   }) : super(key: key);
 
   final double col;
@@ -37,6 +38,7 @@ class JudoLink extends StatelessWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool inCard;
+  final bool hidden;
 
   static String defaultFormatter(dynamic e) {
     return e != null ? e.toString() : '';
@@ -44,6 +46,8 @@ class JudoLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (hidden) return JudoSpacer(col: col, row: row);
+
     return getWidget(context);
   }
 

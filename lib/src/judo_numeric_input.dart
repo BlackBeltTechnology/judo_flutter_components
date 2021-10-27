@@ -21,6 +21,7 @@ class JudoNumericInput extends StatefulWidget {
     this.stretch = false,
     this.alignment = Alignment.topLeft,
     this.inCard = false,
+    this.hidden = false,
   }) : super(key: key);
 
   final double col;
@@ -40,6 +41,7 @@ class JudoNumericInput extends StatefulWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool inCard;
+  final bool hidden;
 
   @override
   _JudoNumericInputState createState() => _JudoNumericInputState();
@@ -92,6 +94,8 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.hidden) return JudoSpacer(col: widget.col, row: widget.row);
+
     final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
