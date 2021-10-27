@@ -2,24 +2,25 @@ part of judo.components;
 
 class JudoLink extends StatefulWidget {
   JudoLink({
-  Key key,
-  @required this.col,
-  this.row = 1.0,
-  this.mandatory = false,
-  this.formatter = defaultFormatter,
-  @required this.data,
-  this.label,
-  this.icon,
-  this.errorMessage,
-  this.setAction,
-  this.actions,
-  this.disabled = false,
-  this.readOnly = false,
-  this.padding,
-  this.stretch = false,
-  this.inCard = false,
-  this.alignment = Alignment.topLeft,
-  this.order,
+    Key key,
+    @required this.col,
+    this.row = 1.0,
+    this.mandatory = false,
+    this.formatter = defaultFormatter,
+    @required this.data,
+    this.label,
+    this.icon,
+    this.errorMessage,
+    this.setAction,
+    this.actions,
+    this.disabled = false,
+    this.readOnly = false,
+    this.padding,
+    this.stretch = false,
+    this.inCard = false,
+    this.alignment = Alignment.topLeft,
+    this.hidden = false,
+  	this.order,
   }) : super(key: key);
 
   final double col;
@@ -38,6 +39,7 @@ class JudoLink extends StatefulWidget {
   final Alignment alignment;
   final EdgeInsets padding;
   final bool inCard;
+  final bool hidden;
   final double order;
 
 
@@ -55,6 +57,8 @@ class _JudoLinkState extends State<JudoLink> {
 
   @override
   Widget build(BuildContext context) {
+    if (hidden) return JudoSpacer(col: col, row: row);
+
     return getWidget(context);
   }
 

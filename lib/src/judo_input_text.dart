@@ -22,6 +22,7 @@ class JudoInputText extends StatefulWidget {
     this.alignment = Alignment.topLeft,
     this.multiline = false,
     this.maxLength = 250,
+    this.hidden = false,
     this.order,
   }) : super(key: key);
 
@@ -44,6 +45,7 @@ class JudoInputText extends StatefulWidget {
   final EdgeInsets padding;
   final bool multiline;
   final int maxLength;
+  final bool hidden;
   final double order;
 
   @override
@@ -96,6 +98,8 @@ class JudoInputTextState extends State<JudoInputText> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.hidden) return JudoSpacer(col: widget.col, row: widget.row);
+
     final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
