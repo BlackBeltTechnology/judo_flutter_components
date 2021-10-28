@@ -10,6 +10,7 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
     this.disabled = false,
     this.items,
     this.outlined = false,
+    this.order,
   }) : super(key: key);
 
   final Icon icon;
@@ -19,10 +20,12 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
   final LoadingState loadingState;
   final Map<T, JudoMenuItemData> items;
   final bool outlined;
+  final double order;
 
   @override
   Widget build(BuildContext context) {
     return JudoButtonWidget(
+      order: order,
       label: label,
       icon: icon,
       loadingState: loadingState,

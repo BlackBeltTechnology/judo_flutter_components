@@ -109,7 +109,8 @@ abstract class JudoComponentCustomizer {
       bool mandatory,
       bool disabled,
       bool readOnly,
-      String errorMessage);
+      String errorMessage,
+      bool hasFocus);
 
   InputDecoration getInputNumericDecoration(
       ThemeData theme,
@@ -285,21 +286,23 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   @override
   ThemeData getSwitchThemeData(
       ThemeData theme, bool disabled, bool readOnly, String errorMessage) {
-    return disabled
-        ? theme.copyWith(
-            checkboxTheme: theme.checkboxTheme.copyWith(
-              fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
-              side: BorderSide(width: 2.0, color: theme.disabledColor),
-            ),
-          )
-        : errorMessage != null
-            ? theme.copyWith(
-                checkboxTheme: theme.checkboxTheme.copyWith(
-                  fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
-                  side: BorderSide(width: 2.0, color: theme.errorColor),
-                ),
-              )
-            : theme;
+    if (errorMessage != null) {
+      return theme.copyWith(
+        checkboxTheme: theme.checkboxTheme.copyWith(
+          fillColor: MaterialStateProperty.all<Color>(theme.errorColor),
+          side: BorderSide(width: 2.0, color: theme.errorColor),
+        ),
+      );
+    }
+    if (disabled || readOnly) {
+      return theme.copyWith(
+        checkboxTheme: theme.checkboxTheme.copyWith(
+          fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
+          side: BorderSide(width: 2.0, color: theme.disabledColor),
+        ),
+      );
+    }
+    return theme;
   }
 
   @override
@@ -312,7 +315,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         ),
       );
     }
-    if (disabled) {
+    if (disabled || readOnly) {
       return theme.copyWith(
         radioTheme: theme.radioTheme.copyWith(
           fillColor: MaterialStateProperty.all<Color>(theme.disabledColor),
@@ -399,13 +402,13 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     if (errorMessage != null) {
       return InputDecoration(
           labelText: label != null ? (mandatory ? label + ' *' : label) : null,
-          prefixIcon: Icon(
+          prefixIcon: prefixIcon != null ? Icon(
             prefixIcon.icon,
             color: theme.errorColor,
-          ),
-          suffixIcon: suffixIcon is Icon
+          ) : prefixIcon,
+          suffixIcon: suffixIcon != null && suffixIcon is Icon
               ? Icon(suffixIcon.icon, color: theme.errorColor)
-              : suffixIcon is IconButton
+              : suffixIcon != null && suffixIcon is IconButton
                   ? IconButton(
                       onPressed: suffixIcon.onPressed,
                       icon: suffixIcon.icon,
@@ -421,7 +424,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
     }
     return InputDecoration(
       labelText: label != null ? (mandatory ? label + ' *' : label) : null,
-      prefixIcon: disabled ? Icon(prefixIcon.icon, color: theme.disabledColor,) : prefixIcon,
+      prefixIcon: disabled && prefixIcon != null ? Icon(prefixIcon.icon, color: theme.disabledColor,) : prefixIcon,
       suffixIcon: suffixIcon,
       counterText: '',
       labelStyle: disabled
@@ -487,9 +490,22 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       bool mandatory,
       bool disabled,
       bool readOnly,
-      String errorMessage) {
-    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory,
-        disabled, readOnly, errorMessage);
+      String errorMessage,
+      bool hasFocus) {
+    if (hasFocus) {
+      return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage)
+          .copyWith(
+        disabledBorder: UnderlineInputBorder(
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(10.0), topRight: Radius.circular(10.0)),
+            borderSide: BorderSide(color: theme.colorScheme.secondary, width: 2)
+        ),
+        prefixIcon: prefixIcon != null ? Icon(
+          prefixIcon.icon,
+          color: theme.colorScheme.secondary,
+        ) : prefixIcon,
+      );
+    }
+    return getInputDecoration(theme, label, prefixIcon, suffixIcon, mandatory, disabled, readOnly, errorMessage);
   }
 
   @override

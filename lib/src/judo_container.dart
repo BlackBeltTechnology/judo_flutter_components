@@ -11,6 +11,7 @@ class JudoContainer extends StatefulWidget {
     this.color,
     this.stretch = false,
     this.alignment = Alignment.centerLeft,
+    this.order,
   }) : super(key: key);
 
   final Widget child;
@@ -20,6 +21,7 @@ class JudoContainer extends StatefulWidget {
   final Color color;
   final bool stretch;
   final Alignment alignment;
+  final double order;
 
   @override
   JudoContainerState createState() => JudoContainerState();
@@ -29,6 +31,16 @@ class JudoContainerState extends State<JudoContainer> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.order != null) {
+      return FocusTraversalOrder(
+        order: NumericFocusOrder(widget.order),
+        child: JudoContainerWidget(),
+      );
+    }
+    return JudoContainerWidget();
+  }
+
+  Widget JudoContainerWidget() {
     return Expanded(
       flex: (widget.col * 100).round(),
       child: Container(

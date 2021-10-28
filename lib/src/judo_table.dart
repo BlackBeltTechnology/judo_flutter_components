@@ -35,6 +35,8 @@ class JudoTable extends StatelessWidget {
     this.alignment = Alignment.centerLeft,
     this.sortInitially = false,
     this.tableActions = const <int, JudoMenuItemData>{},
+    this.hidden = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -58,15 +60,25 @@ class JudoTable extends StatelessWidget {
   final bool inCard;
   final bool sortInitially;
   final Map<int, JudoMenuItemData> tableActions;
+  final bool hidden;
+  final double order;
 
   @override
   Widget build(BuildContext context) {
+    if (hidden) {
+      return JudoSpacer(
+          col: col,
+          row: row,
+      );
+    }
+
     return rowList is ObservableList ? Observer(builder: (_) => container(context)) : container(context);
   }
 
   Widget container(BuildContext context) {
     var currentRow = (rowList.length + 1) < row ? rowList.length + 1 : row;
     return JudoContainer(
+        order: order,
         col: col,
         row: currentRow,
         padding: padding ?? JudoComponentCustomizer.get().getDefaultPadding(),

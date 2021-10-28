@@ -16,6 +16,8 @@ class JudoRadio<T> extends StatefulWidget {
     this.alignment = Alignment.topLeft,
     this.disabled = false,
     this.readOnly = false,
+    this.hidden = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -32,16 +34,22 @@ class JudoRadio<T> extends StatefulWidget {
   final EdgeInsets padding;
   final bool disabled;
   final bool readOnly;
+  final bool hidden;
+  final double order;
 
   @override
   _JudoRadioState<T> createState() => _JudoRadioState<T>();
 }
 
 class _JudoRadioState<T> extends State<JudoRadio> {
+
   @override
   Widget build(BuildContext context) {
+    if (widget.hidden) return JudoSpacer(col: widget.col, row: widget.row);
+
     return JudoContainer(
       padding: widget.padding ?? EdgeInsets.symmetric(horizontal: 10),
+      order: widget.order,
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
