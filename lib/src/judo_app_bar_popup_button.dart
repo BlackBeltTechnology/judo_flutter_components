@@ -11,6 +11,7 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
     this.disabled = false,
     this.items,
     this.outlined = false,
+    this.order,
   }) : super(key: key);
 
   final EdgeInsets padding;
@@ -21,6 +22,7 @@ class JudoAppBarPopupButton<T> extends StatelessWidget {
   final LoadingState loadingState;
   final Map<T, JudoMenuItemData> items;
   final bool outlined;
+  final double order;
 
   @override
   Widget build(BuildContext context) {

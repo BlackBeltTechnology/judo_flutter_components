@@ -23,6 +23,7 @@ class JudoInputText extends StatefulWidget {
     this.multiline = false,
     this.maxLength = 250,
     this.hidden = false,
+    this.order,
   }) : super(key: key);
 
   final double col;
@@ -45,6 +46,7 @@ class JudoInputText extends StatefulWidget {
   final bool multiline;
   final int maxLength;
   final bool hidden;
+  final double order;
 
   @override
   JudoInputTextState createState() => JudoInputTextState();
@@ -101,6 +103,7 @@ class JudoInputTextState extends State<JudoInputText> {
     final ThemeData theme = Theme.of(context);
     return JudoContainer(
       padding: widget.padding ?? JudoComponentCustomizer.get().getDefaultPadding(),
+      order: widget.order,
       col: widget.col,
       row: widget.row,
       stretch: widget.stretch,
