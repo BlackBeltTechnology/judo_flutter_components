@@ -57,7 +57,7 @@ class _JudoLinkState extends State<JudoLink> {
 
   @override
   Widget build(BuildContext context) {
-    if (hidden) return JudoSpacer(col: col, row: row);
+    if (widget.hidden) return JudoSpacer(col: widget.col, row: widget.row);
 
     return getWidget(context);
   }
