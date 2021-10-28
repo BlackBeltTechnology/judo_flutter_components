@@ -47,7 +47,7 @@ class JudoPopupButtonWidget<T> extends StatelessWidget {
     final double scale = MediaQuery.maybeOf(context)?.textScaleFactor ?? 1;
     final double gap = scale <= 1 ? 8 : lerpDouble(8, 4, min(scale - 1, 1));
     return (context) => items.entries.map((e) {
-          return PopupMenuItem<T>(value: e.key, child: e.value.getChild(gap));
+          return PopupMenuItem<T>(value: e.key, child: e.value.getChild(gap), enabled: !e.value.disabled);
         }).toList();
   }
 
@@ -85,12 +85,14 @@ class JudoMenuItemData<T> {
     this.icon,
     this.onSelected,
     this.value,
+    this.disabled = false,
   });
 
   final Function onSelected;
   final Icon icon;
   final String label;
   final T value;
+  final bool disabled;
 
   Widget getChild(double gap) {
     return icon != null && label != null
