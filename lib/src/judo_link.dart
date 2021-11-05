@@ -6,8 +6,7 @@ class JudoLink extends StatefulWidget {
     @required this.col,
     this.row = 1.0,
     this.mandatory = false,
-    this.formatter = defaultFormatter,
-    @required this.data,
+    this.labelList = const [],
     this.label,
     this.icon,
     this.errorMessage,
@@ -28,10 +27,9 @@ class JudoLink extends StatefulWidget {
   final bool mandatory;
   final bool disabled;
   final bool readOnly;
-  final Function formatter;
   final String label;
   final Icon icon;
-  final dynamic data;
+  final List<String> labelList;
   final String errorMessage;
   final Function setAction;
   final List<Widget> actions;
@@ -41,12 +39,6 @@ class JudoLink extends StatefulWidget {
   final bool inCard;
   final bool hidden;
   final double order;
-
-
-
-  static String defaultFormatter(dynamic e) {
-    return e != null ? e.toString() : '';
-  }
 
   @override
   _JudoLinkState createState() => _JudoLinkState();
@@ -115,7 +107,7 @@ class _JudoLinkState extends State<JudoLink> {
   }
 
   Widget getTextField(BuildContext context) {
-      final TextEditingController controller = TextEditingController(text: widget.data != null ? Function.apply(widget.formatter, [widget.data]) : '');
+      final TextEditingController controller = TextEditingController(text: formatLabel(widget.labelList));
       return IgnorePointer(
           child: TextField(
             controller: controller,
@@ -132,6 +124,17 @@ class _JudoLinkState extends State<JudoLink> {
       return [];
     }
     ret.removeWhere((value) => value == null);
+    return ret;
+  }
+
+  String formatLabel(List<String> labelList) {
+    String ret = '';
+    for (int i = 0; i < labelList.length; i++) {
+      if (labelList[i] != null && labelList[i].isNotEmpty) {
+        ret += labelList[i];
+        if (i < labelList.length - 1 ) ret += ' ';
+      }
+    }
     return ret;
   }
 }
