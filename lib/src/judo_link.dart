@@ -128,13 +128,6 @@ class _JudoLinkState extends State<JudoLink> {
   }
 
   String formatLabel(List<String> labelList) {
-    String ret = '';
-    for (int i = 0; i < labelList.length; i++) {
-      if (labelList[i] != null && labelList[i].isNotEmpty) {
-        ret += labelList[i];
-        if (i < labelList.length - 1 ) ret += ' ';
-      }
-    }
-    return ret;
+    return labelList.where((label) => label != null && label.isNotEmpty).join(' - ');
   }
 }
