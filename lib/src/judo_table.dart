@@ -2,6 +2,7 @@ part of judo.components;
 
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
+
   Function getRow({BuildContext context,
     Function navigateToEditPageAction,
     Function navigateToViewPageAction,
@@ -9,6 +10,8 @@ abstract class JudoTableDataInfo {
     Function removeAction,
     Function unsetAction,
     Function deleteAction});
+
+  String getColumnFieldByIndex(int columnIndex);
 }
 
 class JudoTable extends StatelessWidget {
