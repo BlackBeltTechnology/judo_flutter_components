@@ -95,7 +95,7 @@ class JudoSelectorTable extends StatelessWidget {
       dataRowList.length,
       (index) => DataRow(
         selected: collectionSelector ? multiSelectedComparator(rowList[index]) : singleSelectedComparator(rowList[index]),
-        onSelectChanged: (_) {
+        onSelectChanged: rowList[index].internal__selected ? null : (_) {
           if (dialogTypeAdder && alreadyAddedItemsComparator(rowList[index])) return;
 
           if (collectionSelector) {

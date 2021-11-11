@@ -53,3 +53,4 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
+.flutter
