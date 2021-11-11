@@ -337,13 +337,8 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   ThemeData getTableThemeData(ThemeData theme) {
     return theme.copyWith(
       iconTheme: theme.iconTheme.copyWith(
-        color: theme.colorScheme.primaryColor,
+        color: theme.colorScheme.secondary,
         size: 24,
-      ),
-      checkboxTheme: theme.checkboxTheme.copyWith(
-        fillColor: MaterialStateProperty.all<Color>(theme.primaryColor),
-        checkColor: MaterialStateProperty.all<Color>(theme.primaryColor),
-        side: BorderSide(width: 2.0, color: theme.disabledColor),
       ),
     );
   }
