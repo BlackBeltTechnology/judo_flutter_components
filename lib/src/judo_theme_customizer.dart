@@ -340,6 +340,15 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         color: theme.colorScheme.secondary,
         size: 24,
       ),
+      checkboxTheme: theme.checkboxTheme.copyWith(
+        fillColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) {
+          if (states.contains(MaterialState.disabled)) {
+            return theme.disabledColor;
+          }
+
+          return theme.primaryColor;
+        }),
+      ),
     );
   }
 
