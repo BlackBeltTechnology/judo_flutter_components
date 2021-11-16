@@ -637,7 +637,11 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
         return theme.colorScheme.primary.withOpacity(0.08);
       }
 
-      return null; // Use the default value.
+      /// Even rows will have a grey color.
+      if (index % 2 == 0) {
+        return inCard ? theme.backgroundColor : theme.cardColor;
+      }
+      return inCard ? theme.cardColor : theme.backgroundColor;
     });
   }
 }
