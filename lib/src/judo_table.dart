@@ -1,15 +1,22 @@
 part of judo.components;
 
+class TableRowAction {
+  TableRowAction({this.label, this.icon, this.disabled, this.action});
+
+  String label;
+  Icon icon;
+  RowAction action;
+  bool disabled;
+}
+
+typedef RowAction = Future<void> Function(dynamic targetStore);
+
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
 
   Function getRow({BuildContext context,
-    Function navigateToEditPageAction,
-    Function navigateToViewPageAction,
-    Function navigateToCreatePageAction,
-    Function removeAction,
-    Function unsetAction,
-    Function deleteAction});
+    List<TableRowAction> rowActionList,
+    RowAction navigateToViewPageAction});
 
   String getColumnFieldByIndex(int columnIndex);
 }
@@ -21,12 +28,8 @@ class JudoTable extends StatelessWidget {
     this.row = 2.0,
     @required this.dataInfo,
     @required this.rowList,
-    this.navigateToEditPageAction,
+    this.rowActionList,
     this.navigateToViewPageAction,
-    this.navigateToCreatePageAction,
-    this.removeAction,
-    this.unsetAction,
-    this.deleteAction,
     this.sortAscending = true,
     this.sortColumnIndex = 0,
     this.disabled = false,
@@ -49,12 +52,8 @@ class JudoTable extends StatelessWidget {
   final bool disabled;
   final JudoTableDataInfo dataInfo;
   final List rowList;
-  final Function navigateToEditPageAction;
+  final List<TableRowAction> rowActionList;
   final Function navigateToViewPageAction;
-  final Function navigateToCreatePageAction;
-  final Function removeAction;
-  final Function unsetAction;
-  final Function deleteAction;
   final Function onAdd;
   final Function onSort;
   final bool stretch;
@@ -122,12 +121,8 @@ class JudoTable extends StatelessWidget {
     List<DataRow> dataRowList = rowList.map<DataRow>(
         dataInfo.getRow(
           context: context,
-          navigateToEditPageAction: disabled ? null : this.navigateToEditPageAction,
-          navigateToCreatePageAction: disabled ? null : this.navigateToCreatePageAction,
-          navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction,
-          deleteAction: disabled ? null : this.deleteAction,
-          removeAction: disabled ? null : this.removeAction,
-          unsetAction: disabled ? null : this.unsetAction)
+          rowActionList: rowActionList,
+          navigateToViewPageAction: disabled ? null : this.navigateToViewPageAction)
     ).toList();
 
     return List<DataRow>.generate(
@@ -136,13 +131,7 @@ class JudoTable extends StatelessWidget {
               onSelectChanged: navigateToViewPageAction != null ? (newValue) => navigateToViewPageAction(rowList[index]) : null,
               color: JudoComponentCustomizer.get().getRowColor(Theme.of(context), index, inCard),
               cells: dataRowList[index].cells,
-//        selected: selected[index],
-//        onSelectChanged: (bool value) {
-//          setState(() {
-//            selected[index] = value;
-//          });
-//        },
-              ),
+            ),
           );
   }
   
