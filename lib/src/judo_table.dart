@@ -6,10 +6,11 @@ class TableRowAction {
   String label;
   Icon icon;
   RowAction action;
-  bool disabled;
+  ActionDisabled disabled;
 }
 
 typedef RowAction = Future<void> Function(dynamic targetStore);
+typedef ActionDisabled = bool Function(dynamic targetStore);
 
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
