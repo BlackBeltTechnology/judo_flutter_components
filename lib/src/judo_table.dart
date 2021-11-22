@@ -129,7 +129,6 @@ class JudoTable extends StatelessWidget {
     return List<DataRow>.generate(
           dataRowList.length,
             (index) => DataRow(
-              onSelectChanged: navigateToViewPageAction != null ? (newValue) => navigateToViewPageAction(rowList[index]) : null,
               color: JudoComponentCustomizer.get().getRowColor(Theme.of(context), index, inCard),
               cells: dataRowList[index].cells,
             ),
