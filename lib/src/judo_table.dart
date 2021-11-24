@@ -29,7 +29,7 @@ class JudoTable extends StatelessWidget {
     this.row = 2.0,
     @required this.dataInfo,
     @required this.rowList,
-    this.rowActionList,
+    this.rowActionList = const [],
     this.navigateToViewPageAction,
     this.sortAscending = true,
     this.sortColumnIndex = 0,
