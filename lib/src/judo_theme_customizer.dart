@@ -162,11 +162,14 @@ abstract class JudoComponentCustomizer {
 
   MaterialStateProperty<Color> getRowColor(
       ThemeData theme, int index, bool inCard);
+
+  IconData getEmptyCellIcon();
 }
 
 class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   Color booleanTrueColor = Colors.green.shade500.withOpacity(0.7);
   Color booleanFalseColor = Colors.red.shade500.withOpacity(0.7);
+  IconData emptyCellIcon = Icons.remove;
 
   @override
   double getLineHeight() {
@@ -643,5 +646,10 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       }
       return inCard ? theme.cardColor : theme.backgroundColor;
     });
+  }
+
+  @override
+  IconData getEmptyCellIcon() {
+    return emptyCellIcon;
   }
 }
