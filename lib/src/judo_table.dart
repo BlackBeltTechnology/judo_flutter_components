@@ -1,16 +1,18 @@
 part of judo.components;
 
 class TableRowAction {
-  TableRowAction({this.label, this.icon, this.disabled, this.action});
+  TableRowAction({this.label, this.icon, this.disabled, this.action, this.hidden});
 
   String label;
   Icon icon;
   RowAction action;
   ActionDisabled disabled;
+  ActionHidden hidden;
 }
 
 typedef RowAction = Future<void> Function(dynamic targetStore);
 typedef ActionDisabled = bool Function(dynamic targetStore);
+typedef ActionHidden = bool Function(dynamic targetStore);
 
 abstract class JudoTableDataInfo {
   List<DataColumn> getColumns(Function onAdd, DataColumnSortCallback onSort);
