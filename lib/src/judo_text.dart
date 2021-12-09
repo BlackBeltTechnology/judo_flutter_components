@@ -12,6 +12,7 @@ class JudoText extends StatelessWidget {
     this.text,
     this.label,
     this.icon,
+    this.isMultiLine = false,
   }) : super(key: key);
 
   final double col;
@@ -22,6 +23,7 @@ class JudoText extends StatelessWidget {
   final String text;
   final String label;
   final Icon icon;
+  final bool isMultiLine;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,18 @@ class JudoText extends StatelessWidget {
             label + ' ',
             style: TextStyle(fontWeight: FontWeight.bold),
           ) : Text(''),
-          Text(
+          isMultiLine ? Expanded(
+            child: Scrollbar(
+              controller: _scrollController,
+              isAlwaysShown: true,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Text(
+                  text,
+                ),
+              ),
+            ),
+          ) : Text(
             text,
           ),
         ],
