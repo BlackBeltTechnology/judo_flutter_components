@@ -25,6 +25,8 @@ class JudoText extends StatelessWidget {
   final Icon icon;
   final bool isMultiLine;
 
+  ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return JudoContainer(
