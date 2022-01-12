@@ -68,7 +68,8 @@ abstract class JudoComponentCustomizer {
       bool mandatory,
       bool disabled,
       bool readOnly,
-      String errorMessage);
+      String errorMessage,
+      {String hintText});
 
   InputDecoration getInputTextDecoration(
       ThemeData theme,
@@ -401,7 +402,8 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       bool mandatory,
       bool disabled,
       bool readOnly,
-      String errorMessage) {
+      String errorMessage,
+      {String hintText}) {
     if (errorMessage != null) {
       return InputDecoration(
           labelText: label != null ? (mandatory ? label + ' *' : label) : null,
@@ -419,6 +421,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
                     )
                   : suffixIcon,
           counterText: '',
+          hintText: hintText,
           errorText: errorMessage,
           fillColor: theme.errorColor.withOpacity(0.1),
           labelStyle: theme.inputDecorationTheme.labelStyle.copyWith(
@@ -430,6 +433,7 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
       prefixIcon: disabled && prefixIcon != null ? Icon(prefixIcon.icon, color: theme.disabledColor,) : prefixIcon,
       suffixIcon: suffixIcon,
       counterText: '',
+      hintText: hintText,
       labelStyle: disabled
           ? theme.inputDecorationTheme.labelStyle.copyWith(
               color: theme.disabledColor,
