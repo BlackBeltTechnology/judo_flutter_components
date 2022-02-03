@@ -24,6 +24,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.inCard = false,
     this.hidden = false,
     this.order,
+    this.trinaryLogic = false,
   }) : super(key: key);
 
   final double col;
@@ -52,6 +53,7 @@ class JudoComboBox<T> extends StatefulWidget {
   final bool inCard;
   final bool hidden;
   final double order;
+  final bool trinaryLogic;
 
   @override
   _JudoComboBoxState<T> createState() => _JudoComboBoxState<T>();
@@ -79,7 +81,11 @@ class _JudoComboBoxState<T> extends State<JudoComboBox<T>> {
                 iconDisabledColor: widget.errorMessage != null ? Theme.of(context).errorColor : Theme.of(context).disabledColor,
                 iconEnabledColor: widget.errorMessage != null ? Theme.of(context).errorColor :
                   Theme.of(context).colorScheme.secondary,
-                decoration: JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
+                decoration: widget.trinaryLogic ?
+                  JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage).copyWith(
+                      floatingLabelBehavior: FloatingLabelBehavior.always
+                  )
+                  : JudoComponentCustomizer.get().getInputComboboxDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
                 onTap: !widget.disabled && !widget.readOnly ? widget.onTap : null,
                 value: widget.value,
                 icon: Icon(Icons.expand_more),
