@@ -17,7 +17,7 @@ class JudoLink extends StatefulWidget {
     this.padding,
     this.stretch = false,
     this.inCard = false,
-    this.alignment = Alignment.topLeft,
+    this.alignment = Alignment.centerLeft,
     this.hidden = false,
   	this.order,
   }) : super(key: key);

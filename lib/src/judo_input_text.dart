@@ -19,7 +19,7 @@ class JudoInputText extends StatefulWidget {
     this.inCard = false,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.topLeft,
+    this.alignment = Alignment.centerLeft,
     this.multiline = false,
     this.maxLength = 250,
     this.hidden = false,
