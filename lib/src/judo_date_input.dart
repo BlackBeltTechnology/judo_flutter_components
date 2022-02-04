@@ -18,7 +18,7 @@ class JudoDateInput extends StatefulWidget {
     this.lastDate,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.topLeft,
+    this.alignment = Alignment.centerLeft,
     this.inCard = false,
     this.hidden = false,
     this.order,

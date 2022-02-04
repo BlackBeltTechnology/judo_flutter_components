@@ -17,7 +17,7 @@ class JudoComboBox<T> extends StatefulWidget {
     this.dropdownMenuShow,
     this.onTap,
     this.stretch = false,
-    this.alignment = Alignment.topLeft,
+    this.alignment = Alignment.centerLeft,
     this.padding,
     this.disabled = false,
     this.readOnly = false,

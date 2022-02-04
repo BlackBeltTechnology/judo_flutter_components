@@ -13,7 +13,7 @@ class JudoRadio<T> extends StatefulWidget {
     this.getValue,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.topLeft,
+    this.alignment = Alignment.centerLeft,
     this.disabled = false,
     this.readOnly = false,
     this.hidden = false,
