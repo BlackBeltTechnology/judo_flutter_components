@@ -15,7 +15,7 @@ class JudoSwitch extends StatefulWidget {
     this.disabled = false,
     this.padding,
     this.stretch = false,
-    this.alignment = Alignment.topLeft,
+    this.alignment = Alignment.centerLeft,
     this.hidden = false,
     this.order,
   }) : super(key: key);
