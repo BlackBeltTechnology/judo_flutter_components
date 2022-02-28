@@ -1,88 +1,58 @@
 part of judo.components;
 
-enum ErrorLevel { error, warning, info, complete }
+enum MessageLevel { error, warning, info, success }
 
-class JudoFloatingCard extends StatefulWidget {
-  const JudoFloatingCard({
-    Key key,
-    this.visible,
-    this.errorLevel,
-    this.message,
-    this.actionName,
-  }) : super(key: key);
-
-  final bool visible;
-  final ErrorLevel errorLevel;
-  final String message;
-  final String actionName;
-
-  @override
-  _JudoFloatingCardState createState() => _JudoFloatingCardState();
+abstract class FloatingMessage {
+  String get actionCallName;
+  String get message;
+  MessageLevel get messageLevel;
 }
 
-class _JudoFloatingCardState extends State<JudoFloatingCard> {
-  bool _visible = false;
-  double height = 0;
-  double width = 0;
+class JudoFloatingCard extends StatelessWidget {
+  const JudoFloatingCard({
+    Key key,
+    this.messageStack = const [],
+    @required this.closeAction,
+  }) : super(key: key);
 
-  void close() {
-    setState(() {
-      height = 144;
-      width = 444;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _visible = widget.visible;
-    close();
-  }
+  final List<FloatingMessage> messageStack;
+  final Function closeAction;
+  final double height = 144;
+  final double width = 444;
 
   @override
   Widget build(BuildContext context) {
-    return Positioned.fill(
-      bottom: 15,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(20)
-            ),
-            color: Color.fromRGBO(255, 233, 233, 0.9),
-          ),
-          width: width,
-          height: height,
+    if(messageStack.isNotEmpty) {
+      final ThemeData theme = Theme.of(context);
+
+      return Positioned.fill(
+        bottom: 15,
+        child: Align(
+          alignment: Alignment.bottomCenter,
           child: Stack(
+            clipBehavior: Clip.none,
             alignment: Alignment.center,
             children: [
+              ..._floatingCardsStack(messageStack),
+              Container(
+                width: width,
+                height: height,
+                decoration: BoxDecoration(
+                  boxShadow: [BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 60,
+                  )],
+                  borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(20)
+                  ),
+                  color: _getBackgroundColor(messageStack.first.messageLevel),
+                ),
+              ),
               Positioned(
                   right: 350,
-                  child: Icon(
-                    Icons.error_outline,
-                    color: Colors.red,
-                    size: 50,
-                  )
+                  child: _getIcon(messageStack.first.messageLevel, theme),
               ),
-              Positioned(
-                  top: 24,
-                  left: 132,
-                  child: Container(
-                    height: 72,
-                    width: 280,
-                    child: Text(
-                      widget.message,
-                      style: TextStyle(
-                        fontSize: 14,
-                      ),
-                      maxLines: 4,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ),
-                  )
-              ),
+              _getText(messageStack.first.messageLevel),
               Positioned(
                 left: 132,
                 bottom: 24,
@@ -95,10 +65,10 @@ class _JudoFloatingCardState extends State<JudoFloatingCard> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        widget.actionName,
+                        messageStack.first.actionCallName ?? '',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.red,
+                          color: _getTextColor(messageStack.first.messageLevel, theme),
                         ),
                         overflow: TextOverflow.fade,
                       ),
@@ -112,7 +82,7 @@ class _JudoFloatingCardState extends State<JudoFloatingCard> {
                   child: Material(
                     type: MaterialType.transparency, // InkSplash occurs on the closest ancestor Material widget.
                     child: IconButton(
-                      onPressed: () => close(),
+                      onPressed: closeAction,
                       icon: Icon(
                         Icons.close,
                         size: 18,
@@ -124,8 +94,117 @@ class _JudoFloatingCardState extends State<JudoFloatingCard> {
             ],
           ),
         ),
-      ),
+      );
+    }
+    return SizedBox.shrink();
+
+  }
+
+  List<Widget> _floatingCardsStack(final List<FloatingMessage> messageStack) {
+    if (messageStack.length < 2) return [SizedBox.shrink()];
+    List<Widget> floatingCards = [];
+
+    for (int i = 1; i < messageStack.length; i++) {
+      floatingCards.insert(0,
+          Positioned(
+            top: 7 * i.toDouble(),
+            left: 7 * i.toDouble(),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.vertical(
+                    bottom: Radius.circular(20)
+                ),
+                color: Color.fromRGBO(
+                    _getBackgroundColor(messageStack[i].messageLevel).red - 10 - i * 2,
+                    _getBackgroundColor(messageStack[i].messageLevel).green - 10 - i * 2,
+                    _getBackgroundColor(messageStack[i].messageLevel).blue - 10 - i * 2,
+                    0.7
+                ),
+              ),
+              width: width,
+              height: height,
+            ),
+          )
+      );
+    }
+
+    return floatingCards;
+  }
+
+  Widget _getText(MessageLevel messageLevel) {
+    double leftPosition = 132;
+
+    if (messageLevel == MessageLevel.info) {
+      leftPosition = 44;
+    }
+
+    return Positioned(
+        top: 24,
+        left: leftPosition,
+        child: Container(
+          height: 72,
+          width: 280,
+          child: Text(
+            messageStack.first.message ?? '',
+            style: TextStyle(
+              fontSize: 14,
+            ),
+            maxLines: 4,
+            softWrap: true,
+            overflow: TextOverflow.fade,
+          ),
+        )
     );
+  }
+
+  Color _getBackgroundColor(MessageLevel messageLevel) {
+    switch(messageLevel) {
+      case MessageLevel.error:
+        return JudoComponentCustomizer.get().floatingCardErrorBackgroundColor;
+      case MessageLevel.warning:
+        return JudoComponentCustomizer.get().floatingCardWarningBackgroundColor;
+      case MessageLevel.info:
+        return JudoComponentCustomizer.get().floatingCardInfoBackgroundColor;
+      case MessageLevel.success:
+        return JudoComponentCustomizer.get().floatingCardSuccessBackgroundColor;
+    }
+  }
+
+  Widget _getIcon(MessageLevel messageLevel, ThemeData theme) {
+    switch(messageLevel) {
+      case MessageLevel.error:
+        return Icon(
+          Icons.error_outline,
+          color: theme.errorColor,
+          size: 50,
+        );
+      case MessageLevel.warning:
+        return Icon(
+          Icons.warning_amber_outlined,
+          color: JudoComponentCustomizer.get().floatingCardWarningIconColor,
+          size: 50,
+        );
+      case MessageLevel.info:
+        return SizedBox.shrink();
+      case MessageLevel.success:
+        return Icon(
+          Icons.check_circle_outlined,
+          color: JudoComponentCustomizer.get().floatingCardSuccessIconAndTextColor,
+          size: 50,
+        );
+    }
+  }
+
+  Color _getTextColor(MessageLevel messageLevel, ThemeData theme) {
+    switch(messageLevel) {
+      case MessageLevel.error:
+        return theme.errorColor;
+      case MessageLevel.warning:
+      case MessageLevel.info:
+        return JudoComponentCustomizer.get().floatingCardWarningAndInfoTextColor;
+      case MessageLevel.success:
+        return JudoComponentCustomizer.get().floatingCardSuccessIconAndTextColor;
+    }
   }
 
 }

@@ -12,6 +12,20 @@ abstract class JudoComponentCustomizer {
     _instance = judoComponentCustomizer;
   }
 
+  Color floatingCardErrorBackgroundColor;
+
+  Color floatingCardSuccessBackgroundColor;
+
+  Color floatingCardWarningBackgroundColor;
+
+  Color floatingCardInfoBackgroundColor;
+
+  Color floatingCardWarningIconColor;
+  
+  Color floatingCardSuccessIconAndTextColor;
+  
+  Color floatingCardWarningAndInfoTextColor;
+
   double getLineHeight();
 
   double getMenuWidth();
@@ -656,4 +670,26 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   IconData getEmptyCellIcon() {
     return emptyCellIcon;
   }
+
+  @override
+  Color floatingCardErrorBackgroundColor = Color.fromRGBO(255, 233, 233, 1);
+
+  @override
+  Color floatingCardInfoBackgroundColor = Colors.white;
+
+  @override
+  Color floatingCardSuccessBackgroundColor = Color.fromRGBO(247, 255, 247, 1);
+
+  @override
+  Color floatingCardWarningBackgroundColor = Color.fromRGBO(255, 244, 220, 1);
+
+  @override
+  Color floatingCardWarningIconColor = Color.fromRGBO(255, 175, 0, 1);
+
+  @override
+  Color floatingCardSuccessIconAndTextColor = Color.fromRGBO(144, 203, 149, 1);
+
+  @override
+  Color floatingCardWarningAndInfoTextColor = Color.fromRGBO(60, 65, 102, 1);
+
 }
