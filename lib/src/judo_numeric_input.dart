@@ -46,8 +46,8 @@ class JudoNumericInput extends StatefulWidget {
   final bool inCard;
   final bool hidden;
   final double order;
-  final double precision;
-  final double scale;
+  final int precision;
+  final int scale;
 
   @override
   _JudoNumericInputState createState() => _JudoNumericInputState();
