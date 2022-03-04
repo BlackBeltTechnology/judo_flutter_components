@@ -23,6 +23,8 @@ class JudoNumericInput extends StatefulWidget {
     this.inCard = false,
     this.hidden = false,
     this.order,
+    this.precision,
+    this.scale,
   }) : super(key: key);
 
   final double col;
@@ -44,6 +46,8 @@ class JudoNumericInput extends StatefulWidget {
   final bool inCard;
   final bool hidden;
   final double order;
+  final double precision;
+  final double scale;
 
   @override
   _JudoNumericInputState createState() => _JudoNumericInputState();
@@ -111,6 +115,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
         child: Container(
           decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, widget.disabled, widget.readOnly),
           child: TextField(
+            maxLength: widget.precision,
             controller: controller,
             readOnly: widget.readOnly,
             enabled: !widget.disabled,
