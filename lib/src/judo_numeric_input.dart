@@ -54,7 +54,6 @@ class JudoNumericInput extends StatefulWidget {
 }
 
 class _JudoNumericInputState extends State<JudoNumericInput> {
-  RegExp _regExp = RegExp(r"^[+|\-]{0,1}\d*\.{0,1}\d*$");
   final TextEditingController controller = TextEditingController();
   final FocusNode focusNode = FocusNode();
   bool _focused = false;
@@ -67,6 +66,11 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
     if (widget.onFocus != null || widget.onBlur != null) {
       focusNode.addListener(_focusHandler);
     }
+  }
+
+  RegExp getRegExp() {
+    String pattern = '(?=(\\D*\\d\\D*){0,' + (widget.precision?.toString() ?? '0') + '}\$)^-?[0-9]+(\\.[0-9]{0,' + (widget.scale?.toString() ?? '0') + '})?\$';
+    return RegExp(pattern);
   }
 
   void _focusHandler() {
@@ -115,7 +119,6 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
         child: Container(
           decoration: widget.errorMessage != null ? null : JudoComponentCustomizer.get().getInputBoxCustomizer(theme, widget.disabled, widget.readOnly),
           child: TextField(
-            maxLength: widget.precision,
             controller: controller,
             readOnly: widget.readOnly,
             enabled: !widget.disabled,
@@ -123,7 +126,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
             inputFormatters: [
               TextInputFormatter.withFunction((oldValue, newValue) {
                 var correctTextEditingValue = TextEditingValue();
-                if(_regExp.hasMatch(newValue.text)){
+                if (newValue.text.isEmpty || newValue.text == '-' || getRegExp().hasMatch(newValue.text)) {
                   correctTextEditingValue = TextEditingValue().copyWith(text: newValue.text, composing: newValue.composing, selection: newValue.selection);
                 } else {
                   correctTextEditingValue = TextEditingValue().copyWith(text: oldValue.text, composing: oldValue.composing, selection: oldValue.selection);
@@ -133,7 +136,7 @@ class _JudoNumericInputState extends State<JudoNumericInput> {
             ],
             decoration: JudoComponentCustomizer.get().getInputNumericDecoration(theme, widget.label, widget.icon, null, widget.mandatory, widget.disabled, widget.readOnly, widget.errorMessage),
             onChanged: (value) {
-                return widget.onChanged(value);
+              return widget.onChanged(value);
             },
             onSubmitted: widget.onSubmitted,
             focusNode: focusNode,
