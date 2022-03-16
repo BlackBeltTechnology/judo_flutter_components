@@ -46,3 +46,4 @@ part 'judo_switch.dart';
 part 'judo_link.dart';
 part 'judo_confirmation_dialog.dart';
 part 'judo_selector_table.dart';
+part 'judo_floating_card.dart';
