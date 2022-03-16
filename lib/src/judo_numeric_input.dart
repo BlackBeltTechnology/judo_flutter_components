@@ -24,7 +24,7 @@ class JudoNumericInput extends StatefulWidget {
     this.hidden = false,
     this.order,
     this.precision = 10,
-    this.scale = 2,
+    this.scale = 0,
   }) : super(key: key);
 
   final double col;
