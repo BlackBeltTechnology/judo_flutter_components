@@ -94,6 +94,7 @@ class JudoTable extends StatelessWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: rowList is ObservableList ? Observer(builder: (_) => dataTable(context)) : dataTable(context),
     		)
           ),
