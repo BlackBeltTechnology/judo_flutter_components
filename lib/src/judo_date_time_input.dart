@@ -112,7 +112,7 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
           Icons.calendar_today,
         ),
         onPressed: (widget.disabled || widget.readOnly) ? null : () async {
-          tempDateTime = await showDatePicker(
+          var newDate = await showDatePicker(
             context: context,
             initialDate: tempDateTime,
             firstDate: widget.firstDate ?? DateTime(1900),
@@ -120,8 +120,8 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
           );
 
           /// If the user cancels the dialog, null is returned.
-          if (tempDateTime != null) {
-            tempTimeOfDay = await showTimePicker(
+          if (newDate != null) {
+            var newTime = await showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.fromDateTime(widget.initialDate ?? DateTime.now()),
                 initialEntryMode: TimePickerEntryMode.input,
@@ -135,8 +135,8 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
                 null
             );
 
-            if (tempTimeOfDay != null) {
-              onChangedHandler(DateTime(tempDateTime.year, tempDateTime.month, tempDateTime.day, tempTimeOfDay.hour, tempTimeOfDay.minute));
+            if (newTime != null) {
+              onChangedHandler(DateTime(newDate.year, newDate.month, newDate.day, newTime.hour, newTime.minute));
             }
           }
         }
