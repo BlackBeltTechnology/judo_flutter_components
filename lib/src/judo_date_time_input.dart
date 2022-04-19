@@ -112,27 +112,33 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
           Icons.calendar_today,
         ),
         onPressed: (widget.disabled || widget.readOnly) ? null : () async {
-          tempDateTime = await showDatePicker(
+          var newDate = await showDatePicker(
             context: context,
             initialDate: tempDateTime,
             firstDate: widget.firstDate ?? DateTime(1900),
             lastDate: widget.lastDate ?? DateTime(2100),
           );
-          tempTimeOfDay = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.fromDateTime(widget.initialDate ?? DateTime.now()),
-              initialEntryMode: TimePickerEntryMode.input,
-              builder: widget.use24HourFormat ? (BuildContext context, Widget child) {
-                return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-                  child: child,
-                );
-              }
-                  :
-              null
-          );
 
-          onChangedHandler(DateTime(tempDateTime.year, tempDateTime.month, tempDateTime.day, tempTimeOfDay.hour, tempTimeOfDay.minute));
+          /// If the user cancels the dialog, null is returned.
+          if (newDate != null) {
+            var newTime = await showTimePicker(
+                context: context,
+                initialTime: TimeOfDay.fromDateTime(widget.initialDate ?? DateTime.now()),
+                initialEntryMode: TimePickerEntryMode.input,
+                builder: widget.use24HourFormat ? (BuildContext context, Widget child) {
+                  return MediaQuery(
+                    data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+                    child: child,
+                  );
+                }
+                    :
+                null
+            );
+
+            if (newTime != null) {
+              onChangedHandler(DateTime(newDate.year, newDate.month, newDate.day, newTime.hour, newTime.minute));
+            }
+          }
         }
     );
 

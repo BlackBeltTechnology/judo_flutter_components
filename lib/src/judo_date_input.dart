@@ -110,16 +110,18 @@ class _JudoDateInputState extends State<JudoDateInput> {
           Icons.calendar_today,
         ),
         onPressed: (widget.disabled || widget.readOnly) ? null : () async {
-          tempDateTime = await showDatePicker(
+          var result = await showDatePicker(
             context: context,
             initialDate: tempDateTime,
             firstDate: widget.firstDate ?? DateTime(1900),
             lastDate: widget.lastDate ?? DateTime(2100),
           );
-          onChangedHandler(tempDateTime);
+          /// If the user cancels the dialog, null is returned.
+          if (result != null) {
+            onChangedHandler(result);
+          }
         }
     );
-
   }
 
   void onChangedHandler(DateTime value) {
