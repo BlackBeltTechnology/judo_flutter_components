@@ -104,31 +104,29 @@ class _JudoDateInputState extends State<JudoDateInput> {
   }
 
   IconButton iconDatePicker(BuildContext context) {
-    var tempDateTime = widget.initialDate ?? DateTime.now();
+    var initial = widget.initialDate;
     return IconButton(
         icon: Icon(
           Icons.calendar_today,
         ),
         onPressed: (widget.disabled || widget.readOnly) ? null : () async {
-          var result = await showDatePicker(
+          var tempDateTime = await showDatePicker(
             context: context,
-            initialDate: tempDateTime,
+            initialDate: initial ?? DateTime.now(),
             firstDate: widget.firstDate ?? DateTime(1900),
             lastDate: widget.lastDate ?? DateTime(2100),
           );
-          /// If the user cancels the dialog, null is returned.
-          if (result != null) {
-            onChangedHandler(result);
-          }
+          /// tempDateTime is NULL if dialog is cancelled...
+          onChangedHandler(tempDateTime != null ? tempDateTime : initial);
         }
     );
+
   }
 
   void onChangedHandler(DateTime value) {
+    controller.text = value != null ? formatter.format(value) : '';
+
     if (widget.onChanged != null) {
-      if (value != null) {
-        controller.text = formatter.format(value);
-      }
       widget.onChanged(value);
     }
   }
