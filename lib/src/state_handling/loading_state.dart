@@ -15,6 +15,12 @@ abstract class _LoadingState with Store {
     bool isLoading = false;
 
     @action
+    void setIsLoading (bool loading) {
+        this.isLoading = loading;
+        setDisabledByLoading(loading);
+    }
+
+    @action
     Future<void> onPressed( FutureFunction onPressed ) async {
         isLoading = true;
         setDisabledByLoading(true);
