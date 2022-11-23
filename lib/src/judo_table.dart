@@ -106,6 +106,7 @@ class JudoTable extends StatelessWidget {
 
     return Theme(
       child: DataTable(
+        headingRowColor: JudoComponentCustomizer.get().getHeadingRowColor(Theme.of(context)),
         headingTextStyle: JudoComponentCustomizer.get().getTableHeaderTextStyle(Theme.of(context)),
         onSelectAll: (b) {},
         showCheckboxColumn: false,

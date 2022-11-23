@@ -153,6 +153,8 @@ abstract class JudoComponentCustomizer {
 
   TextStyle getTableHeaderTextStyle(ThemeData theme);
 
+  MaterialStateProperty<Color> getHeadingRowColor(ThemeData theme);
+
   TextStyle getSwitchTextStyle(
       ThemeData theme, bool disabled, bool readOnly, String errorMessage);
 
@@ -571,6 +573,11 @@ class DefaultJudoComponentsCustomizer implements JudoComponentCustomizer {
   TextStyle getTableHeaderTextStyle(ThemeData theme) {
     return theme.textTheme.headline4
         .copyWith(fontSize: 16.0, fontWeight: FontWeight.w600);
+  }
+
+  @override
+  MaterialStateProperty<Color> getHeadingRowColor(ThemeData theme) {
+    return MaterialStateProperty.all(theme.primaryColor);
   }
 
   @override
