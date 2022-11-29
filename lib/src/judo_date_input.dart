@@ -115,6 +115,7 @@ class _JudoDateInputState extends State<JudoDateInput> {
             initialDate: initial ?? DateTime.now(),
             firstDate: widget.firstDate ?? DateTime(1900),
             lastDate: widget.lastDate ?? DateTime(2100),
+            initialEntryMode: DatePickerEntryMode.calendarOnly,
           );
           /// tempDateTime is NULL if dialog is cancelled...
           onChangedHandler(tempDateTime != null ? tempDateTime : initial);
