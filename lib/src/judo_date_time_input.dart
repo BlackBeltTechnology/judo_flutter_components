@@ -10,6 +10,7 @@ class JudoDateTimeInput extends StatefulWidget {
     this.icon,
     this.onChanged,
     this.onSubmitted,
+    this.onPickerSubmitted,
     this.errorMessage,
     this.initialDate,
     this.readOnly = false,
@@ -32,6 +33,7 @@ class JudoDateTimeInput extends StatefulWidget {
   final Icon icon;
   final Function onChanged;
   final Function onSubmitted;
+  final Function onPickerSubmitted;
   final String errorMessage;
   final DateTime initialDate;
   final bool readOnly;
@@ -136,7 +138,11 @@ class _JudoDateTimeInputState extends State<JudoDateTimeInput> {
             );
 
             if (newTime != null) {
-              onChangedHandler(DateTime(newDate.year, newDate.month, newDate.day, newTime.hour, newTime.minute));
+              var changeValue = DateTime(newDate.year, newDate.month, newDate.day, newTime.hour, newTime.minute);
+              onChangedHandler(changeValue);
+              if (widget.onPickerSubmitted != null) {
+                widget.onPickerSubmitted(changeValue);
+              }
             }
           }
         }
