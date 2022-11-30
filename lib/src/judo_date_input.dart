@@ -10,6 +10,7 @@ class JudoDateInput extends StatefulWidget {
     this.icon,
     this.onChanged,
     this.onSubmitted,
+    this.onPickerSubmitted,
     this.errorMessage,
     this.initialDate,
     this.readOnly = false,
@@ -31,6 +32,7 @@ class JudoDateInput extends StatefulWidget {
   final Icon icon;
   final Function onChanged;
   final Function onSubmitted;
+  final Function onPickerSubmitted;
   final String errorMessage;
   final DateTime initialDate;
   final bool readOnly;
@@ -118,6 +120,9 @@ class _JudoDateInputState extends State<JudoDateInput> {
           );
           /// tempDateTime is NULL if dialog is cancelled...
           onChangedHandler(tempDateTime != null ? tempDateTime : initial);
+          if (widget.onPickerSubmitted != null) {
+            widget.onPickerSubmitted(tempDateTime != null ? tempDateTime : initial);
+          }
         }
     );
 

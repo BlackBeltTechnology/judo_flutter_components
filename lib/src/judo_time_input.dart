@@ -11,6 +11,7 @@ class JudoTimeInput extends StatefulWidget {
     this.icon,
     this.onChanged,
     this.onSubmitted,
+    this.onPickerSubmitted,
     this.errorMessage,
     this.initialTime,
     this.readOnly = false,
@@ -32,6 +33,7 @@ class JudoTimeInput extends StatefulWidget {
   final Icon icon;
   final Function onChanged;
   final Function onSubmitted;
+  final Function onPickerSubmitted;
   final String errorMessage;
   final String initialTime;
   final bool readOnly;
@@ -130,6 +132,9 @@ class _JudoTimeInputState extends State<JudoTimeInput> {
               }
           );
           onChangedHandler(tempTime);
+          if (widget.onPickerSubmitted != null) {
+            widget.onPickerSubmitted(tempTime);
+          }
         }
     );
   }
